@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lolwiki/domain/repository/champion_repository/champion_repository.dart';
 import 'package:lolwiki/ui/notifiers/theme_notifier.dart';
 import 'package:lolwiki/ui/themes/dark_theme.dart';
 import 'package:lolwiki/ui/themes/light_theme.dart';
@@ -10,8 +11,8 @@ import 'generated/locale_keys.g.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await dotenv.load(fileName: ".env");
-  //await Hive.initFlutter();
+  await dotenv.load(fileName: ".env");
+  await Hive.initFlutter();
   await EasyLocalization.ensureInitialized();
   runApp(
     MultiProvider(
@@ -71,7 +72,22 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text(LocaleKeys.hello.tr()),
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () async {
+                ChampionRepository championRepository = ChampionRepository();
+                var result = await championRepository.getChampions();
+                for (var item in result ) {
+                  print(item.name);
+                  
+                }
+              },
+              child: Text('get data'),
+            ),
+            Text(LocaleKeys.hello.tr()),
+          ],
+        ),
       ),
     );
   }

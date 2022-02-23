@@ -121,26 +121,26 @@ class Image {
 }
 
 class Stats {
-  int? hp;
-  int? hpperlevel;
-  int? mp;
-  int? mpperlevel;
-  int? movespeed;
-  int? armor;
-  double? armorperlevel;
-  int? spellblock;
-  double? spellblockperlevel;
-  int? attackrange;
-  int? hpregen;
-  int? hpregenperlevel;
-  int? mpregen;
-  int? mpregenperlevel;
-  int? crit;
-  int? critperlevel;
-  int? attackdamage;
-  int? attackdamageperlevel;
-  double? attackspeedperlevel;
-  double? attackspeed;
+  num? hp;
+  num? hpperlevel;
+  num? mp;
+  num? mpperlevel;
+  num? movespeed;
+  num? armor;
+  num? armorperlevel;
+  num? spellblock;
+  num? spellblockperlevel;
+  num? attackrange;
+  num? hpregen;
+  num? hpregenperlevel;
+  num? mpregen;
+  num? mpregenperlevel;
+  num? crit;
+  num? critperlevel;
+  num? attackdamage;
+  num? attackdamageperlevel;
+  num? attackspeedperlevel;
+  num? attackspeed;
 
   Stats(
       {this.hp,
