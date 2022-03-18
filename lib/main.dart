@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 400,
               child: SingleChildScrollView(
                 child: FutureBuilder(
-                  future: championRepository.getDetailedChampion('Aatrox'),
+                  future: championRepository.getDetailedChampion('Fizz'),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return Container(
