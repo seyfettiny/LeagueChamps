@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lolwiki/app/constants.dart';
 import 'package:lolwiki/domain/repository/champion_repository/champion_repository.dart';
 import 'package:lolwiki/ui/notifiers/theme_notifier.dart';
 import 'package:lolwiki/ui/themes/dark_theme.dart';
@@ -44,13 +45,13 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      title: 'title'.tr(),
+      title: AppConstants.appName,
       home: HomeScreen(themeNotifier: themeNotifier),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final ThemeNotifier themeNotifier;
   const HomeScreen({
     Key? key,
@@ -58,15 +59,21 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    ChampionRepository championRepository = ChampionRepository();
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
               onPressed: () {
-                themeNotifier.setTheme(themeNotifier.getTheme);
+                widget.themeNotifier.setTheme(widget.themeNotifier.getTheme);
               },
-              icon: themeNotifier.getTheme == darkTheme
+              icon: widget.themeNotifier.getTheme == darkTheme
                   ? const Icon(Icons.nightlight_round_outlined)
                   : const Icon(Icons.wb_sunny_outlined))
         ],
@@ -76,14 +83,59 @@ class HomeScreen extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () async {
-                ChampionRepository championRepository = ChampionRepository();
                 var result = await championRepository.getChampions();
-                for (var item in result ) {
+                for (var item in result) {
                   print(item.name);
-                  
                 }
               },
               child: Text('get data'),
+            ),
+            TextButton(
+              onPressed: () async {
+                var result =
+                    await championRepository.getDetailedChampion('Aatrox');
+                print(result.name);
+              },
+              child: Text('get data'),
+            ),
+            Container(
+              height: 400,
+              child: SingleChildScrollView(
+                child: FutureBuilder(
+                  future: championRepository.getDetailedChampion('Aatrox'),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        height: 280,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data.skins.length,
+                          itemBuilder: (context, index) => Container(
+                            height: 240,
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  AppConstants.championLoadingImageUrl +
+                                      snapshot.data.id +
+                                      '_${snapshot.data.skins[index].num}.jpg',
+                                  height: 200,
+                                  width: 80,
+                                ),
+                                Text(snapshot.data.skins[index].name),
+                                Text('chromas: ' +
+                                    snapshot.data.skins[index].chromas
+                                        .toString()),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
             ),
             Text(LocaleKeys.hello.tr()),
           ],

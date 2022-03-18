@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lolwiki/app/constants.dart';
+import 'package:lolwiki/common/models/champion_detailed.dart';
 
 import '../../../common/models/champion.dart';
 
@@ -10,11 +11,11 @@ abstract class IChampionRepository {
 }
 
 class ChampionRepository implements IChampionRepository {
-
   final http.Client _client = http.Client();
   @override
   Future<List<Champion>> getChampions() async {
-    final response = await _client.get(Uri.parse(AppConstants.championAPIBaseUrl+'champion.json'));
+    final response = await _client
+        .get(Uri.parse(AppConstants.championAPIBaseUrl + 'champion.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final Map<String, dynamic> data = jsonResponse['data'];
@@ -32,6 +33,19 @@ class ChampionRepository implements IChampionRepository {
       return champions;
     } else {
       throw Exception('Failed to load champions');
+    }
+  }
+
+  Future<dynamic> getDetailedChampion(String championId) async {
+    final response = await _client.get(Uri.parse(
+        AppConstants.championAPIBaseUrl + 'champion/$championId.json'));
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final Map<String, dynamic> data = jsonResponse['data'][championId];
+      print(ChampDetailed.fromJson(data));
+      return ChampDetailed.fromJson(data);
+    } else {
+      throw Exception('Failed to load champion');
     }
   }
 }
