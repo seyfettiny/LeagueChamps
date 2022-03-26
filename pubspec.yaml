@@ -13,27 +13,31 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #API keys security
+  #API key security
   flutter_dotenv: ^5.0.2
 
-  #data persistence
+  #Data persistence
   hive: ^2.0.5
   hive_flutter: ^1.1.0
 
-  #state management
+  #State management
   provider: ^6.0.2
 
-  #localization
+  #Localization
   easy_localization: ^3.0.0
 
   #API calls
   http: ^0.13.4
+
+  #Testing
+  mockito: ^5.1.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 
+  #Code generation
   hive_generator: ^1.1.2
   build_runner: ^2.1.7
 
