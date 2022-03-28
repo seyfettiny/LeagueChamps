@@ -9,6 +9,6 @@ void main() {
     dotenv.testLoad(fileInput: File('test/.env').readAsStringSync());
   });
   test('able to load .env', () {
-    expect(dotenv.env['API_KEY'], 'foo');
+    expect(dotenv.env['API_KEY'], 'watch?v=dQw4w9WgXcQ');
   });
 }

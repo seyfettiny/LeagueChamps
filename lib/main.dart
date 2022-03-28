@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lolwiki/app/constants.dart';
+import 'package:lolwiki/app/enum_champ_class.dart';
 import 'package:lolwiki/domain/repository/champion_repository/champion_repository.dart';
 import 'package:lolwiki/ui/notifiers/theme_notifier.dart';
 import 'package:lolwiki/ui/themes/dark_theme.dart';
@@ -24,11 +25,11 @@ main() async {
         ),
       ],
       child: EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('tr', 'TR')],
+        supportedLocales: [const Locale('en', 'US'), const Locale('tr', 'TR')],
         path: 'assets/translations',
-        fallbackLocale: Locale('en', 'US'),
-        startLocale: Locale('tr', 'TR'),
-        child: MyApp(),
+        fallbackLocale: const Locale('en', 'US'),
+        startLocale: const Locale('tr', 'TR'),
+        child: const MyApp(),
       ),
     ),
   );
@@ -65,6 +66,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // ! TODO:
     ChampionRepository championRepository = ChampionRepository();
     return Scaffold(
       appBar: AppBar(
@@ -79,66 +81,53 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () async {
-                var result = await championRepository.getChampions();
-                for (var item in result) {
-                  print(item.name);
-                }
-              },
-              child: Text('get data'),
-            ),
-            TextButton(
-              onPressed: () async {
-                var result =
-                    await championRepository.getDetailedChampion('Aatrox');
-                print(result.name);
-              },
-              child: Text('get data'),
-            ),
-            Container(
-              height: 400,
-              child: SingleChildScrollView(
-                child: FutureBuilder(
-                  future: championRepository.getDetailedChampion('Fizz'),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                        height: 280,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.skins.length,
-                          itemBuilder: (context, index) => Container(
-                            height: 240,
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  AppConstants.championLoadingImageUrl +
-                                      snapshot.data.id +
-                                      '_${snapshot.data.skins[index].num}.jpg',
-                                  height: 200,
-                                  width: 80,
-                                ),
-                                Text(snapshot.data.skins[index].name),
-                                Text('chromas: ' +
-                                    snapshot.data.skins[index].chromas
-                                        .toString()),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  },
-                ),
-              ),
-            ),
-            Text(LocaleKeys.hello.tr()),
-          ],
+        child: FutureBuilder(
+          future: championRepository.getChampions(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: 300,
+                      //TODO: Use ProxyProvider for injecting
+                      child: FutureBuilder(
+                        future: championRepository
+                            .getDetailedChampion(snapshot.data[index].id),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.skins.length,
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  Image.network(
+                                    AppConstants.championLoadingImageUrl +
+                                        snapshot.data.id +
+                                        '_${snapshot.data.skins[index].num}.jpg',
+                                    height: 230,
+                                    width: 140,
+                                  ),
+                                  Text(snapshot.data.skins[index].name),
+                                  Text('chromas: ' +
+                                      snapshot.data.skins[index].chromas
+                                          .toString()),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                    );
+                  });
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );

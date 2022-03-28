@@ -37,12 +37,12 @@ class ChampionRepository implements IChampionRepository {
   }
 
   Future<dynamic> getDetailedChampion(String championId) async {
+    
     final response = await _client.get(Uri.parse(
         AppConstants.championAPIBaseUrl + 'champion/$championId.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final Map<String, dynamic> data = jsonResponse['data'][championId];
-      print(ChampDetailed.fromJson(data));
       return ChampDetailed.fromJson(data);
     } else {
       throw Exception('Failed to load champion');

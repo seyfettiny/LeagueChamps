@@ -47,4 +47,5 @@ flutter:
   assets:
     - .env
     - assets/translations/
+    - assets/champ_classes/
     
