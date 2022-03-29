@@ -2,7 +2,7 @@ class AppConstants {
   static const String appName = "LOL Wiki";
 
   //TODO: Extract version number and language code to separate file
-  static const String championAPIBaseUrl = 'https://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/';
+  static const String championAPIBaseUrl = 'https://ddragon.leagueoflegends.com/cdn/12.5.1/data/';
   // ...Aatrox_0.jpg
   static const String championSplashImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/';
   static const String championCenteredImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/';
@@ -11,5 +11,8 @@ class AppConstants {
   
   // ...Aatrox.png
   static const String championIconImageUrl = 'https://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/';
+
+  static const String HIVE_BOX_LANG = 'lang';
+  static const String HIVE_BOX_THEME = 'theme';
 
 }

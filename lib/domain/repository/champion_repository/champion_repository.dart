@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lolwiki/app/constants.dart';
 import 'package:lolwiki/common/models/champion_detailed.dart';
@@ -7,15 +8,16 @@ import 'package:lolwiki/common/models/champion_detailed.dart';
 import '../../../common/models/champion.dart';
 
 abstract class IChampionRepository {
-  Future<List<Champion>> getChampions();
+  Future<List<Champion>> getChampions(Locale lang);
 }
 
 class ChampionRepository implements IChampionRepository {
   final http.Client _client = http.Client();
   @override
-  Future<List<Champion>> getChampions() async {
-    final response = await _client
-        .get(Uri.parse(AppConstants.championAPIBaseUrl + 'champion.json'));
+  Future<List<Champion>> getChampions(
+      [Locale lang = const Locale('en', 'US')]) async {
+    final response = await _client.get(Uri.parse(
+        AppConstants.championAPIBaseUrl + lang.toString() + '/champion.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final Map<String, dynamic> data = jsonResponse['data'];
@@ -36,12 +38,14 @@ class ChampionRepository implements IChampionRepository {
     }
   }
 
-  Future<dynamic> getDetailedChampion(String championId) async {
-    
+  Future<dynamic> getDetailedChampion(String championId,
+      [Locale lang = const Locale('en', 'US')]) async {
     final response = await _client.get(Uri.parse(
-        AppConstants.championAPIBaseUrl + 'champion/$championId.json'));
+        AppConstants.championAPIBaseUrl +
+            lang.toString() +
+            '/champion/$championId.json'));
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'][championId];
       return ChampDetailed.fromJson(data);
     } else {
