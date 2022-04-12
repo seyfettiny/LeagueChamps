@@ -198,7 +198,7 @@ packages:
     source: hosted
     version: "3.0.0"
   easy_logger:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: easy_logger
       url: "https://pub.dartlang.org"
