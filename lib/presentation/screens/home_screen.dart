@@ -13,7 +13,6 @@ import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   //TODO:
-  ChampionRepository championRepository = ChampionRepository();
   HomeScreen({
     Key? key,
   }) : super(key: key);
@@ -130,97 +129,106 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: FutureBuilder(
-          future: championRepository.getChampions(langNotifier.selectedLang),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      height: 300,
-                      //TODO: Use ProxyProvider for injecting
-                      child: FutureBuilder(
-                        future: championRepository.getDetailedChampion(
-                            snapshot.data[index].id, langNotifier.selectedLang),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.skins.length,
-                              itemBuilder: (context, index) => Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        PageRouteBuilder(
-                                          transitionDuration:
-                                              const Duration(milliseconds: 700),
-                                          pageBuilder: (BuildContext context,
-                                              Animation<double> animation,
-                                              Animation<double>
-                                                  secondaryAnimation) {
-                                            return ChampDetailScreen(
-                                                skinId: snapshot
-                                                    .data.skins[index].id,
-                                                champ: snapshot.data);
-                                          },
-                                          transitionsBuilder:
-                                              (BuildContext context,
+        child: Consumer<ChampionRepository>(
+          builder: (context, championRepository, child) {
+            return FutureBuilder(
+              future:
+                  championRepository.getChampions(langNotifier.selectedLang),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          height: 300,
+                          //TODO: Use ProxyProvider for injecting
+                          child: FutureBuilder(
+                            future: championRepository.getDetailedChampion(
+                                snapshot.data[index].id,
+                                langNotifier.selectedLang),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data.skins.length,
+                                  itemBuilder: (context, index) => Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            PageRouteBuilder(
+                                              transitionDuration:
+                                                  const Duration(
+                                                      milliseconds: 700),
+                                              pageBuilder: (BuildContext
+                                                      context,
+                                                  Animation<double> animation,
+                                                  Animation<double>
+                                                      secondaryAnimation) {
+                                                return ChampDetailScreen(
+                                                    skinId: snapshot
+                                                        .data.skins[index].id,
+                                                    champ: snapshot.data);
+                                              },
+                                              transitionsBuilder: (BuildContext
+                                                      context,
                                                   Animation<double> animation,
                                                   Animation<double>
                                                       secondaryAnimation,
                                                   Widget child) {
-                                            return Align(
-                                              child: ScaleTransition(
-                                                scale: animation,
-                                                child: child,
-                                              ),
-                                            );
-                                          },
+                                                return Align(
+                                                  child: ScaleTransition(
+                                                    scale: animation,
+                                                    child: child,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            // context,
+                                            // MaterialPageRoute(
+                                            //   builder: (_) => ChampDetailScreen(
+                                            //     champ: snapshot.data,
+                                            //     skinId:
+                                            //         snapshot.data.skins[index].id,
+                                            //   ),
+                                            // ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: snapshot.data.skins[index].id,
+                                          child: CachedNetworkImage(
+                                            imageUrl: AppConstants
+                                                    .championLoadingImageUrl +
+                                                snapshot.data.id +
+                                                '_${snapshot.data.skins[index].num}.jpg',
+                                            height: 230,
+                                            width: 140,
+                                            cacheKey:
+                                                snapshot.data.skins[index].id,
+                                          ),
                                         ),
-                                        // context,
-                                        // MaterialPageRoute(
-                                        //   builder: (_) => ChampDetailScreen(
-                                        //     champ: snapshot.data,
-                                        //     skinId:
-                                        //         snapshot.data.skins[index].id,
-                                        //   ),
-                                        // ),
-                                      );
-                                    },
-                                    child: Hero(
-                                      tag: snapshot.data.skins[index].id,
-                                      child: CachedNetworkImage(
-                                        imageUrl: AppConstants
-                                                .championLoadingImageUrl +
-                                            snapshot.data.id +
-                                            '_${snapshot.data.skins[index].num}.jpg',
-                                        height: 230,
-                                        width: 140,
-                                        cacheKey: snapshot.data.skins[index].id,
                                       ),
-                                    ),
+                                      Text(snapshot.data.skins[index].name),
+                                      Text('chromas: ' +
+                                          snapshot.data.skins[index].chromas
+                                              .toString()),
+                                    ],
                                   ),
-                                  Text(snapshot.data.skins[index].name),
-                                  Text('chromas: ' +
-                                      snapshot.data.skins[index].chromas
-                                          .toString()),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                        },
-                      ),
-                    );
-                  });
-            } else {
-              return const CircularProgressIndicator();
-            }
+                                );
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            },
+                          ),
+                        );
+                      });
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            );
           },
         ),
       ),

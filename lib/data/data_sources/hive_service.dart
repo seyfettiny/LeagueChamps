@@ -4,11 +4,13 @@ import '../../app/constants.dart';
 import '../models/champion.dart';
 
 class HiveService {
-  static HiveService? _instance;
+  static final HiveService _instance = HiveService._internal();
 
-  HiveService._();
+  factory HiveService() {
+    return _instance;
+  }
 
-  factory HiveService() => _instance ??= HiveService._();
+  HiveService._internal();
 
   Future init() async {
     await Hive.initFlutter();

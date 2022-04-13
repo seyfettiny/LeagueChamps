@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lolwiki/providers.dart';
 import 'package:provider/provider.dart';
 
 import '/app/route_paths.dart';
@@ -21,10 +22,7 @@ main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier()),
-        ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier()),
-      ],
+      providers: providers,
       child: Consumer<LangNotifier>(
         builder: (context, value, child) {
           return EasyLocalization(
