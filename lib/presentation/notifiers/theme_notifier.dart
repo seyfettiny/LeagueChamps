@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lolwiki/ui/themes/dark_theme.dart';
 
-import '../themes/light_theme.dart';
+import '../../app/themes/dark_theme.dart';
+import '../../app/themes/light_theme.dart';
 
 class ThemeNotifier with ChangeNotifier {
   bool _darkTheme = false;

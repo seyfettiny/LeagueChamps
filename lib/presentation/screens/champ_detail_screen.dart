@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:lolwiki/common/models/champion_detailed.dart';
 
 import '../../app/constants.dart';
+import '../../data/models/champion_detailed.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final ChampDetailed champ;

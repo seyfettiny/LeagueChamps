@@ -3,13 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lolwiki/app/constants.dart';
-import 'package:lolwiki/common/models/champion_detailed.dart';
-
-import '../../../common/models/champion.dart';
-
-abstract class IChampionRepository {
-  Future<List<Champion>> getChampions(Locale lang);
-}
+import '../../domain/repository/champion_repository.dart';
+import '../models/champion.dart';
+import '../models/champion_detailed.dart';
 
 class ChampionRepository implements IChampionRepository {
   final http.Client _client = http.Client();

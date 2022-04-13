@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants.dart';
-import '../../domain/repository/champion_repository/champion_repository.dart';
-import '../../generated/locale_keys.g.dart';
+import '../../app/themes/dark_theme.dart';
+import '../../app/translations/locale_keys.g.dart';
+import '../../data/repositories/champion_repository.dart';
 import '../notifiers/lang_notifier.dart';
 import '../notifiers/theme_notifier.dart';
-import '../themes/dark_theme.dart';
 import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lolwiki/app/route_paths.dart';
 import 'package:lolwiki/domain/repository/version_repository.dart';
-import 'package:lolwiki/source_local/hive_service.dart';
-import 'package:lolwiki/ui/router.dart';
+import 'package:lolwiki/data/data_sources/hive_service.dart';
+import 'package:lolwiki/presentation/router.dart';
+
+import '../../data/repositories/version_repository.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
