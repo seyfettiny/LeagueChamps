@@ -1,23 +1,33 @@
 import 'package:flutter/cupertino.dart';
+
 class AppConstants {
   static const String appName = "LOL Wiki";
 
   //TODO: Extract version number and language code to separate file
-  static const String championAPIBaseUrl = 'https://ddragon.leagueoflegends.com/cdn/12.5.1/data/';
+  static const String championAPIBaseUrl =
+      'https://ddragon.leagueoflegends.com/cdn/12.5.1/data/';
 
-  static const String versionsUrl = 'https://ddragon.leagueoflegends.com/api/versions.json';
+  static const String versionsUrl =
+      'https://ddragon.leagueoflegends.com/api/versions.json';
 
   // ...Aatrox_0.jpg
-  static const String championSplashImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/';
-  static const String championCenteredImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/';
-  static const String championTileImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/';
-  static const String championLoadingImageUrl = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/';
-  
+  static const String championSplashImageUrl =
+      'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/';
+  static const String championCenteredImageUrl =
+      'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/';
+  static const String championTileImageUrl =
+      'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/';
+  static const String championLoadingImageUrl =
+      'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/';
+
   // .../$VERSION/img/champion/Aatrox.png
-  static const String championIconImageUrl = 'https://ddragon.leagueoflegends.com/cdn/';
+  static const String championIconImageUrl =
+      'https://ddragon.leagueoflegends.com/cdn/';
 
   static const String HIVE_BOX_LANG = 'lang';
   static const String HIVE_BOX_THEME = 'theme';
+  static const String HIVE_BOX_CHAMPIONS = 'champions';
+  static const String HIVE_BOX_VERSION = 'version';
 
   static const List<Locale> supportedLocales = [
     Locale('en', 'US'),
@@ -48,5 +58,4 @@ class AppConstants {
     Locale('zh', 'MY'),
     Locale('zh', 'TW')
   ];
-
 }
