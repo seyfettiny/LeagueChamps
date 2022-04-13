@@ -1,1 +1,1 @@
-cd .. && flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations && flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations -f keys -o locale_keys.g.dart
+flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations && flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations -f keys -o locale_keys.g.dart
