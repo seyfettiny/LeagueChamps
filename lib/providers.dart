@@ -23,6 +23,7 @@ List<SingleChildWidget> independentServices = [
       return connectivityNotifier;
     },
   ),
+  //StreamProvider<ConnectivityResult>(create: (_) => , initialData: initialData),
   Provider.value(value: DataDragonAPI()),
 ];
 

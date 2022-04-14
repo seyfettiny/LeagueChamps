@@ -10,8 +10,9 @@ import '../models/champion_detailed.dart';
 abstract class IDataDragonAPI {
   Future<String> getVersion();
   Future<List<dynamic>> getVersionList();
-  Future<List<Champion>> getChampions([Locale lang]);
-  Future<dynamic> getDetailedChampion(String championId, [Locale lang]);
+  Future<List<Champion>> getChampions(String version, Locale lang);
+  Future<dynamic> getDetailedChampion(
+      String championId, String version, Locale lang);
 }
 
 class DataDragonAPI implements IDataDragonAPI {
@@ -48,10 +49,13 @@ class DataDragonAPI implements IDataDragonAPI {
   }
 
   @override
-  Future<List<Champion>> getChampions(
-      [Locale lang = const Locale('en', 'US')]) async {
+  Future<List<Champion>> getChampions(String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
-        AppConstants.championAPIBaseUrl + lang.toString() + '/champion.json'));
+        AppConstants.championAPIBaseUrl +
+            version +
+            '/data/' +
+            lang.toString() +
+            '/champion.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final Map<String, dynamic> data = jsonResponse['data'];
@@ -73,10 +77,12 @@ class DataDragonAPI implements IDataDragonAPI {
   }
 
   @override
-  Future<dynamic> getDetailedChampion(String championId,
-      [Locale lang = const Locale('en', 'US')]) async {
+  Future<dynamic> getDetailedChampion(
+      String championId, String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
         AppConstants.championAPIBaseUrl +
+            version +
+            '/data/' +
             lang.toString() +
             '/champion/$championId.json'));
     if (response.statusCode == 200) {

@@ -5,7 +5,7 @@ class AppConstants {
 
   //TODO: Extract version number and language code to separate file
   static const String championAPIBaseUrl =
-      'https://ddragon.leagueoflegends.com/cdn/12.5.1/data/';
+      'https://ddragon.leagueoflegends.com/cdn/';
 
   static const String versionsUrl =
       'https://ddragon.leagueoflegends.com/api/versions.json';

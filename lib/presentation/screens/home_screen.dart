@@ -12,9 +12,11 @@ import '../notifiers/theme_notifier.dart';
 import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  String version;
   //TODO:
   HomeScreen({
     Key? key,
+    required this.version,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,8 @@ class HomeScreen extends StatelessWidget {
               //context.setLocale(newLocale!);
               langNotifier.setLanguage(newLocale!);
             },
-            items: [
+            items: 
+            [
               DropdownMenuItem<Locale>(
                   child: Text(LocaleKeys.en_US.tr()),
                   value: LocaleKeys.en_US.toLocale()),
@@ -77,7 +80,6 @@ class HomeScreen extends StatelessWidget {
               DropdownMenuItem<Locale>(
                   child: Text(LocaleKeys.hu_HU.tr()),
                   value: LocaleKeys.hu_HU.toLocale()),
-
               //TODO: [BUG] lang code for Indonesian does not work at datadragon and returns 403
               // DropdownMenuItem<Locale>(
               //     child: Text(LocaleKeys.id_ID.tr()),
@@ -110,8 +112,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(LocaleKeys.tr_TR.tr()),
                   value: LocaleKeys.tr_TR.toLocale()),
 
-              // TODO: [BUG] Null check operator used on a null value and
-              // MaterialLocalization Not foune error
+              // TODO: [BUG] Null check operator used on a null value and MaterialLocalization Not found error
               // DropdownMenuItem<Locale>(
               //     child: Text(LocaleKeys.vn_VN.tr()),
               //     value: LocaleKeys.vn_VN.toLocale()),
@@ -130,10 +131,10 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Consumer<ChampionRepository>(
-          builder: (context, championRepository, child) {
+          builder: (context, championRepository, child) {    
             return FutureBuilder(
               future:
-                  championRepository.getChampions(langNotifier.selectedLang),
+                  championRepository.getChampions(version,langNotifier.selectedLang),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
@@ -145,6 +146,7 @@ class HomeScreen extends StatelessWidget {
                           child: FutureBuilder(
                             future: championRepository.getDetailedChampion(
                                 snapshot.data[index].id,
+                                version,
                                 langNotifier.selectedLang),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {

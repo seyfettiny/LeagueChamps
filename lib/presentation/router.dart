@@ -14,7 +14,10 @@ class MyRouter {
       case RoutePaths.splash:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case RoutePaths.home:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(
+            builder: (_) => HomeScreen(
+                  version: settings.arguments.toString(),
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
