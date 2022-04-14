@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'package:lolwiki/app/route_paths.dart';
 import 'package:lolwiki/data/data_sources/hive_service.dart';
 import 'package:lolwiki/presentation/notifiers/connectivity_notifier.dart';
 import 'package:lolwiki/presentation/screens/home_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../data/repositories/version_repository.dart';
 

@@ -1,9 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
   ConnectivityResult _connectivityResult = ConnectivityResult.none;
-  String _connectionResponse = 'No connection';
+  String _connectionResponse = 'You are not connected';
   String get connectionResponse => _connectionResponse;
   ConnectivityResult get connectivity => _connectivityResult;
   ConnectivityNotifier() {
@@ -17,20 +19,36 @@ class ConnectivityNotifier extends ChangeNotifier {
   }
 
   void resultHandler(ConnectivityResult result) {
+    //TODO: Localize
     _connectivityResult = result;
     switch (result) {
       case ConnectivityResult.none:
-        _connectionResponse = 'No connection';
+        _connectionResponse = 'You are not connected';
+        _showToast(_connectionResponse, Colors.red);
         break;
       case ConnectivityResult.mobile:
-        _connectionResponse = 'Mobile connection';
+        _connectionResponse = 'Connected to cellular data';
+        _showToast(_connectionResponse, Colors.green);
         break;
       case ConnectivityResult.wifi:
-        _connectionResponse = 'WiFi connection';
+        _connectionResponse = 'Connected to WiFi';
+        _showToast(_connectionResponse, Colors.green);
         break;
       default:
-        _connectionResponse = 'No connection';
+        _connectionResponse = 'You are not connected';
+        _showToast(_connectionResponse, Colors.red);
     }
     notifyListeners();
+  }
+
+  void _showToast(String msg, Color color) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: color,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

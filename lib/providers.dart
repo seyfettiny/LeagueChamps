@@ -17,6 +17,7 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier()),
   ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier()),
   ChangeNotifierProvider(
+    lazy: true,
     create: (context) {
       ConnectivityNotifier connectivityNotifier = ConnectivityNotifier();
       connectivityNotifier.init();
