@@ -36,7 +36,7 @@ class ConnectivityNotifier extends ChangeNotifier {
         break;
       default:
         _connectionResponse = 'You are not connected';
-        _showToast(_connectionResponse, Colors.red);
+      // _showToast(_connectionResponse, Colors.red);
     }
     notifyListeners();
   }
