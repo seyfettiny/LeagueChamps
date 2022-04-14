@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 
 part 'champion.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class Champion extends HiveObject {
   @HiveField(0)
   String? version;

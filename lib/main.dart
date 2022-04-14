@@ -24,7 +24,7 @@ main() async {
     MultiProvider(
       providers: providers,
       child: Consumer<LangNotifier>(
-        builder: (context, value, child) {
+        builder: (context, value, _) {
           return EasyLocalization(
             supportedLocales: value.langs,
             startLocale: value.selectedLang,
