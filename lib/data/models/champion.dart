@@ -1,8 +1,8 @@
+import 'package:hive/hive.dart';
+
 import 'image.dart';
 import 'info.dart';
 import 'stats.dart';
-
-import 'package:hive/hive.dart';
 
 part 'champion.g.dart';
 
@@ -78,5 +78,10 @@ class Champion extends HiveObject {
       data['stats'] = stats!.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Champion(version: $version, id: $id, key: $key, name: $name, title: $title, blurb: $blurb, info: $info, image: $image, tags: $tags, partype: $partype, stats: $stats)';
   }
 }

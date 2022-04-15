@@ -1,22 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lolwiki/app/route_paths.dart';
+import 'package:lolwiki/data/data_sources/hive_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants.dart';
-import '../../app/themes/dark_theme.dart';
-import '../../app/translations/locale_keys.g.dart';
+import '../../data/models/champion.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../notifiers/lang_notifier.dart';
-import '../notifiers/theme_notifier.dart';
-import '../notifiers/version_notifier.dart';
 import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  String version;
-  //TODO:
-  HomeScreen({
+  final String version;
+  const HomeScreen({
     Key? key,
     required this.version,
   }) : super(key: key);
@@ -32,7 +29,6 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, RoutePaths.settings);
             },
           ),
-          
         ],
       ),
       body: Center(
@@ -43,12 +39,15 @@ class HomeScreen extends StatelessWidget {
                   version, langNotifier.selectedLang),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
+                  var box = Hive.box(AppConstants.HIVE_BOX_CHAMPIONS);
+                  //TODO: remove box.clear() later
+                  box.clear();
+                  HiveService().saveChamps(snapshot.data);
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return SizedBox(
                           height: 300,
-                          //TODO: Use ProxyProvider for injecting
                           child: FutureBuilder(
                             future: championRepository.getDetailedChampion(
                                 snapshot.data[index].id,

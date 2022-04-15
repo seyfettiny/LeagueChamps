@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class AppConstants {
-  static const String appName = "LOL Wiki";
+  static const String appName = "LeagueChamps";
 
-  //TODO: Extract version number and language code to separate file
   static const String championAPIBaseUrl =
       'https://ddragon.leagueoflegends.com/cdn/';
 

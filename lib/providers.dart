@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:lolwiki/data/data_sources/data_dragon.dart';
 import 'package:lolwiki/data/repositories/champion_repository.dart';
 import 'package:lolwiki/data/repositories/version_repository.dart';

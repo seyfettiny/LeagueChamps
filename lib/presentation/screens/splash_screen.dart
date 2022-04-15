@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   context, RoutePaths.home, (route) => false,
                                   arguments: snapshot.data[0]);
                             },
-                            child: Text('Button'),
+                            child: const Text('Button'),
                           ),
                           Text(snapshot.data[0].toString()),
                         ],
@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
               },
             );
           } else {
-            return Text('Not connected');
+            return const Text('Not connected');
           }
         }),
       ),

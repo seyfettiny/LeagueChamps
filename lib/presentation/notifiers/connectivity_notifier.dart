@@ -19,7 +19,6 @@ class ConnectivityNotifier extends ChangeNotifier {
   }
 
   void resultHandler(ConnectivityResult result) {
-    //TODO: Localize
     _connectivityResult = result;
     switch (result) {
       case ConnectivityResult.none:
