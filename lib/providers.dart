@@ -1,8 +1,8 @@
-import 'package:lolwiki/data/data_sources/data_dragon.dart';
-import 'package:lolwiki/data/repositories/champion_repository.dart';
-import 'package:lolwiki/data/repositories/version_repository.dart';
-import 'package:lolwiki/presentation/notifiers/connectivity_notifier.dart';
-import 'package:lolwiki/presentation/notifiers/version_notifier.dart';
+import 'package:leaguechamps/data/data_sources/data_dragon.dart';
+import 'package:leaguechamps/data/repositories/champion_repository.dart';
+import 'package:leaguechamps/data/repositories/version_repository.dart';
+import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

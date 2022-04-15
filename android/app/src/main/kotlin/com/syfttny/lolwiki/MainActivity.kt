@@ -1,4 +1,4 @@
-package com.syfttny.lolwiki
+package com.syfttny.leaguechamps
 
 import io.flutter.embedding.android.FlutterActivity
 

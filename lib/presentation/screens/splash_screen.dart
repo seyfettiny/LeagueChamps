@@ -1,10 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:lolwiki/app/route_paths.dart';
-import 'package:lolwiki/data/data_sources/hive_service.dart';
-import 'package:lolwiki/presentation/notifiers/connectivity_notifier.dart';
+import 'package:leaguechamps/app/route_paths.dart';
+import 'package:leaguechamps/data/data_sources/hive_service.dart';
+import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
 
 import '../../data/repositories/version_repository.dart';
 

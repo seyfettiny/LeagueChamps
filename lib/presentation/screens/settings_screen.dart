@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lolwiki/app/themes/dark_theme.dart';
-import 'package:lolwiki/app/themes/light_theme.dart';
+import 'package:leaguechamps/app/themes/dark_theme.dart';
+import 'package:leaguechamps/app/themes/light_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/translations/locale_keys.g.dart';
@@ -40,13 +40,14 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
           ),
+          ListTile(title: Text(LocaleKeys.hello.tr())),
           ListTile(
             title: DropdownButton<Locale>(
               isExpanded: true,
               value: langNotifier.selectedLang,
               onChanged: (Locale? newLocale) {
-                //context.setLocale(newLocale!);
-                langNotifier.setLanguage(newLocale!);
+                context.setLocale(newLocale!);
+                langNotifier.setLanguage(newLocale);
               },
               items: [
                 DropdownMenuItem<Locale>(

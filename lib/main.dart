@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:lolwiki/providers.dart';
+import 'package:leaguechamps/providers.dart';
 import 'package:provider/provider.dart';
 
 import '/app/route_paths.dart';
@@ -28,7 +28,7 @@ main() async {
           return EasyLocalization(
             supportedLocales: value.langs,
             startLocale: value.selectedLang,
-            //fallbackLocale: Locale('en', 'US'),
+            fallbackLocale: const Locale('en', 'US'),
             path: 'assets/translations',
             child: const MyApp(),
           );

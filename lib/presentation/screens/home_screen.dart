@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:lolwiki/app/route_paths.dart';
-import 'package:lolwiki/data/data_sources/hive_service.dart';
+import 'package:leaguechamps/app/route_paths.dart';
+import 'package:leaguechamps/data/data_sources/hive_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants.dart';
-import '../../data/models/champion.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../notifiers/lang_notifier.dart';
 import 'champ_detail_screen.dart';
@@ -22,6 +22,18 @@ class HomeScreen extends StatelessWidget {
     final langNotifier = Provider.of<LangNotifier>(context);
     return Scaffold(
       appBar: AppBar(
+        title: const Text.rich(
+          TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                  text: 'League',
+                  style: TextStyle(fontWeight: FontWeight.w800)),
+              TextSpan(
+                  text: 'Champs',
+                  style: TextStyle(fontWeight: FontWeight.w300)),
+            ],
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

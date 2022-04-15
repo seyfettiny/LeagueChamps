@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lolwiki/presentation/screens/settings_screen.dart';
+import 'package:leaguechamps/presentation/screens/settings_screen.dart';
 
 import '../app/route_paths.dart';
 import 'screens/home_screen.dart';

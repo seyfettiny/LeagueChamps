@@ -1,6 +1,6 @@
 {
-    "name": "lolwiki",
-    "short_name": "lolwiki",
+    "name": "leaguechamps",
+    "short_name": "leaguechamps",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
