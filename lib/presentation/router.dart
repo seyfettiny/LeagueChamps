@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lolwiki/presentation/screens/settings_screen.dart';
 
 import '../app/route_paths.dart';
 import 'screens/home_screen.dart';
@@ -12,12 +13,15 @@ class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.splash:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case RoutePaths.settings:
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case RoutePaths.home:
         return MaterialPageRoute(
-            builder: (_) => HomeScreen(
-                  version: settings.arguments.toString(),
-                ));
+          builder: (_) => HomeScreen(
+            version: settings.arguments.toString(),
+          ),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -27,11 +27,11 @@ class ConnectivityNotifier extends ChangeNotifier {
         _showToast(_connectionResponse, Colors.red);
         break;
       case ConnectivityResult.mobile:
-        _connectionResponse = 'Connected to cellular data';
+        _connectionResponse = 'Connected';
         _showToast(_connectionResponse, Colors.green);
         break;
       case ConnectivityResult.wifi:
-        _connectionResponse = 'Connected to WiFi';
+        _connectionResponse = 'Connected';
         _showToast(_connectionResponse, Colors.green);
         break;
       default:

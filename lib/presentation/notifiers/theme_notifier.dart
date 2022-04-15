@@ -12,9 +12,9 @@ class ThemeNotifier with ChangeNotifier {
 
   void setTheme(ThemeData themeData) {
     if (themeData == darkTheme) {
-      _darkTheme = false;
-    } else {
       _darkTheme = true;
+    } else {
+      _darkTheme = false;
     }
     notifyListeners();
   }
