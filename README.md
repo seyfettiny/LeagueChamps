@@ -1,4 +1,4 @@
-# lolwiki
+# LeagueChamps
 
 A new Flutter project.
 
