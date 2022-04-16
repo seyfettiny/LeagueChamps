@@ -15,9 +15,7 @@ import '../models/stats.dart';
 class HiveService {
   static final HiveService _instance = HiveService._internal();
 
-  factory HiveService() {
-    return _instance;
-  }
+  factory HiveService() => _instance;
 
   HiveService._internal();
 
@@ -48,5 +46,18 @@ class HiveService {
     for (var champ in champs) {
       box.put(champ.id, champ);
     }
+  }
+
+  void setDarkTheme(bool theme) {
+    final box = Hive.box(AppConstants.HIVE_BOX_THEME);
+    box.put(AppConstants.HIVE_KEY_THEME, theme);
+  }
+
+  bool isDarkTheme() {
+    final box = Hive.box(AppConstants.HIVE_BOX_THEME);
+    if (box.isEmpty) {
+      box.put(AppConstants.HIVE_KEY_THEME, false);
+    }
+    return box.get(AppConstants.HIVE_KEY_THEME);
   }
 }

@@ -2,14 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:leaguechamps/providers.dart';
 import 'package:provider/provider.dart';
 
-import '/app/route_paths.dart';
-import '/app/constants.dart';
+import 'providers.dart';
+import 'app/constants.dart';
+import 'app/routing/router.dart';
 import 'presentation/notifiers/lang_notifier.dart';
 import 'presentation/notifiers/theme_notifier.dart';
-import 'presentation/router.dart';
+
+import 'app/routing/route_paths.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();

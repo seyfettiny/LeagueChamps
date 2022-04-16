@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/presentation/screens/settings_screen.dart';
 
-import '../app/route_paths.dart';
-import 'screens/home_screen.dart';
-import 'screens/splash_screen.dart';
+import '../../presentation/screens/settings_screen.dart';
+import '../../presentation/screens/home_screen.dart';
+import '../../presentation/screens/splash_screen.dart';
+import 'route_paths.dart';
 
 class MyRouter {
-  static final MyRouter _instance = MyRouter._init();
   MyRouter._init();
-  static MyRouter get instance => _instance;
+  static final MyRouter _instance = MyRouter._init();
+  factory MyRouter() => _instance;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
