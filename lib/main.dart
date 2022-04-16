@@ -10,7 +10,6 @@ import 'app/themes/light_theme.dart';
 import 'providers.dart';
 import 'app/constants.dart';
 import 'app/routing/router.dart';
-import 'presentation/notifiers/lang_notifier.dart';
 import 'presentation/notifiers/theme_notifier.dart';
 
 import 'app/routing/route_paths.dart';
@@ -28,16 +27,12 @@ main() async {
   runApp(
     MultiProvider(
       providers: providers,
-      child: Consumer<LangNotifier>(
-        builder: (context, value, _) {
-          return EasyLocalization(
-            supportedLocales: value.langs,
-            startLocale: value.selectedLang,
-            fallbackLocale: const Locale('en', 'US'),
-            path: 'assets/translations',
-            child: const MyApp(),
-          );
-        },
+      child: EasyLocalization(
+        supportedLocales: AppConstants.supportedLocales,
+        //startLocale: value.selectedLang,
+        fallbackLocale: AppConstants.supportedLocales[0],
+        path: 'assets/translations',
+        child: const MyApp(),
       ),
     ),
   );
@@ -49,11 +44,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    final langNotifier = Provider.of<LangNotifier>(context);
     return MaterialApp(
       theme: themeNotifier.isDarkTheme ? darkTheme : lightTheme,
-      locale: langNotifier.selectedLang,
-      supportedLocales: langNotifier.langs,
+      locale: context.locale,
+      supportedLocales: AppConstants.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       initialRoute: RoutePaths.splash,
       onGenerateRoute: MyRouter.generateRoute,

@@ -1,11 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/app/themes/dark_theme.dart';
-import 'package:leaguechamps/app/themes/light_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/translations/locale_keys.g.dart';
-import '../notifiers/lang_notifier.dart';
 import '../notifiers/theme_notifier.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,7 +11,6 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    final langNotifier = Provider.of<LangNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -44,10 +40,11 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: DropdownButton<Locale>(
               isExpanded: true,
-              value: langNotifier.selectedLang,
+              //value: langNotifier.selectedLang,
+              value: context.locale,
               onChanged: (Locale? newLocale) {
                 context.setLocale(newLocale!);
-                langNotifier.setLanguage(newLocale);
+                //langNotifier.setLanguage(newLocale);
               },
               items: [
                 DropdownMenuItem<Locale>(

@@ -1,7 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/app/constants.dart';
-import 'package:leaguechamps/data/data_sources/hive_service.dart';
+import '../../app/constants.dart';
+import '../../data/data_sources/hive_service.dart';
 
 class ThemeNotifier with ChangeNotifier {
   HiveService hiveService = HiveService();

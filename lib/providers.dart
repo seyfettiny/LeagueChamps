@@ -6,7 +6,6 @@ import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-import 'presentation/notifiers/lang_notifier.dart';
 import 'presentation/notifiers/theme_notifier.dart';
 
 List<SingleChildWidget> providers = [
@@ -16,7 +15,7 @@ List<SingleChildWidget> providers = [
 
 List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier()),
-  ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier()),
+  //ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier()),
   ChangeNotifierProvider<VersionNotifier>(create: (_) => VersionNotifier()),
   ChangeNotifierProvider(
     create: (context) {

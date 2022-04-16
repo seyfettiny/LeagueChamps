@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,6 @@ import '../../app/constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
-import '../notifiers/lang_notifier.dart';
 import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final langNotifier = Provider.of<LangNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text.rich(
@@ -47,7 +46,7 @@ class HomeScreen extends StatelessWidget {
           builder: (context, championRepository, child) {
             return FutureBuilder(
               future: championRepository.getChampions(
-                  version, langNotifier.selectedLang),
+                  version, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   var box = Hive.box(AppConstants.HIVE_BOX_CHAMPIONS);
@@ -63,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                             future: championRepository.getDetailedChampion(
                                 snapshot.data[index].id,
                                 version,
-                                langNotifier.selectedLang),
+                                context.locale),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {

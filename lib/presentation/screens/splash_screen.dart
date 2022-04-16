@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             child: const Text('Button'),
                           ),
                           Text(snapshot.data[0].toString()),
+                          Text(context.locale.toString().tr()),
                         ],
                       );
                     } else if (snapshot.hasError) {
