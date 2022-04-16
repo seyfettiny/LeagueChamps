@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/constants.dart';
+import '../../app/routing/route_paths.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
 
@@ -112,18 +113,33 @@ class ChampDetailScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Column(
                               children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 16),
-                                  width: 140,
-                                  height: 250,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: CachedNetworkImageProvider(
-                                        AppConstants.championLoadingImageUrl +
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutePaths.skinOverview,
+                                      arguments: {
+                                        'skin': AppConstants
+                                                .championLoadingImageUrl +
                                             champ.id! +
                                             '_${champ.skins![index].num}.jpg',
-                                        cacheKey: champ.skins![index].id,
+                                        'skinId': champ.skins![index].id
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(right: 16),
+                                    width: 140,
+                                    height: 250,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: CachedNetworkImageProvider(
+                                          AppConstants.championLoadingImageUrl +
+                                              champ.id! +
+                                              '_${champ.skins![index].num}.jpg',
+                                          cacheKey: champ.skins![index].id,
+                                        ),
                                       ),
                                     ),
                                   ),
