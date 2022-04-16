@@ -41,17 +41,33 @@ class ChampDetailScreen extends StatelessWidget {
             ),
           ),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+            filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
             child: Container(
               padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
               width: double.infinity,
-              color: Colors.black.withOpacity(0.6),
+              color: Colors.black.withOpacity(0.4),
               child: SingleChildScrollView(
                 child: SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: champ.tags!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image(
+                              image: AssetImage(
+                                'assets/champ_classes/${champ.tags![index]}_icon.png',
+                              ),
+                              height: 36,
+                              width: 36,
+                            );
+                          },
+                        ),
+                      ),
                       Text(
                         'Attack: ${champ.info!.attack.toString()}',
                         style: Theme.of(context).textTheme.titleMedium,
@@ -69,16 +85,61 @@ class ChampDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
+                        'partype: ${champ.partype}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Text(
                         'Lore: ${champ.lore}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         'blurb: ${champ.blurb}',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
-                        'Difficulty: ${champ.info!.difficulty.toString()}',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        'allytips: ${champ.allytips}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Text(
+                        'enemytips: ${champ.enemytips}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: champ.skins!.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(right: 16),
+                                  width: 140,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: CachedNetworkImageProvider(
+                                        AppConstants.championLoadingImageUrl +
+                                            champ.id! +
+                                            '_${champ.skins![index].num}.jpg',
+                                        cacheKey: champ.skins![index].id,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  champ.skins![index].name!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          overflow: TextOverflow.ellipsis),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

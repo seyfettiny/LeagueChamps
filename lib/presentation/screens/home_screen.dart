@@ -45,8 +45,7 @@ class HomeScreen extends StatelessWidget {
         child: Consumer<ChampionRepository>(
           builder: (context, championRepository, child) {
             return FutureBuilder(
-              future: championRepository.getChampions(
-                  version, context.locale),
+              future: championRepository.getChampions(version, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   var box = Hive.box(AppConstants.HIVE_BOX_CHAMPIONS);
@@ -77,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                                             PageRouteBuilder(
                                               transitionDuration:
                                                   const Duration(
-                                                      milliseconds: 700),
+                                                      milliseconds: 600),
                                               pageBuilder: (BuildContext
                                                       context,
                                                   Animation<double> animation,
