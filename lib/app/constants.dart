@@ -23,8 +23,7 @@ class AppConstants {
   static const String championIconImageUrl =
       'https://ddragon.leagueoflegends.com/cdn/';
 
-  static const String HIVE_BOX_LANG = 'langBox';
-  static const String HIVE_BOX_THEME = 'themeBox';
+  static const String HIVE_BOX_SETTINGS = 'settings';
   static const String HIVE_BOX_CHAMPIONS = 'championsBox';
   static const String HIVE_BOX_VERSION = 'versionBox';
 

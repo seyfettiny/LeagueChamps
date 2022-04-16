@@ -22,8 +22,7 @@ class HiveService {
   Future init() async {
     await Hive.initFlutter();
     _registerAdapters();
-    await Hive.openBox(AppConstants.HIVE_BOX_LANG);
-    await Hive.openBox(AppConstants.HIVE_BOX_THEME);
+    await Hive.openBox(AppConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(AppConstants.HIVE_BOX_VERSION);
     await Hive.openBox(AppConstants.HIVE_BOX_CHAMPIONS);
   }
@@ -42,20 +41,24 @@ class HiveService {
   }
 
   void saveChamps(List<Champion> champs) {
-    final box = Hive.box(AppConstants.HIVE_BOX_CHAMPIONS);
+    final box = getBox(AppConstants.HIVE_BOX_CHAMPIONS);
     for (var champ in champs) {
       box.put(champ.id, champ);
     }
   }
 
+  Box getBox(String boxName) {
+    return Hive.box(boxName);
+  }
+
   void setDarkTheme(bool theme) {
-    final box = Hive.box(AppConstants.HIVE_BOX_THEME);
+    final box = getBox(AppConstants.HIVE_BOX_SETTINGS);
     box.put(AppConstants.HIVE_KEY_THEME, theme);
   }
 
   bool isDarkTheme() {
-    final box = Hive.box(AppConstants.HIVE_BOX_THEME);
-    if (box.isEmpty) {
+    final box = getBox(AppConstants.HIVE_BOX_SETTINGS);
+    if (!box.containsKey(AppConstants.HIVE_KEY_THEME)) {
       box.put(AppConstants.HIVE_KEY_THEME, false);
     }
     return box.get(AppConstants.HIVE_KEY_THEME);

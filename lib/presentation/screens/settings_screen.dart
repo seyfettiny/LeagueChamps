@@ -24,19 +24,19 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: DropdownButton(
               isExpanded: true,
-              value: themeNotifier.getTheme,
-              items: [
-                DropdownMenuItem<ThemeData>(
-                  child: const Text('Light Theme'),
-                  value: lightTheme,
+              value: themeNotifier.isDarkTheme ? 'Dark Theme' : 'Light Theme',
+              items: const [
+                DropdownMenuItem(
+                  child: Text('Light Theme'),
+                  value: 'Light Theme',
                 ),
-                DropdownMenuItem<ThemeData>(
-                  child: const Text('Dark Theme'),
-                  value: darkTheme,
+                DropdownMenuItem(
+                  child: Text('Dark Theme'),
+                  value: 'Dark Theme',
                 ),
               ],
-              onChanged: (ThemeData? value) {
-                themeNotifier.setTheme(value!);
+              onChanged: (value) {
+                themeNotifier.changeTheme();
               },
             ),
           ),

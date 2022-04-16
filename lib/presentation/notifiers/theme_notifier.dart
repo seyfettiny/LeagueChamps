@@ -1,24 +1,28 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/app/constants.dart';
 import 'package:leaguechamps/data/data_sources/hive_service.dart';
 
-import '../../app/themes/dark_theme.dart';
-import '../../app/themes/light_theme.dart';
-
 class ThemeNotifier with ChangeNotifier {
-  bool _darkTheme = false;
+  HiveService hiveService = HiveService();
 
-  ThemeNotifier();
+  bool _darkTheme = true;
 
-  ThemeData get getTheme => _darkTheme ? darkTheme : lightTheme;
-
-  void setTheme(ThemeData themeData) {
-    if (themeData == darkTheme) {
-      _darkTheme = true;
-      HiveService().setDarkTheme(_darkTheme);
+  ThemeNotifier() {
+    if (hiveService
+            .getBox(AppConstants.HIVE_BOX_SETTINGS)
+            .get(AppConstants.HIVE_KEY_THEME) ==
+        null) {
+      hiveService.setDarkTheme(_darkTheme);
     } else {
-      _darkTheme = false;
-      HiveService().setDarkTheme(_darkTheme);
+      _darkTheme = hiveService.isDarkTheme();
     }
+  }
+  bool get isDarkTheme => _darkTheme ? true : false;
+
+  void changeTheme() {
+    _darkTheme = !_darkTheme;
+    HiveService().setDarkTheme(_darkTheme);
     notifyListeners();
   }
 }
