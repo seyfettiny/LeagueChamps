@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/constants.dart';
-import '../../data/models/champion_detailed.dart';
+import '../../domain/entities/champion_detailed.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final ChampDetailed champ;

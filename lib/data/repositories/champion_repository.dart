@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/champion.dart';
 import '../../domain/repository/champion_repository.dart';
 import '../data_sources/data_dragon.dart';
-import '../models/champion.dart';
 class ChampionRepository implements IChampionRepository {
   final DataDragonAPI _dataDragonAPI;
 

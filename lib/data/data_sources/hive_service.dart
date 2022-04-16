@@ -1,16 +1,16 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../app/constants.dart';
-import '../models/champion.dart';
-import '../models/champion_detailed.dart';
-import '../models/data_values.dart';
-import '../models/image.dart';
-import '../models/info.dart';
-import '../models/level_tip.dart';
-import '../models/passive.dart';
-import '../models/skins.dart';
-import '../models/spells.dart';
-import '../models/stats.dart';
+import '../../domain/entities/champion.dart';
+import '../../domain/entities/champion_detailed.dart';
+import '../../domain/entities/data_values.dart';
+import '../../domain/entities/image.dart';
+import '../../domain/entities/info.dart';
+import '../../domain/entities/level_tip.dart';
+import '../../domain/entities/passive.dart';
+import '../../domain/entities/skins.dart';
+import '../../domain/entities/spells.dart';
+import '../../domain/entities/stats.dart';
 
 class HiveService {
   static final HiveService _instance = HiveService._internal();

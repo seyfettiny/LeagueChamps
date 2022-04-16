@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../app/constants.dart';
-import '../models/champion.dart';
-import '../models/champion_detailed.dart';
+import '../models/champion_model.dart';
+import '../models/champion_detailed_model.dart';
 
 abstract class IDataDragonAPI {
   Future<String> getVersion();
   Future<List<dynamic>> getVersionList();
-  Future<List<Champion>> getChampions(String version, Locale lang);
+  Future<List<ChampionModel>> getChampions(String version, Locale lang);
   Future<dynamic> getDetailedChampion(
       String championId, String version, Locale lang);
 }
@@ -49,7 +49,7 @@ class DataDragonAPI implements IDataDragonAPI {
   }
 
   @override
-  Future<List<Champion>> getChampions(String version, Locale lang) async {
+  Future<List<ChampionModel>> getChampions(String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
         AppConstants.championAPIBaseUrl +
             version +
@@ -59,10 +59,10 @@ class DataDragonAPI implements IDataDragonAPI {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final Map<String, dynamic> data = jsonResponse['data'];
-      List<Champion> champions = [];
+      List<ChampionModel> champions = [];
       data.forEach(
         (champion, data) {
-          champions.add(Champion.fromJson(data));
+          champions.add(ChampionModel.fromJson(data));
         },
       );
 
@@ -88,7 +88,7 @@ class DataDragonAPI implements IDataDragonAPI {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'][championId];
-      return ChampDetailed.fromJson(data);
+      return ChampDetailedModel.fromJson(data);
     } else {
       throw Exception('Failed to load champion');
     }
