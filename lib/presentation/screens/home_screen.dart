@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:leaguechamps/app/constants/hive_constants.dart';
 import 'package:provider/provider.dart';
 
-import '../../app/constants.dart';
+import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               future: championRepository.getChampions(version, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  var box = Hive.box(AppConstants.HIVE_BOX_CHAMPIONS);
+                  var box = Hive.box(HiveConstants.HIVE_BOX_CHAMPIONS);
                   //TODO: remove box.clear() later
                   box.clear();
                   HiveService().saveChamps(snapshot.data);
@@ -113,15 +114,18 @@ class HomeScreen extends StatelessWidget {
                                         },
                                         child: Hero(
                                           tag: snapshot.data.skins[index].id,
-                                          child: CachedNetworkImage(
-                                            imageUrl: AppConstants
-                                                    .championLoadingImageUrl +
-                                                snapshot.data.id +
-                                                '_${snapshot.data.skins[index].num}.jpg',
+                                          child: SizedBox(
                                             height: 230,
                                             width: 140,
-                                            cacheKey:
-                                                snapshot.data.skins[index].id,
+                                            child: CachedNetworkImage(
+
+                                              imageUrl: AppConstants
+                                                      .championLoadingImageUrl +
+                                                  snapshot.data.id +
+                                                  '_${snapshot.data.skins[index].num}.jpg',
+                                              cacheKey:
+                                                  snapshot.data.skins[index].id,
+                                            ),
                                           ),
                                         ),
                                       ),

@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:leaguechamps/app/constants/hive_constants.dart';
 
-import '../../app/constants.dart';
 import '../../domain/entities/champion.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../../domain/entities/data_values.dart';
@@ -22,9 +22,9 @@ class HiveService {
   Future init() async {
     await Hive.initFlutter();
     _registerAdapters();
-    await Hive.openBox(AppConstants.HIVE_BOX_SETTINGS);
-    await Hive.openBox(AppConstants.HIVE_BOX_VERSION);
-    await Hive.openBox(AppConstants.HIVE_BOX_CHAMPIONS);
+    await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
+    await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
+    await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
   }
 
   void _registerAdapters() {
@@ -41,7 +41,7 @@ class HiveService {
   }
 
   void saveChamps(List<Champion> champs) {
-    final box = getBox(AppConstants.HIVE_BOX_CHAMPIONS);
+    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     for (var champ in champs) {
       box.put(champ.id, champ);
     }
@@ -52,15 +52,15 @@ class HiveService {
   }
 
   void setDarkTheme(bool theme) {
-    final box = getBox(AppConstants.HIVE_BOX_SETTINGS);
-    box.put(AppConstants.HIVE_KEY_THEME, theme);
+    final box = getBox(HiveConstants.HIVE_BOX_SETTINGS);
+    box.put(HiveConstants.HIVE_KEY_THEME, theme);
   }
 
   bool isDarkTheme() {
-    final box = getBox(AppConstants.HIVE_BOX_SETTINGS);
-    if (!box.containsKey(AppConstants.HIVE_KEY_THEME)) {
-      box.put(AppConstants.HIVE_KEY_THEME, false);
+    final box = getBox(HiveConstants.HIVE_BOX_SETTINGS);
+    if (!box.containsKey(HiveConstants.HIVE_KEY_THEME)) {
+      box.put(HiveConstants.HIVE_KEY_THEME, false);
     }
-    return box.get(AppConstants.HIVE_KEY_THEME);
+    return box.get(HiveConstants.HIVE_KEY_THEME);
   }
 }

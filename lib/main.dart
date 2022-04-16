@@ -2,13 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:leaguechamps/app/constants/locale_constants.dart';
 import 'package:leaguechamps/data/data_sources/hive_service.dart';
 import 'package:provider/provider.dart';
 
 import 'app/themes/dark_theme.dart';
 import 'app/themes/light_theme.dart';
 import 'providers.dart';
-import 'app/constants.dart';
+import 'app/constants/app_constants.dart';
 import 'app/routing/router.dart';
 import 'presentation/notifiers/theme_notifier.dart';
 
@@ -28,9 +29,9 @@ main() async {
     MultiProvider(
       providers: providers,
       child: EasyLocalization(
-        supportedLocales: AppConstants.supportedLocales,
+        supportedLocales: LocaleConstants.supportedLocales,
         //startLocale: value.selectedLang,
-        fallbackLocale: AppConstants.supportedLocales[0],
+        fallbackLocale: LocaleConstants.supportedLocales[0],
         path: 'assets/translations',
         child: const MyApp(),
       ),
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: themeNotifier.isDarkTheme ? darkTheme : lightTheme,
       locale: context.locale,
-      supportedLocales: AppConstants.supportedLocales,
+      supportedLocales: LocaleConstants.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       initialRoute: RoutePaths.splash,
       onGenerateRoute: MyRouter.generateRoute,

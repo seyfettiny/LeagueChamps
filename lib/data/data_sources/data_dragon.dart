@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../../app/constants.dart';
+import '../../app/constants/app_constants.dart';
 import '../models/champion_model.dart';
 import '../models/champion_detailed_model.dart';
 

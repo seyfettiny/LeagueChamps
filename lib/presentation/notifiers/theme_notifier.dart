@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../app/constants.dart';
+import 'package:leaguechamps/app/constants/hive_constants.dart';
 import '../../data/data_sources/hive_service.dart';
 
 class ThemeNotifier with ChangeNotifier {
@@ -9,8 +9,8 @@ class ThemeNotifier with ChangeNotifier {
 
   ThemeNotifier() {
     if (hiveService
-            .getBox(AppConstants.HIVE_BOX_SETTINGS)
-            .get(AppConstants.HIVE_KEY_THEME) ==
+            .getBox(HiveConstants.HIVE_BOX_SETTINGS)
+            .get(HiveConstants.HIVE_KEY_THEME) ==
         null) {
       hiveService.setDarkTheme(_darkTheme);
     } else {
