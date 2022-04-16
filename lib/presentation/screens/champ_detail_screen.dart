@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../app/constants.dart';
 import '../../domain/entities/champion_detailed.dart';
+import '../widgets/blurred_appbar.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final ChampDetailed champ;
@@ -17,10 +18,17 @@ class ChampDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Extract paddings/margins to constants
     return Hero(
       tag: skinId,
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: BlurredAppBar(
+          name: champ.name!,
+          title: champ.title!,
+        ),
         body: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
@@ -35,27 +43,46 @@ class ChampDetailScreen extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
             child: Container(
+              padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
               width: double.infinity,
               color: Colors.black.withOpacity(0.6),
-              child: Column(
-                children: [
-                  Text(
-                    champ.info!.attack.toString(),
-                    style: const TextStyle(color: Colors.white, fontSize: 50),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Attack: ${champ.info!.attack.toString()}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        'Defence: ${champ.info!.defense.toString()}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        'Magic: ${champ.info!.magic.toString()}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        'Difficulty: ${champ.info!.difficulty.toString()}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        'Lore: ${champ.lore}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Text(
+                        'blurb: ${champ.blurb}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        'Difficulty: ${champ.info!.difficulty.toString()}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ],
                   ),
-                  Text(
-                    champ.info!.defense.toString(),
-                    style: const TextStyle(color: Colors.white, fontSize: 50),
-                  ),
-                  Text(
-                    champ.info!.magic.toString(),
-                    style: const TextStyle(color: Colors.white, fontSize: 50),
-                  ),
-                  Text(
-                    champ.info!.difficulty.toString(),
-                    style: const TextStyle(color: Colors.white, fontSize: 50),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
