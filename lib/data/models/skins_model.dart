@@ -13,6 +13,6 @@ class SkinsModel extends Skins {
 
   @override
   String toString() {
-    return 'Skins(id: $id, num: $num, name: $name, chromas: $chromas)';
+    return 'Skins(id: $id, num: ${this.num}, name: $name, chromas: $chromas)';
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leaguechamps/presentation/screens/skin_overview_screen.dart';
 
+import '../../presentation/screens/champ_detail_screen.dart';
 import '../../presentation/screens/settings_screen.dart';
 import '../../presentation/screens/home_screen.dart';
 import '../../presentation/screens/splash_screen.dart';
@@ -19,6 +20,28 @@ class MyRouter {
 
       case RoutePaths.settings:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
+
+      case RoutePaths.champDetail:
+        final arg = settings.arguments as Map;
+        return PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 600),
+          pageBuilder: (BuildContext context, Animation<double> animation,
+              Animation<double> secondaryAnimation) {
+            return ChampDetailScreen(
+                skinId: arg['skinId'], champ: arg['champ']);
+          },
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            return Align(
+              child: ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
+            );
+          },
+        );
 
       case RoutePaths.skinOverview:
         final arg = settings.arguments as Map;

@@ -73,44 +73,13 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          Navigator.of(context).push(
-                                            PageRouteBuilder(
-                                              transitionDuration:
-                                                  const Duration(
-                                                      milliseconds: 600),
-                                              pageBuilder: (BuildContext
-                                                      context,
-                                                  Animation<double> animation,
-                                                  Animation<double>
-                                                      secondaryAnimation) {
-                                                return ChampDetailScreen(
-                                                    skinId: snapshot
-                                                        .data.skins[index].id,
-                                                    champ: snapshot.data);
-                                              },
-                                              transitionsBuilder: (BuildContext
-                                                      context,
-                                                  Animation<double> animation,
-                                                  Animation<double>
-                                                      secondaryAnimation,
-                                                  Widget child) {
-                                                return Align(
-                                                  child: ScaleTransition(
-                                                    scale: animation,
-                                                    child: child,
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            // context,
-                                            // MaterialPageRoute(
-                                            //   builder: (_) => ChampDetailScreen(
-                                            //     champ: snapshot.data,
-                                            //     skinId:
-                                            //         snapshot.data.skins[index].id,
-                                            //   ),
-                                            // ),
-                                          );
+                                          Navigator.of(context).pushNamed(
+                                              RoutePaths.champDetail,
+                                              arguments: {
+                                                'champ': snapshot.data,
+                                                'skinId':
+                                                    snapshot.data.skins[index].id
+                                              });
                                         },
                                         child: Hero(
                                           tag: snapshot.data.skins[index].id,
@@ -118,7 +87,6 @@ class HomeScreen extends StatelessWidget {
                                             height: 230,
                                             width: 140,
                                             child: CachedNetworkImage(
-
                                               imageUrl: AppConstants
                                                       .championLoadingImageUrl +
                                                   snapshot.data.id +
