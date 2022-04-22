@@ -2,22 +2,24 @@ class AppConstants {
   static const String appName = "LeagueChamps";
 
   static const String championAPIBaseUrl =
-      'https://ddragon.leagueoflegends.com/cdn/';
+      'https://ddragon.leagueoflegends.com/cdn';
 
   static const String versionsUrl =
       'https://ddragon.leagueoflegends.com/api/versions.json';
 
   // ...Aatrox_0.jpg
   static const String championSplashImageUrl =
-      'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/';
+      '$championAPIBaseUrl/img/champion/splash/';
   static const String championCenteredImageUrl =
-      'https://ddragon.leagueoflegends.com/cdn/img/champion/centered/';
+      '$championAPIBaseUrl/img/champion/centered/';
   static const String championTileImageUrl =
-      'https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/';
+      '$championAPIBaseUrl/img/champion/tiles/';
   static const String championLoadingImageUrl =
-      'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/';
+      '$championAPIBaseUrl/img/champion/loading/';
 
-  // .../$VERSION/img/champion/Aatrox.png
-  static const String championIconImageUrl =
-      'https://ddragon.leagueoflegends.com/cdn/';
+  // for champion spell image url
+  // $championAPIBaseUrl/$version/img/passive/${champion.spells.passive.image.full}
+  // $championAPIBaseUrl/$version/img/spell/${champion.spells.id}
+  // for champion icon image url
+  // $championAPIBaseUrl/$version/img/champion/Aatrox.png
 }

@@ -86,15 +86,31 @@ class ChampDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
+                        'spells: \n',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Q: ',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              Text(
+                                champ.spells![0].name!,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Text(
                         'partype: ${champ.partype}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         'Lore: ${champ.lore}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        'blurb: ${champ.blurb}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
