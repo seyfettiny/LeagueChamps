@@ -15,15 +15,9 @@ List<SingleChildWidget> providers = [
 
 List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier()),
-  //ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier()),
   ChangeNotifierProvider<VersionNotifier>(create: (_) => VersionNotifier()),
-  ChangeNotifierProvider(
-    create: (context) {
-      ConnectivityNotifier connectivityNotifier = ConnectivityNotifier();
-      return connectivityNotifier;
-    },
-  ),
-  //StreamProvider<ConnectivityResult>(create: (_) => , initialData: initialData),
+  ChangeNotifierProvider<ConnectivityNotifier>(
+      create: (_) => ConnectivityNotifier()),
   Provider.value(value: DataDragonAPI()),
 ];
 
