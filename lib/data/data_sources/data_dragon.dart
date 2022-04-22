@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:leaguechamps/app/utils/toast_service.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../models/champion_model.dart';
@@ -33,6 +34,8 @@ class DataDragonAPI implements IDataDragonAPI {
       final jsonResponse = json.decode(response.body);
       return jsonResponse[0];
     } else {
+      ToastService.showErrorToast(
+          'Failed to load version: ${response.statusCode}');
       throw Exception('Failed to load version');
     }
   }
@@ -44,6 +47,8 @@ class DataDragonAPI implements IDataDragonAPI {
       final jsonResponse = json.decode(response.body);
       return jsonResponse;
     } else {
+      ToastService.showErrorToast(
+          'Failed to load version: ${response.statusCode}');
       throw Exception('Failed to load version');
     }
   }
@@ -61,13 +66,14 @@ class DataDragonAPI implements IDataDragonAPI {
           champions.add(ChampionModel.fromJson(data));
         },
       );
-
       //* Sort champions
       // champions = champions
       //     .where((champion) => champion.stats!.attackdamage! >= 70)
       //     .toList();
       return champions;
     } else {
+      ToastService.showErrorToast(
+          'Failed to load champion: ${response.statusCode}');
       throw Exception('Failed to load champions');
     }
   }
@@ -82,7 +88,8 @@ class DataDragonAPI implements IDataDragonAPI {
       final Map<String, dynamic> data = jsonResponse['data'][championId];
       return ChampDetailedModel.fromJson(data);
     } else {
-      throw Exception('Failed to load champion');
+      ToastService.showErrorToast(
+          'Failed to load champion: ${response.statusCode}');
     }
   }
 }

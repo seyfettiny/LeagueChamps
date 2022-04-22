@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:leaguechamps/app/utils/toast_service.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
   ConnectivityResult _connectivityResult = ConnectivityResult.bluetooth;
@@ -23,31 +24,20 @@ class ConnectivityNotifier extends ChangeNotifier {
     switch (result) {
       case ConnectivityResult.none:
         _connectionResponse = 'You are not connected';
-        _showToast(_connectionResponse, Colors.red);
+        ToastService.showErrorToast(_connectionResponse);
         break;
       case ConnectivityResult.mobile:
         _connectionResponse = 'Connected';
-        _showToast(_connectionResponse, Colors.green);
+        ToastService.showSuccessToast(_connectionResponse);
         break;
       case ConnectivityResult.wifi:
         _connectionResponse = 'Connected';
-        _showToast(_connectionResponse, Colors.green);
+        ToastService.showSuccessToast(_connectionResponse);
         break;
       default:
         _connectionResponse = 'You are not connected';
       // _showToast(_connectionResponse, Colors.red);
     }
     notifyListeners();
-  }
-
-  void _showToast(String msg, Color color) {
-    Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: color,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 }
