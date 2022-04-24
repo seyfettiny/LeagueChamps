@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 final darkTheme = ThemeData(
+  useMaterial3: true,
   primaryColor: Colors.black,
   brightness: Brightness.dark,
-  useMaterial3: true,
+  toggleableActiveColor: Colors.blue[800],
+  chipTheme: const ChipThemeData(
+    backgroundColor: Colors.black,
+    selectedColor: Color.fromARGB(255, 193, 133, 30),
+    secondarySelectedColor: Colors.white,
+    labelStyle: TextStyle(
+      color: Colors.white,
+    ),
+  ),
 );

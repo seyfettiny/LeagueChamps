@@ -1,5 +1,5 @@
-enum ChampClass{
-  Assasin,
+enum ChampClass {
+  Assassin,
   Fighter,
   Mage,
   Marksman,

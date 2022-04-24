@@ -57,9 +57,9 @@ class HomeScreen extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   //TODO: move this to the VM
-                  // hiveProvider
-                  //     .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
-                  //     .then((value) => null);
+                  hiveProvider
+                      .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
+                      .then((value) => null);
                   hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                       itemCount: snapshot.data.length,
@@ -75,10 +75,10 @@ class HomeScreen extends StatelessWidget {
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 //TODO: move this to the VM
-                                // hiveProvider
-                                //     .clearBox(
-                                //         HiveConstants.HIVE_BOX_CHAMPDETAILED)
-                                //     .then((value) => null);
+                                hiveProvider
+                                    .clearBox(
+                                        HiveConstants.HIVE_BOX_CHAMPDETAILED)
+                                    .then((value) => null);
                                 hiveProvider
                                     .saveDetailedChamp(snapshot.data)
                                     .then((value) => null);
