@@ -43,7 +43,7 @@ class HiveService {
     Hive.registerAdapter(StatsAdapter());
   }
 
-  Future<void> saveChamps(List<ChampionModel> champs) async {
+  Future<void> saveChamps(List<Champion> champs) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     for (var champ in champs) {
       if (!box.containsKey(champ.id)) {
@@ -53,7 +53,7 @@ class HiveService {
     print('Saved ${box.length} champions');
   }
 
-  Future<void> saveDetailedChamp(ChampDetailedModel champDetailed) async {
+  Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
     if (!box.containsKey(champDetailed.id.toString())) {
       print('Saving champ: ${champDetailed.id}');
@@ -86,8 +86,8 @@ class HiveService {
     return box.get(HiveConstants.HIVE_KEY_THEME);
   }
 
-  ChampDetailedModel getDetailedChamp(int id) {
-    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).values.first;
+  ChampDetailedModel getDetailedChamp(String id) {
+    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).get(id);
   }
 
   Box getBox(String boxName) {

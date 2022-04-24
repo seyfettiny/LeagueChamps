@@ -3,6 +3,12 @@ import 'package:leaguechamps/presentation/widgets/search_filter_widget.dart';
 import 'package:leaguechamps/presentation/widgets/search_widget.dart';
 
 class MySearchDelegate extends SearchDelegate {
+  final _query = {
+    'name': '',
+    'tags': [],
+  };
+  MySearchDelegate();
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -18,8 +24,9 @@ class MySearchDelegate extends SearchDelegate {
   @override
   PreferredSizeWidget? buildBottom(BuildContext context) {
     return PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: SearchFilterWidget());
+      preferredSize: const Size.fromHeight(kToolbarHeight),
+      child: SearchFilterWidget(),
+    );
   }
 
   @override
@@ -27,18 +34,18 @@ class MySearchDelegate extends SearchDelegate {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, null);
+        close(context, {});
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return SearchFinder(query: query);
+    return SearchFinder(query: _query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return SearchFinder(query: query);
+    return SearchFinder(query: _query);
   }
 }

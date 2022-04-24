@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
+import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
@@ -56,82 +57,73 @@ class HomeScreen extends StatelessWidget {
               future: championRepository.getChampions(version, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
+                  List<Champion> champions = snapshot.data;
                   //TODO: move this to the VM
-                  hiveProvider
-                      .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
-                      .then((value) => null);
+                  // hiveProvider
+                  //     .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
+                  //     .then((value) => null);
                   hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return SizedBox(
-                          height: 300,
-                          child: FutureBuilder(
-                            future: championRepository.getDetailedChampion(
-                                snapshot.data[index].id,
-                                version,
-                                context.locale),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                //TODO: move this to the VM
-                                hiveProvider
-                                    .clearBox(
-                                        HiveConstants.HIVE_BOX_CHAMPDETAILED)
-                                    .then((value) => null);
-                                hiveProvider
-                                    .saveDetailedChamp(snapshot.data)
-                                    .then((value) => null);
-
-                                return ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data.skins.length,
-                                  itemBuilder: (context, index) => Column(
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, RoutePaths.champDetail,
+                                arguments: {
+                                  'champId': champions[index].id,
+                                  'version': version,
+                                });
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl: AppConstants.championAPIBaseUrl +
+                                    '/$version/img/champion/${champions[index].image!.full}',
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                              RoutePaths.champDetail,
-                                              arguments: {
-                                                'champ': snapshot.data,
-                                                'skinId': snapshot
-                                                    .data.skins[index].id
-                                              });
-                                        },
-                                        child: Hero(
-                                          tag: snapshot.data.skins[index].id,
-                                          child: SizedBox(
-                                            height: 230,
-                                            width: 140,
-                                            child: CachedNetworkImage(
-                                              imageUrl: AppConstants
-                                                      .championLoadingImageUrl +
-                                                  snapshot.data.id +
-                                                  '_${snapshot.data.skins[index].num}.jpg',
-                                              cacheKey:
-                                                  snapshot.data.skins[index].id,
-                                            ),
-                                          ),
-                                        ),
+                                      Text(
+                                        champions[index].name! + ', ',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
                                       ),
-                                      Text(snapshot.data.skins[index].name),
-                                      Text('chromas: ' +
-                                          snapshot.data.skins[index].chromas
-                                              .toString()),
+                                      Text(
+                                        champions[index].title!,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 16,
+                                            fontStyle: FontStyle.italic),
+                                      ),
                                     ],
                                   ),
-                                );
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
+                                  Text(
+                                    champions[index].tags!.join(', '),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  Wrap(children: [
+                                    Text(
+                                      champions[index].blurb!.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ]),
+                                ],
+                              ),
+                            ],
                           ),
                         );
                       });
-                } else {
-                  return const CircularProgressIndicator();
                 }
+                return const CircularProgressIndicator();
               },
             );
           },

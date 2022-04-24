@@ -28,15 +28,17 @@ class MyRouter {
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
             return ChampDetailScreen(
-                skinId: arg['skinId'], champ: arg['champ']);
+                //skinId: arg['skinId'],
+                champId: arg['champId'],
+                version: arg['version']);
           },
           transitionsBuilder: (BuildContext context,
               Animation<double> animation,
               Animation<double> secondaryAnimation,
               Widget child) {
             return Align(
-              child: ScaleTransition(
-                scale: animation,
+              child: FadeTransition(
+                opacity: animation,
                 child: child,
               ),
             );
