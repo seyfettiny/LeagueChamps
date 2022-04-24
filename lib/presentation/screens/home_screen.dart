@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
+import '../../app/utils/my_search_delegate.dart';
 import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
+import '../widgets/search_widget.dart';
 import 'champ_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,6 +36,11 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: MySearchDelegate());
+              },
+              icon: Icon(Icons.search)),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
@@ -77,8 +84,8 @@ class HomeScreen extends StatelessWidget {
                                               RoutePaths.champDetail,
                                               arguments: {
                                                 'champ': snapshot.data,
-                                                'skinId':
-                                                    snapshot.data.skins[index].id
+                                                'skinId': snapshot
+                                                    .data.skins[index].id
                                               });
                                         },
                                         child: Hero(

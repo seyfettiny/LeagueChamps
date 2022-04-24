@@ -29,6 +29,9 @@ List<SingleChildWidget> independentServices = [
   Provider.value(
     value: DataDragonAPI(),
   ),
+  Provider.value(
+    value: HiveService(),
+  ),
 ];
 
 List<SingleChildWidget> dependentServices = [
