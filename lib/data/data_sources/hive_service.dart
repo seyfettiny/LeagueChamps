@@ -46,8 +46,8 @@ class HiveService {
   Future<void> saveChamps(List<ChampionModel> champs) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     for (var champ in champs) {
-      if (!box.containsKey(champ.id.toString())) {
-        await box.put(champ.id.toString(), champ);
+      if (!box.containsKey(champ.id)) {
+        await box.put(champ.id, champ);
       }
     }
     print('Saved ${box.length} champions');
@@ -56,9 +56,9 @@ class HiveService {
   Future<void> saveDetailedChamp(ChampDetailedModel champDetailed) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
     if (!box.containsKey(champDetailed.id.toString())) {
-      print(champDetailed.id.toString());
+      print('Saving champ: ${champDetailed.id}');
       await box
-          .put(champDetailed.id.toString(), champDetailed)
+          .put(champDetailed.id, champDetailed)
           .onError((error, stackTrace) => throw (error!));
       print('Saved detailed champ: ${champDetailed.id}');
     } else {

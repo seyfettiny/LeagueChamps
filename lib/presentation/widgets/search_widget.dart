@@ -38,25 +38,29 @@ class SearchFinder extends StatelessWidget {
                     child: ListTile(
                       leading: Hero(
                         tag: champion.id! + '_0',
-                        child: CachedNetworkImage(
-                          imageUrl: AppConstants.championTileImageUrl +
-                              champion.id.toString() +
-                              '_0.jpg',
-                          cacheKey: AppConstants.championTileImageUrl +
-                              champion.id.toString() +
-                              '_0.jpg',
-                          errorWidget: (context, url, error) => const SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(
-                              Icons.error_outline,
-                              color: Colors.redAccent,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                            imageUrl: AppConstants.championTileImageUrl +
+                                champion.id.toString() +
+                                '_0.jpg',
+                            cacheKey: AppConstants.championTileImageUrl +
+                                champion.id.toString() +
+                                '_0.jpg',
+                            errorWidget: (context, url, error) =>
+                                const SizedBox(
+                              width: 56,
+                              height: 56,
+                              child: Icon(
+                                Icons.error_outline,
+                                color: Colors.redAccent,
+                              ),
                             ),
-                          ),
-                          placeholder: (context, url) => const SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: CircularProgressIndicator(),
+                            placeholder: (context, url) => const SizedBox(
+                              width: 56,
+                              height: 56,
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
                         ),
                       ),
@@ -64,7 +68,8 @@ class SearchFinder extends StatelessWidget {
                       onTap: () {
                         var champDetailed = hiveProvider
                             .getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED)
-                            .get(champion.id!.toString());
+                            .get(champion.id);
+                        print(champDetailed.toString());
                         Navigator.pushNamed(context, RoutePaths.champDetail,
                             arguments: {
                               'champ': champDetailed,
