@@ -21,7 +21,7 @@ class Spells extends HiveObject {
   @HiveField(5)
   int? maxrank;
   @HiveField(6)
-  List<int>? cooldown;
+  List<dynamic>? cooldown;
   @HiveField(7)
   String? cooldownBurn;
   @HiveField(8)

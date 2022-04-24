@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +20,7 @@ class HomeScreen extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var hiveProvider = Provider.of<HiveService>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text.rich(
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 showSearch(context: context, delegate: MySearchDelegate());
               },
-              icon: Icon(Icons.search)),
+              icon: const Icon(Icons.search)),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
@@ -56,10 +56,11 @@ class HomeScreen extends StatelessWidget {
               future: championRepository.getChampions(version, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  var box = Hive.box(HiveConstants.HIVE_BOX_CHAMPIONS);
-                  //TODO: remove box.clear() later
-                  box.clear();
-                  HiveService().saveChamps(snapshot.data);
+                  //TODO: move this to the VM
+                  // hiveProvider
+                  //     .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
+                  //     .then((value) => null);
+                  hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
@@ -73,6 +74,15 @@ class HomeScreen extends StatelessWidget {
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
+                                //TODO: move this to the VM
+                                // hiveProvider
+                                //     .clearBox(
+                                //         HiveConstants.HIVE_BOX_CHAMPDETAILED)
+                                //     .then((value) => null);
+                                hiveProvider
+                                    .saveDetailedChamp(snapshot.data)
+                                    .then((value) => null);
+
                                 return ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: snapshot.data.skins.length,

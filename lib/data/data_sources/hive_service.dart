@@ -1,5 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
+import 'package:leaguechamps/data/models/champion_detailed_model.dart';
+import 'package:leaguechamps/data/models/champion_model.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/entities/champion_detailed.dart';
@@ -25,6 +27,7 @@ class HiveService {
     await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
   }
 
   void _registerAdapters() {
@@ -40,15 +43,34 @@ class HiveService {
     Hive.registerAdapter(StatsAdapter());
   }
 
-  void saveChamps(List<Champion> champs) {
+  Future<void> saveChamps(List<ChampionModel> champs) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     for (var champ in champs) {
-      box.put(champ.id, champ);
+      if (!box.containsKey(champ.id.toString())) {
+        await box.put(champ.id.toString(), champ);
+      }
+    }
+    print('Saved ${box.length} champions');
+  }
+
+  Future<void> saveDetailedChamp(ChampDetailedModel champDetailed) async {
+    final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
+    if (!box.containsKey(champDetailed.id.toString())) {
+      print(champDetailed.id.toString());
+      await box
+          .put(champDetailed.id.toString(), champDetailed)
+          .onError((error, stackTrace) => throw (error!));
+      print('Saved detailed champ: ${champDetailed.id}');
+    } else {
+      print('Champ already exists: ${champDetailed.id}');
     }
   }
 
-  Box getBox(String boxName) {
-    return Hive.box(boxName);
+  Future<void> clearBox(String boxName) async {
+    if (getBox(boxName).isEmpty) {
+      print(boxName + ' is empty');
+    }
+    await getBox(boxName).clear();
   }
 
   void setDarkTheme(bool theme) {
@@ -62,5 +84,13 @@ class HiveService {
       box.put(HiveConstants.HIVE_KEY_THEME, false);
     }
     return box.get(HiveConstants.HIVE_KEY_THEME);
+  }
+
+  ChampDetailedModel getDetailedChamp(int id) {
+    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).values.first;
+  }
+
+  Box getBox(String boxName) {
+    return Hive.box(boxName);
   }
 }

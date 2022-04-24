@@ -57,7 +57,7 @@ class SpellsModel extends Spells {
         ? LeveltipModel.fromJson(json['leveltip'])
         : null;
     maxrank = json['maxrank'];
-    cooldown = json['cooldown'].cast<int>();
+    cooldown = json['cooldown'];
     cooldownBurn = json['cooldownBurn'];
     cost = json['cost'].cast<int>();
     costBurn = json['costBurn'];

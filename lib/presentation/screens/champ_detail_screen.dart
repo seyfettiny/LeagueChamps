@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/data/models/champion_detailed_model.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
@@ -16,6 +17,9 @@ class ChampDetailScreen extends StatelessWidget {
     required this.champ,
     required this.skinId,
   }) : super(key: key);
+  ChampDetailedModel champDetailed() {
+    return ChampDetailedModel();
+  }
 
   @override
   Widget build(BuildContext context) {
