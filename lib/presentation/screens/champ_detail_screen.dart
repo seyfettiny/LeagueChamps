@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
@@ -14,21 +15,17 @@ import '../widgets/blurred_appbar.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final String champId;
-  //final String skinId;
   final String version;
   const ChampDetailScreen({
     Key? key,
     required this.champId,
-    //required this.skinId,
     required this.version,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //precacheImage(CachedNetworkImageProvider(skinId), context);
     var championRepository = Provider.of<ChampionRepository>(context);
     var hiveProvider = Provider.of<HiveService>(context);
-
     //TODO: Extract paddings/margins to constants
     return FutureBuilder(
       future: championRepository.getDetailedChampion(

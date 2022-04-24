@@ -5,6 +5,7 @@ import 'package:leaguechamps/data/repositories/version_repository.dart';
 import 'package:leaguechamps/domain/use_cases/champions_use_case.dart';
 import 'package:leaguechamps/domain/use_cases/version_use_case.dart';
 import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
+import 'package:leaguechamps/presentation/notifiers/search_notifier.dart';
 import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -25,6 +26,9 @@ List<SingleChildWidget> independentServices = [
   ),
   ChangeNotifierProvider<ConnectivityNotifier>(
     create: (_) => ConnectivityNotifier(),
+  ),
+    ChangeNotifierProvider<SearchNotifier>(
+    create: (_) => SearchNotifier(),
   ),
   Provider.value(
     value: DataDragonAPI(),

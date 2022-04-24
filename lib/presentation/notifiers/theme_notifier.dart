@@ -3,7 +3,7 @@ import 'package:leaguechamps/app/constants/hive_constants.dart';
 import '../../data/data_sources/hive_service.dart';
 
 class ThemeNotifier with ChangeNotifier {
-  HiveService hiveService = HiveService();
+  HiveService hiveService= HiveService();
 
   bool _darkTheme = true;
 
@@ -20,7 +20,7 @@ class ThemeNotifier with ChangeNotifier {
   bool get isDarkTheme => _darkTheme ? true : false;
 
   void changeTheme() {
-    _darkTheme = !_darkTheme;
+    _darkTheme = _darkTheme;
     HiveService().setDarkTheme(_darkTheme);
     notifyListeners();
   }

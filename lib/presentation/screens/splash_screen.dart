@@ -18,12 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    //_initApp();
     super.initState();
-  }
-
-  Future<void> _initApp() async {
-    await HiveService().init();
   }
 
   @override

@@ -51,6 +51,7 @@ class HiveService {
       }
     }
     print('Saved ${box.length} champions');
+    print(box.length);
   }
 
   Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
@@ -64,6 +65,21 @@ class HiveService {
     } else {
       print('Champ already exists: ${champDetailed.id}');
     }
+  }
+
+  Future<void> saveVersion(String version) async {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    await box.put(HiveConstants.HIVE_KEY_CURRENT_VERSION, version);
+  }
+
+  Future<void> saveVersionList(List<String> versions) async {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    await box.put(HiveConstants.HIVE_KEY_VERSION_LIST, versions);
+  }
+
+  String getCurrentVersion() {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION);
   }
 
   Future<void> clearBox(String boxName) async {
@@ -84,6 +100,11 @@ class HiveService {
       box.put(HiveConstants.HIVE_KEY_THEME, false);
     }
     return box.get(HiveConstants.HIVE_KEY_THEME);
+  }
+
+  Champion getChamp(String id) {
+    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    return box.get(id);
   }
 
   ChampDetailedModel getDetailedChamp(String id) {

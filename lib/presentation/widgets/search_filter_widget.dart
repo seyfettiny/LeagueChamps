@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:leaguechamps/app/enums/champ_class.dart';
+import 'package:leaguechamps/presentation/notifiers/search_notifier.dart';
+import 'package:provider/provider.dart';
 
 class SearchFilterWidget extends StatefulWidget {
-  final List<String> filters = [];
+  
   SearchFilterWidget({Key? key}) : super(key: key);
 
   @override
@@ -10,15 +12,16 @@ class SearchFilterWidget extends StatefulWidget {
 }
 
 class _SearchFilterWidgetState extends State<SearchFilterWidget> {
-  Iterable<Widget> get _filterWidgets =>
-      ChampClass.values.map((ChampClass tag) {
+  Iterable<Widget> get _filterWidgets {
+    var filterList = Provider.of<SearchNotifier>(context);
+    return ChampClass.values.map((ChampClass tag) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0),
           child: FilterChip(
             label: Text(tag.name.toString()),
             elevation: 2,
             selectedColor: Theme.of(context).chipTheme.selectedColor,
-            selected: widget.filters.contains(tag.name.toString()),
+            selected: filterList.filters.contains(tag.name.toString()),
             showCheckmark: false,
             avatar: Image(
               image: AssetImage(
@@ -28,9 +31,9 @@ class _SearchFilterWidgetState extends State<SearchFilterWidget> {
             onSelected: (bool value) {
               setState(() {
                 if (value) {
-                  widget.filters.add(tag.name.toString());
+                 filterList.addFilter(tag.name.toString());
                 } else {
-                  widget.filters.removeWhere(
+                 filterList.removeFilterWhere(
                       (String element) => element == tag.name.toString());
                 }
               });
@@ -38,6 +41,7 @@ class _SearchFilterWidgetState extends State<SearchFilterWidget> {
           ),
         );
       });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leaguechamps/presentation/widgets/search_filter_widget.dart';
-import 'package:leaguechamps/presentation/widgets/search_widget.dart';
+import 'package:leaguechamps/presentation/screens/search_screen.dart';
 
 class MySearchDelegate extends SearchDelegate {
-  final _query = {
-    'name': '',
-    'tags': [],
-  };
-  MySearchDelegate();
-
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -34,18 +28,18 @@ class MySearchDelegate extends SearchDelegate {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, {});
+        close(context, null);
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return SearchFinder(query: _query);
+    return SearchFinder(query: query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return SearchFinder(query: _query);
+    return SearchFinder(query: query);
   }
 }

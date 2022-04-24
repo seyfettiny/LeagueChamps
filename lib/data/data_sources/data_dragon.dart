@@ -31,7 +31,7 @@ class DataDragonAPI implements IDataDragonAPI {
   Future<String> getVersion() async {
     final response = await _client.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       return jsonResponse[0];
     } else {
       ToastService.showErrorToast(
@@ -44,7 +44,7 @@ class DataDragonAPI implements IDataDragonAPI {
   Future<List<dynamic>> getVersionList() async {
     final response = await _client.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       return jsonResponse;
     } else {
       ToastService.showErrorToast(
@@ -58,7 +58,7 @@ class DataDragonAPI implements IDataDragonAPI {
     final response = await _client.get(Uri.parse(
         '${AppConstants.championAPIBaseUrl}/$version/data/$lang/champion.json'));
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'];
       List<ChampionModel> champions = [];
       data.forEach(
@@ -66,10 +66,6 @@ class DataDragonAPI implements IDataDragonAPI {
           champions.add(ChampionModel.fromJson(data));
         },
       );
-      //* Sort champions
-      // champions = champions
-      //     .where((champion) => champion.stats!.attackdamage! >= 70)
-      //     .toList();
       return champions;
     } else {
       ToastService.showErrorToast(

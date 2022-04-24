@@ -24,13 +24,13 @@ class MyRouter {
       case RoutePaths.champDetail:
         final arg = settings.arguments as Map;
         return PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 600),
+          transitionDuration: const Duration(milliseconds: 400),
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
             return ChampDetailScreen(
-                //skinId: arg['skinId'],
-                champId: arg['champId'],
-                version: arg['version']);
+              champId: arg['champId'],
+              version: arg['version'],
+            );
           },
           transitionsBuilder: (BuildContext context,
               Animation<double> animation,
