@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
-import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/version_repository.dart';
 import '../notifiers/connectivity_notifier.dart';
 
@@ -16,6 +15,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  //TODO: precache images for homescreen
+  //    precacheImage(CachedNetworkImageProvider('url'), context);
   @override
   void initState() {
     super.initState();

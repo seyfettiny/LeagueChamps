@@ -12,6 +12,7 @@ import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
+import '../widgets/champion_spells_widget.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final String champId;
@@ -107,125 +108,21 @@ class ChampDetailScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            'spells: \n',
+                            '\n spells: \n',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Passive: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    CachedNetworkImage(
-                                      imageUrl: AppConstants
-                                              .championAPIBaseUrl +
-                                          '/$version/img/passive/${champ.passive!.image!.full}',
-                                      cacheKey: champ.passive!.image!.full,
-                                    ),
-                                    Text(
-                                      champ.passive!.name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Q: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    CachedNetworkImage(
-                                      imageUrl: AppConstants
-                                              .championAPIBaseUrl +
-                                          '/$version/img/spell/${champ.spells![0].image!.full}',
-                                      cacheKey: champ.spells![0].image!.full,
-                                    ),
-                                    Text(
-                                      champ.spells![0].name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'W: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    CachedNetworkImage(
-                                      imageUrl: AppConstants
-                                              .championAPIBaseUrl +
-                                          '/$version/img/spell/${champ.spells![1].image!.full}',
-                                      cacheKey: champ.spells![1].image!.full,
-                                    ),
-                                    Text(
-                                      champ.spells![1].name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'E: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    CachedNetworkImage(
-                                      imageUrl: AppConstants
-                                              .championAPIBaseUrl +
-                                          '/$version/img/spell/${champ.spells![2].image!.full}',
-                                      cacheKey: champ.spells![2].image!.full,
-                                    ),
-                                    Text(
-                                      champ.spells![2].name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'R: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    CachedNetworkImage(
-                                      imageUrl: AppConstants
-                                              .championAPIBaseUrl +
-                                          '/$version/img/spell/${champ.spells![3].image!.full}',
-                                      cacheKey: champ.spells![3].image!.full,
-                                    ),
-                                    Text(
-                                      champ.spells![3].name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          SizedBox(
+                            height: 140,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: champ.spells!.length + 1,
+                                itemBuilder: (context, index) {
+                                  return ChampionSpellsWidget(
+                                      version: version,
+                                      index: index,
+                                      champ: champ,
+                                      context: context);
+                                }),
                           ),
                           Text(
                             '\n partype: ${champ.partype}',
@@ -285,7 +182,9 @@ class ChampDetailScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      champ.skins![index].name!,
+                                      champ.skins![index].name! == 'default'
+                                          ? ''
+                                          : champ.skins![index].name!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!

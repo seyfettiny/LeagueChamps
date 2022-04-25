@@ -75,47 +75,50 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: AppConstants.championAPIBaseUrl +
-                                  '/$version/img/champion/${champions[index].image!.full}',
+                            SizedBox.square(
+                              dimension: 120,
+                              child: CachedNetworkImage(
+                                imageUrl: AppConstants.championAPIBaseUrl +
+                                    '/$version/img/champion/${champions[index].image!.full}',
+                                cacheKey: champions[index].image!.full,
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      champions[index].name! + ', ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    Text(
-                                      champions[index].title!,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 16,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  champions[index].tags!.join(', '),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.italic),
-                                ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: Text(
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        champions[index].name! + ', ',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      Text(
+                                        champions[index].title!,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 16,
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    champions[index].tags!.join(', '),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  Text(
                                     champions[index].blurb!.toString(),
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
