@@ -39,7 +39,7 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Flexible(
                   child: Text.rich(
                     TextSpan(
-                      style: TextStyle(overflow: TextOverflow.ellipsis),
+                      style: const TextStyle(overflow: TextOverflow.ellipsis),
                       children: <TextSpan>[
                         TextSpan(
                           text: name,

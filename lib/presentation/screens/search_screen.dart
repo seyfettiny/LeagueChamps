@@ -48,8 +48,8 @@ class SearchFinder extends StatelessWidget {
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: CachedNetworkImage(
-                          imageUrl: AppConstants.championAPIBaseUrl +
                           //TODO: refactor this
+                          imageUrl: AppConstants.championAPIBaseUrl +
                               '12.7.1' +
                               AppConstants.championSquareImageRoute +
                               champion.image!.full!,

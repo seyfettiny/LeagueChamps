@@ -1,7 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
 import 'package:leaguechamps/data/models/champion_detailed_model.dart';
-import 'package:leaguechamps/data/models/champion_model.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/entities/champion_detailed.dart';
@@ -59,11 +58,13 @@ class HiveService {
   Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
     if (!box.containsKey(champDetailed.id.toString())) {
-      print('Saving champ: ${champDetailed.id}');
+      for (var element in champDetailed.spells!) {
+        element.effect = element.effect ?? [];
+      }
       await box
           .put(champDetailed.id, champDetailed)
+          .then((value) => print('Saved detailed champ: ${champDetailed.id}'))
           .onError((error, stackTrace) => throw (error!));
-      print('Saved detailed champ: ${champDetailed.id}');
     } else {
       print('Champ already exists: ${champDetailed.id}');
     }

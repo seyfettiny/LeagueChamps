@@ -17,8 +17,8 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   PreferredSizeWidget? buildBottom(BuildContext context) {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(kToolbarHeight),
+    return const PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
       child: SearchFilterWidget(),
     );
   }

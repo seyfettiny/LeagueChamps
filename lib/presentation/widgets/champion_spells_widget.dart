@@ -125,22 +125,20 @@ class ChampionSpellsWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  content: Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: AppConstants.championAPIBaseUrl +
-                              version +
-                              AppConstants.championPassiveImageRoute +
-                              champSpell.image!.full!,
-                          cacheKey: champSpell.image!.full,
-                        ),
-                        Text(champSpell.description!.toString()),
-                        Text(champSpell.tooltip!.toString()),
-                      ],
-                    ),
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: AppConstants.championAPIBaseUrl +
+                            version +
+                            AppConstants.championPassiveImageRoute +
+                            champSpell.image!.full!,
+                        cacheKey: champSpell.image!.full,
+                      ),
+                      Text(champSpell.description!.toString()),
+                      Text(champSpell.tooltip!.toString()),
+                    ],
                   ),
                   actions: <Widget>[
                     TextButton(

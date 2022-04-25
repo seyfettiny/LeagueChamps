@@ -1,5 +1,3 @@
-import 'package:leaguechamps/data/repositories/champion_repository.dart';
-
 class ChampionUseCase {
   final _championRepository;
   final _hiveService;

@@ -5,6 +5,7 @@ import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
+import '../../app/constants/hive_constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../app/utils/my_search_delegate.dart';
 import '../../data/data_sources/hive_service.dart';
@@ -57,9 +58,9 @@ class HomeScreen extends StatelessWidget {
                 if (snapshot.hasData) {
                   List<Champion> champions = snapshot.data;
                   //TODO: move this to the VM
-                  // hiveProvider
-                  //     .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
-                  //     .then((value) => null);
+                  hiveProvider
+                      .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
+                      .then((value) => null);
                   hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                     itemCount: snapshot.data.length,

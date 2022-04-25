@@ -31,7 +31,7 @@ class Spells extends HiveObject {
   @HiveField(10)
   Datavalues? datavalues;
   @HiveField(11)
-  List? effect;
+  List<dynamic>? effect;
   @HiveField(12)
   List? effectBurn;
   @HiveField(13)

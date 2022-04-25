@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class SearchFilterWidget extends StatefulWidget {
   
-  SearchFilterWidget({Key? key}) : super(key: key);
+  const SearchFilterWidget({Key? key}) : super(key: key);
 
   @override
   State<SearchFilterWidget> createState() => _SearchFilterWidgetState();
