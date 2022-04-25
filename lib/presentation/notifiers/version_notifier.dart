@@ -4,9 +4,9 @@ import 'package:leaguechamps/data/data_sources/hive_service.dart';
 import '../../app/constants/hive_constants.dart';
 
 class VersionNotifier extends ChangeNotifier {
-  HiveService hiveService= HiveService();
+  HiveService hiveService;
   String currentVersion = '12.1.1';
-  VersionNotifier() {
+  VersionNotifier(this.hiveService) {
     if (hiveService.getBox(HiveConstants.HIVE_BOX_VERSION).isEmpty) {
       hiveService.saveVersion(currentVersion);
     }else{

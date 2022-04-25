@@ -108,6 +108,22 @@ class ChampDetailScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
+                            '\n partype: ${champ.partype}',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            '\n Lore: ${champ.lore}',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            '\n allytips: ${champ.allytips}',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            '\n enemytips: ${champ.enemytips}',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
                             '\n spells: \n',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -125,19 +141,7 @@ class ChampDetailScreen extends StatelessWidget {
                                 }),
                           ),
                           Text(
-                            '\n partype: ${champ.partype}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '\n Lore: ${champ.lore}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '\n allytips: ${champ.allytips}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '\n enemytips: ${champ.enemytips}',
+                            '\n skins: \n',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           SizedBox(
@@ -146,6 +150,7 @@ class ChampDetailScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: champ.skins!.length,
                               itemBuilder: (context, index) {
+                                var champSkin = champ.skins![index];
                                 return Column(
                                   children: [
                                     InkWell(
@@ -157,8 +162,8 @@ class ChampDetailScreen extends StatelessWidget {
                                             'skin': AppConstants
                                                     .championLoadingImageUrl +
                                                 champ.id! +
-                                                '_${champ.skins![index].num}.jpg',
-                                            'skinId': champ.skins![index].id
+                                                '_${champSkin.num}.jpg',
+                                            'skinId': champSkin.id
                                           },
                                         );
                                       },
@@ -174,17 +179,17 @@ class ChampDetailScreen extends StatelessWidget {
                                               AppConstants
                                                       .championLoadingImageUrl +
                                                   champ.id! +
-                                                  '_${champ.skins![index].num}.jpg',
-                                              cacheKey: champ.skins![index].id,
+                                                  '_${champSkin.num}.jpg',
+                                              cacheKey: champSkin.id,
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      champ.skins![index].name! == 'default'
+                                      champSkin.name! == 'default'
                                           ? ''
-                                          : champ.skins![index].name!,
+                                          : champSkin.name!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!

@@ -72,55 +72,64 @@ class HomeScreen extends StatelessWidget {
                                 'version': version,
                               });
                         },
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox.square(
-                              dimension: 120,
-                              child: CachedNetworkImage(
-                                imageUrl: AppConstants.championAPIBaseUrl +
-                                    '/$version/img/champion/${champions[index].image!.full}',
-                                cacheKey: champions[index].image!.full,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox.square(
+                                dimension: 120,
+                                child: CachedNetworkImage(
+                                  imageUrl: AppConstants.championAPIBaseUrl +
+                                      version +
+                                      AppConstants.championSquareImageRoute +
+                                      champions[index].image!.full!,
+                                  cacheKey: champions[index].image!.full,
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        champions[index].name! + ', ',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                      Text(
-                                        champions[index].title!,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    champions[index].tags!.join(', '),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 14,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                  Text(
-                                    champions[index].blurb!.toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                  ),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          champions[index].name! + ', ',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            champions[index].title!,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16,
+                                                fontStyle: FontStyle.italic),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      champions[index].tags!.join(', '),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 14,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                    Text(
+                                      champions[index].blurb!.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 4,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },

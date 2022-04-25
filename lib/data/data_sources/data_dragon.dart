@@ -21,9 +21,7 @@ class DataDragonAPI implements IDataDragonAPI {
 
   static final DataDragonAPI _instance = DataDragonAPI._internal();
 
-  factory DataDragonAPI() {
-    return _instance;
-  }
+  factory DataDragonAPI() => _instance;
 
   DataDragonAPI._internal();
 
@@ -56,7 +54,7 @@ class DataDragonAPI implements IDataDragonAPI {
   @override
   Future<List<ChampionModel>> getChampions(String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
-        '${AppConstants.championAPIBaseUrl}/$version/data/$lang/champion.json'));
+        '${AppConstants.championAPIBaseUrl}$version/data/$lang/champion.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'];
@@ -78,7 +76,7 @@ class DataDragonAPI implements IDataDragonAPI {
   Future<dynamic> getDetailedChampion(
       String championId, String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
-        '${AppConstants.championAPIBaseUrl}/$version/data/$lang/champion/$championId.json'));
+        '${AppConstants.championAPIBaseUrl}$version/data/$lang/champion/$championId.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'][championId];

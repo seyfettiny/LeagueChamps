@@ -45,13 +45,15 @@ class HiveService {
 
   Future<void> saveChamps(List<Champion> champs) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    var saved = 0;
     for (var champ in champs) {
       if (!box.containsKey(champ.id)) {
         await box.put(champ.id, champ);
+        //TODO: remove this, just for debugging
+        saved++;
       }
     }
-    print('Saved ${box.length} champions');
-    print(box.length);
+    print('Saved $saved champions');
   }
 
   Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
@@ -92,6 +94,7 @@ class HiveService {
   void setDarkTheme(bool theme) {
     final box = getBox(HiveConstants.HIVE_BOX_SETTINGS);
     box.put(HiveConstants.HIVE_KEY_THEME, theme);
+    print(box.get(HiveConstants.HIVE_KEY_THEME));
   }
 
   bool isDarkTheme() {

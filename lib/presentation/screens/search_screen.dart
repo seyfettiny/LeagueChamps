@@ -49,7 +49,10 @@ class SearchFinder extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         child: CachedNetworkImage(
                           imageUrl: AppConstants.championAPIBaseUrl +
-                              '/12.7.1/img/champion/${champion.image!.full}',
+                          //TODO: refactor this
+                              '12.7.1' +
+                              AppConstants.championSquareImageRoute +
+                              champion.image!.full!,
                           cacheKey: champion.image!.full,
                           errorWidget: (context, url, error) => const SizedBox(
                             width: 56,
