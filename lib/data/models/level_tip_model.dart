@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/level_tip.dart';
+import '../../domain/entities/level_tip.dart';
 
 class LeveltipModel extends Leveltip {
   LeveltipModel({label, effect}) : super(label: label, effect: effect);

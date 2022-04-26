@@ -1,11 +1,11 @@
-import 'package:leaguechamps/data/models/image_model.dart';
-import 'package:leaguechamps/data/models/skins_model.dart';
-import 'package:leaguechamps/domain/entities/champion_detailed.dart';
-
+import '../../domain/entities/champion_detailed.dart';
+import 'image_model.dart';
 import 'info_model.dart';
 import 'passive_model.dart';
+import 'skins_model.dart';
 import 'spells_model.dart';
 import 'stats_model.dart';
+
 class ChampDetailedModel extends ChampDetailed {
   ChampDetailedModel(
       {id,

@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/info.dart';
+import '../../domain/entities/info.dart';
 
 class InfoModel extends Info {
   InfoModel({attack, defense, magic, difficulty})

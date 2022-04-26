@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/skins.dart';
+import '../../domain/entities/skins.dart';
 
 class SkinsModel extends Skins {
   SkinsModel({id, num, name, chromas})

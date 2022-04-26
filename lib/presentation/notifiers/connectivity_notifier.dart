@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/app/utils/toast_service.dart';
+import '../../app/utils/toast_service.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
   ConnectivityResult _connectivityResult = ConnectivityResult.bluetooth;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:leaguechamps/data/data_sources/hive_service.dart';
 
 import '../../app/constants/hive_constants.dart';
+import '../../data/data_sources/hive_service.dart';
 
 class VersionNotifier extends ChangeNotifier {
   HiveService hiveService;

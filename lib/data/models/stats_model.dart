@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/stats.dart';
+import '../../domain/entities/stats.dart';
 
 class StatsModel extends Stats {
   StatsModel(

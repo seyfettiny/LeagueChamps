@@ -1,11 +1,11 @@
+import 'package:hive/hive.dart';
+
 import 'image.dart';
 import 'info.dart';
 import 'passive.dart';
 import 'skins.dart';
 import 'spells.dart';
 import 'stats.dart';
-
-import 'package:hive/hive.dart';
 
 part 'champion_detailed.g.dart';
 

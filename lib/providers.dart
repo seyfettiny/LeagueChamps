@@ -1,12 +1,12 @@
-import 'package:leaguechamps/data/data_sources/data_dragon.dart';
-import 'package:leaguechamps/data/data_sources/hive_service.dart';
-import 'package:leaguechamps/data/repositories/champion_repository.dart';
-import 'package:leaguechamps/data/repositories/version_repository.dart';
-import 'package:leaguechamps/domain/use_cases/champions_use_case.dart';
-import 'package:leaguechamps/domain/use_cases/version_use_case.dart';
-import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
-import 'package:leaguechamps/presentation/notifiers/search_notifier.dart';
-import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
+import 'data/data_sources/data_dragon.dart';
+import 'data/data_sources/hive_service.dart';
+import 'data/repositories/champion_repository.dart';
+import 'data/repositories/version_repository.dart';
+import 'domain/use_cases/champions_use_case.dart';
+import 'domain/use_cases/version_use_case.dart';
+import 'presentation/notifiers/connectivity_notifier.dart';
+import 'presentation/notifiers/search_notifier.dart';
+import 'presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

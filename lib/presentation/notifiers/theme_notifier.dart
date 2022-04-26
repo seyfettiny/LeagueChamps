@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/app/constants/hive_constants.dart';
+import '../../app/constants/hive_constants.dart';
 import '../../data/data_sources/hive_service.dart';
 
 class ThemeNotifier with ChangeNotifier {

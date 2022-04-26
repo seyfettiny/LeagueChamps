@@ -6,7 +6,6 @@ import 'package:leaguechamps/data/models/champion_detailed_model.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/entities/champion_detailed.dart';
-import '../../domain/entities/data_values.dart';
 import '../../domain/entities/image.dart';
 import '../../domain/entities/info.dart';
 import '../../domain/entities/level_tip.dart';

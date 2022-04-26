@@ -1,4 +1,5 @@
-import 'package:leaguechamps/data/data_sources/data_dragon.dart';
+import '../data_sources/data_dragon.dart';
+
 import '../../domain/repository/version_repository.dart';
 
 class VersionRepository implements IVersionRepository {

@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/champion.dart';
+import '../../domain/entities/champion.dart';
 
 import 'image_model.dart';
 import 'info_model.dart';

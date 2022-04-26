@@ -1,4 +1,4 @@
-import 'package:leaguechamps/domain/entities/image.dart';
+import '../../domain/entities/image.dart';
 
 class ImageModel extends Image {
   ImageModel({full, sprite, group, x, y, w, h})

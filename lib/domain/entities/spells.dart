@@ -1,8 +1,7 @@
-import 'data_values.dart';
+import 'package:hive/hive.dart';
+
 import 'image.dart';
 import 'level_tip.dart';
-
-import 'package:hive/hive.dart';
 
 part 'spells.g.dart';
 

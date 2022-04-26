@@ -1,5 +1,6 @@
-import 'package:leaguechamps/data/models/image_model.dart';
-import 'package:leaguechamps/domain/entities/passive.dart';
+import '../../domain/entities/passive.dart';
+
+import 'image_model.dart';
 
 class PassiveModel extends Passive {
   PassiveModel({name, description, image})

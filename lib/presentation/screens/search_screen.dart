@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:leaguechamps/app/constants/app_constants.dart';
-import 'package:leaguechamps/app/constants/hive_constants.dart';
+import '../../app/constants/app_constants.dart';
+import '../../app/constants/hive_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';

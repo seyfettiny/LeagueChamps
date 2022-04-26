@@ -1,7 +1,7 @@
-import 'data_values_model.dart';
+import '../../domain/entities/spells.dart';
+
 import 'image_model.dart';
 import 'level_tip_model.dart';
-import 'package:leaguechamps/domain/entities/spells.dart';
 
 class SpellsModel extends Spells {
   SpellsModel(

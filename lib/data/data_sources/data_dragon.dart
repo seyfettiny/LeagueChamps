@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:leaguechamps/app/utils/toast_service.dart';
+import '../../app/utils/toast_service.dart';
 
 import '../../app/constants/app_constants.dart';
-import '../models/champion_model.dart';
 import '../models/champion_detailed_model.dart';
+import '../models/champion_model.dart';
 
 abstract class IDataDragonAPI {
   Future<String> getVersion();
