@@ -18,19 +18,21 @@ List<SingleChildWidget> providers = [
 ];
 
 List<SingleChildWidget> independentServices = [
-    Provider<DataDragonAPI>(
+  Provider<DataDragonAPI>(
     create: (_) => DataDragonAPI(),
   ),
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),
   ChangeNotifierProvider<ThemeNotifier>(
-    create: (context) =>
-        ThemeNotifier(Provider.of<HiveService>(context, listen: false)),
+    create: (context) => ThemeNotifier(
+      Provider.of<HiveService>(context, listen: false),
+    ),
   ),
   ChangeNotifierProvider<VersionNotifier>(
-    create: (context) =>
-        VersionNotifier(Provider.of<HiveService>(context, listen: false)),
+    create: (context) => VersionNotifier(
+      Provider.of<HiveService>(context, listen: false),
+    ),
   ),
   ChangeNotifierProvider<ConnectivityNotifier>(
     create: (_) => ConnectivityNotifier(),
@@ -38,7 +40,6 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<SearchNotifier>(
     create: (_) => SearchNotifier(),
   ),
-
 ];
 
 List<SingleChildWidget> dependentServices = [
