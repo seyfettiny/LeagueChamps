@@ -27,7 +27,7 @@ class HiveService {
     await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
-    //TODO: open box when needed
+    //TODO: open box when needed. With that we can use box.compact and box.close
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
   }
 
