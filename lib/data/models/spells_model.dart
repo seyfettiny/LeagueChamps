@@ -64,6 +64,10 @@ class SpellsModel extends Spells {
     // datavalues = json['datavalues'] != null
     //     ? DatavaluesModel.fromJson(json['datavalues'])
     //     : null;
+
+    //Removing null objects from effect and effectBurn lists.
+    //Why effect and effectBurn lists contains null objects is explained here: 
+    //https://developer.riotgames.com/docs/lol#data-dragon_champions
     if (json['effect'] != null) {
       json['effect'].removeWhere((item) => item == null);
       effect = json['effect'];

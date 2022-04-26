@@ -61,17 +61,6 @@ class HiveService {
   Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
     if (!box.containsKey(champDetailed.id.toString())) {
-      //Removing null objects from effect and effectBurn lists.
-      //Why effect and effectBurn lists contains null objects explained here:
-      //https://developer.riotgames.com/docs/lol#data-dragon_champions
-      for (var element in champDetailed.spells!) {
-        // print('effect length ${element.effect!.length}');
-        // print('effectBurn length ${element.effectBurn!.length}');
-        // element.effect!.removeWhere((element) => element == null);
-        // element.effectBurn!.removeWhere((element) => element == null);
-        // print('effect length ${element.effect!.length}');
-        // print('effectBurn length ${element.effectBurn!.length}');
-      }
       await box
           .put(champDetailed.id, champDetailed)
           .then((value) => print('Saved detailed champ: ${champDetailed.id}'))
