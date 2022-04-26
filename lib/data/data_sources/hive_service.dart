@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
 import 'package:leaguechamps/data/models/champion_detailed_model.dart';
@@ -26,13 +28,14 @@ class HiveService {
     await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    //TODO: open box when needed
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
   }
 
   void _registerAdapters() {
     Hive.registerAdapter(ChampDetailedAdapter());
     Hive.registerAdapter(ChampionAdapter());
-    Hive.registerAdapter(DatavaluesAdapter());
+    //Hive.registerAdapter(DatavaluesAdapter());
     Hive.registerAdapter(ImageAdapter());
     Hive.registerAdapter(InfoAdapter());
     Hive.registerAdapter(LeveltipAdapter());
@@ -58,8 +61,16 @@ class HiveService {
   Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
     if (!box.containsKey(champDetailed.id.toString())) {
+      //Removing null objects from effect and effectBurn lists.
+      //Why effect and effectBurn lists contains null objects explained here:
+      //https://developer.riotgames.com/docs/lol#data-dragon_champions
       for (var element in champDetailed.spells!) {
-        element.effect = element.effect ?? [];
+        // print('effect length ${element.effect!.length}');
+        // print('effectBurn length ${element.effectBurn!.length}');
+        // element.effect!.removeWhere((element) => element == null);
+        // element.effectBurn!.removeWhere((element) => element == null);
+        // print('effect length ${element.effect!.length}');
+        // print('effectBurn length ${element.effectBurn!.length}');
       }
       await box
           .put(champDetailed.id, champDetailed)

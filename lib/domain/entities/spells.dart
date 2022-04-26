@@ -28,12 +28,12 @@ class Spells extends HiveObject {
   List<int>? cost;
   @HiveField(9)
   String? costBurn;
-  @HiveField(10)
-  Datavalues? datavalues;
+  // @HiveField(10)
+  // Datavalues? datavalues;
   @HiveField(11)
   List<dynamic>? effect;
   @HiveField(12)
-  List? effectBurn;
+  List<dynamic>? effectBurn;
   @HiveField(13)
   List? vars;
   @HiveField(14)
@@ -60,7 +60,7 @@ class Spells extends HiveObject {
       cooldownBurn,
       cost,
       costBurn,
-      datavalues,
+      //datavalues,
       effect,
       effectBurn,
       vars,

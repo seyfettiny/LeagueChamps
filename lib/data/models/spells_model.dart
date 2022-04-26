@@ -15,7 +15,7 @@ class SpellsModel extends Spells {
       cooldownBurn,
       cost,
       costBurn,
-      datavalues,
+      //datavalues,
       effect,
       effectBurn,
       vars,
@@ -36,7 +36,7 @@ class SpellsModel extends Spells {
           cooldownBurn: cooldownBurn,
           cost: cost,
           costBurn: costBurn,
-          datavalues: datavalues,
+          //datavalues: datavalues,
           effect: effect,
           effectBurn: effectBurn,
           vars: vars,
@@ -61,13 +61,15 @@ class SpellsModel extends Spells {
     cooldownBurn = json['cooldownBurn'];
     cost = json['cost'].cast<int>();
     costBurn = json['costBurn'];
-    datavalues = json['datavalues'] != null
-        ? DatavaluesModel.fromJson(json['datavalues'])
-        : null;
+    // datavalues = json['datavalues'] != null
+    //     ? DatavaluesModel.fromJson(json['datavalues'])
+    //     : null;
     if (json['effect'] != null) {
+      json['effect'].removeWhere((item) => item == null);
       effect = json['effect'];
     }
     if (json['effectBurn'] != null) {
+      json['effectBurn'].removeWhere((item) => item == null);
       effectBurn = json['effectBurn'];
     }
     if (json['vars'] != null) {
@@ -82,6 +84,6 @@ class SpellsModel extends Spells {
   }
   @override
   String toString() {
-    return 'Spells(id: $id, name: $name, description: $description, tooltip: $tooltip, leveltip: $leveltip, maxrank: $maxrank, cooldown: $cooldown, cooldownBurn: $cooldownBurn, cost: $cost, costBurn: $costBurn, datavalues: $datavalues, effect: $effect, effectBurn: $effectBurn, vars: $vars, costType: $costType, maxammo: $maxammo, range: $range, rangeBurn: $rangeBurn, image: $image, resource: $resource)';
+    return 'Spells(id: $id, name: $name, description: $description, tooltip: $tooltip, leveltip: $leveltip, maxrank: $maxrank, cooldown: $cooldown, cooldownBurn: $cooldownBurn, cost: $cost, costBurn: $costBurn, effect: $effect, effectBurn: $effectBurn, vars: $vars, costType: $costType, maxammo: $maxammo, range: $range, rangeBurn: $rangeBurn, image: $image, resource: $resource)';
   }
 }
