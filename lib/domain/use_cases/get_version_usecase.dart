@@ -2,8 +2,8 @@ import 'package:leaguechamps/app/usecase/usecase.dart';
 
 class GetVersionUserCase extends UseCase<String, String> {
   final _hiveService;
-  final _versionNotifier;
-  GetVersionUserCase(this._hiveService, this._versionNotifier);
+  final _versionRepository;
+  GetVersionUserCase(this._hiveService, this._versionRepository);
 
   @override
   Future<String> execute(String params) {

@@ -1,9 +1,12 @@
+import 'package:leaguechamps/domain/use_cases/get_champion_list_usecase.dart';
+import 'package:leaguechamps/domain/use_cases/get_champion_usecase.dart';
+import 'package:leaguechamps/domain/use_cases/get_version_list_usecase.dart';
+import 'package:leaguechamps/domain/use_cases/get_version_usecase.dart';
+
 import 'data/data_sources/data_dragon.dart';
 import 'data/data_sources/hive_service.dart';
 import 'data/repositories/champion_repository.dart';
 import 'data/repositories/version_repository.dart';
-import 'domain/use_cases/champions_use_case.dart';
-import 'domain/use_cases/version_use_case.dart';
 import 'presentation/notifiers/connectivity_notifier.dart';
 import 'presentation/notifiers/search_notifier.dart';
 import 'presentation/notifiers/version_notifier.dart';
@@ -50,14 +53,23 @@ List<SingleChildWidget> dependentServices = [
     update: (_, dataDragonAPI, hiveService, __) =>
         VersionRepository(dataDragonAPI, hiveService),
   ),
-
-  //TODO: remove HiveService from here
-  ProxyProvider2<ChampionRepository, HiveService, ChampionUseCase>(
+  ProxyProvider2<ChampionRepository, HiveService, GetVersionUserCase>(
     update: (_, championRepository, hiveService, __) =>
-        ChampionUseCase(championRepository, hiveService),
+        GetVersionUserCase(championRepository, hiveService),
   ),
-  ProxyProvider2<ChampionRepository, HiveService, VersionUseCase>(
+  ProxyProvider2<ChampionRepository, HiveService, GetVersionListUseCase>(
     update: (_, championRepository, hiveService, __) =>
-        VersionUseCase(championRepository, hiveService),
+        GetVersionListUseCase(championRepository, hiveService),
+  ),
+  ProxyProvider3<ChampionRepository, HiveService, VersionNotifier,
+      GetChampionUseCase>(
+    update: (_, championRepository, hiveService, versionNotifier, __) =>
+        GetChampionUseCase(championRepository, hiveService, versionNotifier),
+  ),
+  ProxyProvider3<ChampionRepository, HiveService, VersionNotifier,
+      GetChampionListUseCase>(
+    update: (_, championRepository, hiveService, versionNotifier, __) =>
+        GetChampionListUseCase(
+            championRepository, hiveService, versionNotifier),
   ),
 ];
