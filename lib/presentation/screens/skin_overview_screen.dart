@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
+import 'package:provider/provider.dart';
 
 class SkinOverViewScreen extends StatelessWidget {
   final String skinId;
@@ -9,6 +11,7 @@ class SkinOverViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final versionNotifier = Provider.of<VersionNotifier>(context);
     return Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
@@ -16,7 +19,7 @@ class SkinOverViewScreen extends StatelessWidget {
           fit: BoxFit.cover,
           image: CachedNetworkImageProvider(
             skin,
-            cacheKey: skinId,
+            cacheKey: skinId+versionNotifier.currentVersion,
           ),
         ),
       ),

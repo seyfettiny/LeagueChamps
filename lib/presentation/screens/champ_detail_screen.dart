@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
@@ -15,21 +16,20 @@ import '../widgets/champion_spells_widget.dart';
 
 class ChampDetailScreen extends StatelessWidget {
   final String champId;
-  final String version;
   const ChampDetailScreen({
     Key? key,
     required this.champId,
-    required this.version,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var championRepository = Provider.of<ChampionRepository>(context);
+    var versionNotifier = Provider.of<VersionNotifier>(context);
     var hiveProvider = Provider.of<HiveService>(context);
     //TODO: Extract paddings/margins to constants
     return FutureBuilder(
       future: championRepository.getDetailedChampion(
-          champId, version, context.locale),
+          champId, versionNotifier.currentVersion, context.locale),
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
@@ -58,7 +58,7 @@ class ChampDetailScreen extends StatelessWidget {
                     AppConstants.championLoadingImageUrl +
                         champ.id! +
                         '_$champDefaultSkin.jpg',
-                    cacheKey: '${champ.id!}+_$champDefaultSkin.jpg',
+                    cacheKey: '${champ.id!}+_$champDefaultSkin.jpg'+versionNotifier.currentVersion,
                   ),
                 ),
               ),
@@ -74,6 +74,10 @@ class ChampDetailScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            'version: ${versionNotifier.currentVersion.toString()}',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                           SizedBox(
                             height: 50,
                             child: ListView.builder(
@@ -133,7 +137,6 @@ class ChampDetailScreen extends StatelessWidget {
                                 itemCount: champ.spells!.length + 1,
                                 itemBuilder: (context, index) {
                                   return ChampionSpellsWidget(
-                                      version: version,
                                       index: index,
                                       champ: champ,
                                       context: context);
@@ -179,7 +182,7 @@ class ChampDetailScreen extends StatelessWidget {
                                                       .championLoadingImageUrl +
                                                   champ.id! +
                                                   '_${champSkin.num}.jpg',
-                                              cacheKey: champSkin.id,
+                                              cacheKey: champSkin.id!+versionNotifier.currentVersion,
                                             ),
                                           ),
                                         ),

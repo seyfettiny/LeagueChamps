@@ -9,6 +9,7 @@ import '../../app/routing/route_paths.dart';
 import '../../data/data_sources/hive_service.dart';
 import '../../domain/entities/champion.dart';
 import '../notifiers/search_notifier.dart';
+import '../notifiers/version_notifier.dart';
 
 class SearchFinder extends StatelessWidget {
   final String query;
@@ -18,6 +19,7 @@ class SearchFinder extends StatelessWidget {
   Widget build(BuildContext context) {
     var hiveProvider = Provider.of<HiveService>(context);
     var filterList = Provider.of<SearchNotifier>(context);
+    var versionNotifier = Provider.of<VersionNotifier>(context);
     return ValueListenableBuilder(
       valueListenable:
           hiveProvider.getBox(HiveConstants.HIVE_BOX_CHAMPIONS).listenable(),
@@ -53,7 +55,7 @@ class SearchFinder extends StatelessWidget {
                               '12.7.1' +
                               AppConstants.championSquareImageRoute +
                               champion.image!.full!,
-                          cacheKey: champion.image!.full,
+                          cacheKey: champion.image!.full!+versionNotifier.currentVersion,
                           errorWidget: (context, url, error) => const SizedBox(
                             width: 56,
                             height: 56,

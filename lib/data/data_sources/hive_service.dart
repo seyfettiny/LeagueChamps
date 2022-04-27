@@ -81,7 +81,7 @@ class HiveService {
     await box.put(HiveConstants.HIVE_KEY_CURRENT_VERSION, version);
   }
 
-  Future<void> saveVersionList(List<String> versions) async {
+  Future<void> saveVersionList(List<dynamic> versions) async {
     final box = getBox(HiveConstants.HIVE_BOX_VERSION);
     await box.put(HiveConstants.HIVE_KEY_VERSION_LIST, versions);
   }
@@ -89,6 +89,29 @@ class HiveService {
   String getCurrentVersion() {
     final box = getBox(HiveConstants.HIVE_BOX_VERSION);
     return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION);
+  }
+
+  List<dynamic> getVersionList() {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    return box.get(HiveConstants.HIVE_KEY_VERSION_LIST);
+  }
+
+  List<Champion> getChamps() {
+    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    return box.values.toList().cast<Champion>();
+  }
+
+  Champion getChamp(String id) {
+    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    return box.get(id);
+  }
+
+  ChampDetailedModel getDetailedChamp(String id) {
+    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).get(id);
+  }
+
+  Box getBox(String boxName) {
+    return Hive.box(boxName);
   }
 
   Future<void> clearBox(String boxName) async {
@@ -110,18 +133,5 @@ class HiveService {
       box.put(HiveConstants.HIVE_KEY_THEME, false);
     }
     return box.get(HiveConstants.HIVE_KEY_THEME);
-  }
-
-  Champion getChamp(String id) {
-    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
-    return box.get(id);
-  }
-
-  ChampDetailedModel getDetailedChamp(String id) {
-    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).get(id);
-  }
-
-  Box getBox(String boxName) {
-    return Hive.box(boxName);
   }
 }

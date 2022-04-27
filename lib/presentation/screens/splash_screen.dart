@@ -44,8 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamedAndRemoveUntil(
-                                  context, RoutePaths.home, (route) => false,
-                                  arguments: snapshot.data[0]);
+                                  context, RoutePaths.home, (route) => false);
                             },
                             child: const Text('Button'),
                           ),

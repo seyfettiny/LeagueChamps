@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/translations/locale_keys.g.dart';
@@ -11,6 +12,8 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final versionNotifier = Provider.of<VersionNotifier>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -38,13 +41,27 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(title: Text(LocaleKeys.hello.tr())),
           ListTile(
+            title: DropdownButton<String>(
+              isExpanded: true,
+              onChanged: (version) {
+                //TODO: changing version does not update the data,pass the version to the hiveService
+                versionNotifier.changeVersion(version!);
+              },
+              value: versionNotifier.currentVersion,
+              items: versionNotifier.getVersionList().map((version) {
+                return DropdownMenuItem<String>(
+                  child: Text(version.toString()),
+                  value: version.toString(),
+                );
+              }).toList(),
+            ),
+          ),
+          ListTile(
             title: DropdownButton<Locale>(
               isExpanded: true,
-              //value: langNotifier.selectedLang,
               value: context.locale,
               onChanged: (Locale? newLocale) {
                 context.setLocale(newLocale!);
-                //langNotifier.setLanguage(newLocale);
               },
               items: [
                 DropdownMenuItem<Locale>(

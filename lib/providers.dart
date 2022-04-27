@@ -43,12 +43,15 @@ List<SingleChildWidget> independentServices = [
 ];
 
 List<SingleChildWidget> dependentServices = [
-  ProxyProvider<DataDragonAPI, VersionRepository>(
-    update: (_, dataDragonAPI, __) => VersionRepository(dataDragonAPI),
-  ),
   ProxyProvider<DataDragonAPI, ChampionRepository>(
     update: (_, dataDragonAPI, __) => ChampionRepository(dataDragonAPI),
   ),
+  ProxyProvider2<DataDragonAPI, HiveService, VersionRepository>(
+    update: (_, dataDragonAPI, hiveService, __) =>
+        VersionRepository(dataDragonAPI, hiveService),
+  ),
+
+  //TODO: remove HiveService from here
   ProxyProvider2<ChampionRepository, HiveService, ChampionUseCase>(
     update: (_, championRepository, hiveService, __) =>
         ChampionUseCase(championRepository, hiveService),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
 import '../../domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
@@ -11,15 +12,20 @@ import '../../app/utils/my_search_delegate.dart';
 import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
 
-class HomeScreen extends StatelessWidget {
-  final String version;
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key? key,
-    required this.version,
   }) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var hiveProvider = Provider.of<HiveService>(context);
+    var versionNotifier = Provider.of<VersionNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text.rich(
@@ -53,25 +59,21 @@ class HomeScreen extends StatelessWidget {
         child: Consumer<ChampionRepository>(
           builder: (context, championRepository, child) {
             return FutureBuilder(
-              future: championRepository.getChampions(version, context.locale),
+              future: championRepository.getChampions(
+                  versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<Champion> champions = snapshot.data;
                   //TODO: move this to the VM
-                  hiveProvider
-                      .clearBox(HiveConstants.HIVE_BOX_CHAMPIONS)
-                      .then((value) => null);
                   hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
+                          print(champions[index].id);
                           Navigator.pushNamed(context, RoutePaths.champDetail,
-                              arguments: {
-                                'champId': champions[index].id,
-                                'version': version,
-                              });
+                              arguments: {'champId': champions[index].id});
                         },
                         child: Container(
                           margin: EdgeInsets.only(bottom: 16),
@@ -82,10 +84,11 @@ class HomeScreen extends StatelessWidget {
                                 dimension: 120,
                                 child: CachedNetworkImage(
                                   imageUrl: AppConstants.championAPIBaseUrl +
-                                      version +
+                                      versionNotifier.currentVersion +
                                       AppConstants.championSquareImageRoute +
                                       champions[index].image!.full!,
-                                  cacheKey: champions[index].image!.full,
+                                  cacheKey: champions[index].image!.full! +
+                                      versionNotifier.currentVersion,
                                 ),
                               ),
                               Expanded(

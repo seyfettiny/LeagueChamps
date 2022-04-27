@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
+import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../domain/entities/champion_detailed.dart';
@@ -9,19 +11,18 @@ import '../../domain/entities/champion_detailed.dart';
 class ChampionSpellsWidget extends StatelessWidget {
   const ChampionSpellsWidget({
     Key? key,
-    required this.version,
     required this.index,
     required this.champ,
     required this.context,
   }) : super(key: key);
 
-  final String version;
   final int index;
   final ChampDetailed champ;
   final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    final versionNotifier = Provider.of<VersionNotifier>(context);
     if (index == 0) {
       return InkWell(
         onTap: () {
@@ -48,10 +49,10 @@ class ChampionSpellsWidget extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl: AppConstants.championAPIBaseUrl +
-                            version +
+                            versionNotifier.currentVersion +
                             AppConstants.championPassiveImageRoute +
                             champ.passive!.image!.full!,
-                        cacheKey: champ.passive!.image!.full,
+                        cacheKey: champ.passive!.image!.full!+versionNotifier.currentVersion,
                       ),
                       Text(champ.passive!.description!.toString()),
                     ],
@@ -87,10 +88,10 @@ class ChampionSpellsWidget extends StatelessWidget {
                 dimension: 80,
                 child: CachedNetworkImage(
                   imageUrl: AppConstants.championAPIBaseUrl +
-                      version +
+                      versionNotifier.currentVersion +
                       AppConstants.championPassiveImageRoute +
                       champ.passive!.image!.full!,
-                  cacheKey: champ.passive!.image!.full,
+                  cacheKey: champ.passive!.image!.full!+versionNotifier.currentVersion,
                 ),
               ),
               Text(
@@ -131,10 +132,10 @@ class ChampionSpellsWidget extends StatelessWidget {
                     children: [
                       CachedNetworkImage(
                         imageUrl: AppConstants.championAPIBaseUrl +
-                            version +
+                            versionNotifier.currentVersion +
                             AppConstants.championPassiveImageRoute +
                             champSpell.image!.full!,
-                        cacheKey: champSpell.image!.full,
+                        cacheKey: champSpell.image!.full!+versionNotifier.currentVersion,
                       ),
                       Text(champSpell.description!.toString()),
                       Text(champSpell.tooltip!.toString()),
@@ -171,10 +172,10 @@ class ChampionSpellsWidget extends StatelessWidget {
                 dimension: 80,
                 child: CachedNetworkImage(
                   imageUrl: AppConstants.championAPIBaseUrl +
-                      version +
+                      versionNotifier.currentVersion +
                       AppConstants.championSpellsImageRoute +
                       champSpell.image!.full!,
-                  cacheKey: champSpell.image!.full,
+                  cacheKey: champSpell.image!.full!+versionNotifier.currentVersion,
                 ),
               ),
               Text(

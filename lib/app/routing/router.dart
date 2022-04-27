@@ -29,7 +29,6 @@ class MyRouter {
               Animation<double> secondaryAnimation) {
             return ChampDetailScreen(
               champId: arg['champId'],
-              version: arg['version'],
             );
           },
           transitionsBuilder: (BuildContext context,
@@ -56,9 +55,7 @@ class MyRouter {
 
       case RoutePaths.home:
         return MaterialPageRoute(
-          builder: (_) => HomeScreen(
-            version: settings.arguments.toString(),
-          ),
+          builder: (_) => const HomeScreen(),
         );
       default:
         return MaterialPageRoute(

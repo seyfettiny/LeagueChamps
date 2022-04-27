@@ -77,13 +77,16 @@ class DataDragonAPI implements IDataDragonAPI {
       String championId, String version, Locale lang) async {
     final response = await _client.get(Uri.parse(
         '${AppConstants.championAPIBaseUrl}$version/data/$lang/champion/$championId.json'));
+    print(
+        'url: ${AppConstants.championAPIBaseUrl}$version/data/$lang/champion/$championId.json');
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'][championId];
       return ChampDetailedModel.fromJson(data);
     } else {
+      print(response.body);
       ToastService.showErrorToast(
-          'Failed to load champion: ${response.statusCode}');
+          'Failed to load champion: $championId (${response.statusCode})');
     }
   }
 }
