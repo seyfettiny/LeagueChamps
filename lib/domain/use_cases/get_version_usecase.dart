@@ -5,6 +5,7 @@ class GetVersionUserCase extends UseCase<String, String> {
   final _versionRepository;
   GetVersionUserCase(this._hiveService, this._versionRepository);
 
+
   @override
   Future<String> execute(String params) {
         // TODO: implement execute
