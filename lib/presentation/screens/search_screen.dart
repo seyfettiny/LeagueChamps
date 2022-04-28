@@ -30,10 +30,7 @@ class SearchFinder extends StatelessWidget {
           results = championBox.values.toList();
         } else {
           results = championBox.values.where((champion) {
-            return champion.name!.toLowerCase().contains(query.toLowerCase()) ||
-                champion.tags!
-                    .join(' ')
-                    .contains(filterProvider.filters.join(' '));
+            return champion.name!.toLowerCase().contains(query.toLowerCase());
           }).toList();
 
           //TODO: refactor this
@@ -53,24 +50,29 @@ class SearchFinder extends StatelessWidget {
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: CachedNetworkImage(
+                          //TODO:  BUG champ image returns null
                           imageUrl: champion.image!.full != null
                               ? AppConstants.championAPIBaseUrl +
                                   versionNotifier.currentVersion +
-                                  AppConstants.championSquareImageRoute +
+                                  AppConstants.championImageRoute +
                                   champion.image!.full!
                               : '',
                           cacheKey: champion.image!.full != null
                               ? champion.image!.full! +
                                   versionNotifier.currentVersion
                               : '',
-                          errorWidget: (context, url, error) => const SizedBox(
-                            width: 56,
-                            height: 56,
-                            child: Icon(
-                              Icons.error_outline,
-                              color: Colors.redAccent,
-                            ),
-                          ),
+                          errorWidget: (context, url, error) {
+                            print(champion.image!.full);
+
+                            return const SizedBox(
+                              width: 56,
+                              height: 56,
+                              child: Icon(
+                                Icons.error_outline,
+                                color: Colors.redAccent,
+                              ),
+                            );
+                          },
                           placeholder: (context, url) => const SizedBox(
                             width: 56,
                             height: 56,

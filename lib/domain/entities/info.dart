@@ -1,10 +1,9 @@
-
 import 'package:hive/hive.dart';
 
 part 'info.g.dart';
 
 @HiveType(typeId: 3)
-class Info extends HiveObject{
+class Info extends HiveObject {
   @HiveField(0)
   int? attack;
   @HiveField(1)
@@ -15,5 +14,4 @@ class Info extends HiveObject{
   int? difficulty;
 
   Info({attack, defense, magic, difficulty});
-
 }

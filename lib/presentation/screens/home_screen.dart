@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: AppConstants.championAPIBaseUrl +
                                       versionNotifier.currentVersion +
-                                      AppConstants.championSquareImageRoute +
+                                      AppConstants.championImageRoute +
                                       champions[index].image!.full!,
                                   cacheKey: champions[index].image!.full! +
                                       versionNotifier.currentVersion,
