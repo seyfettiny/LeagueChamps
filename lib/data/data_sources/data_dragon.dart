@@ -17,13 +17,13 @@ abstract class IDataDragonAPI {
 }
 
 class DataDragonAPI implements IDataDragonAPI {
-  final http.Client _client = http.Client();
+  final http.Client _client;
 
   static final DataDragonAPI _instance = DataDragonAPI._internal();
 
   factory DataDragonAPI() => _instance;
 
-  DataDragonAPI._internal();
+  DataDragonAPI._internal() : _client = http.Client();
 
   @override
   Future<String> getVersion() async {
