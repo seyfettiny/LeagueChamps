@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app/utils/toast_service.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
-  ConnectivityResult _connectivityResult = ConnectivityResult.wifi;
+  ConnectivityResult _connectivityResult = ConnectivityResult.none;
   ConnectivityResult get connectivity => _connectivityResult;
   String _connectionResponse = 'You are not connected';
   String get connectionResponse => _connectionResponse;

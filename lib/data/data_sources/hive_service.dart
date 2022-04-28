@@ -98,12 +98,12 @@ class HiveService {
 
   String getCurrentVersion() {
     final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION);
+    return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION) ?? '';
   }
 
   List<dynamic> getVersionList() {
     final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    return box.get(HiveConstants.HIVE_KEY_VERSION_LIST);
+    return box.get(HiveConstants.HIVE_KEY_VERSION_LIST) ?? [];
   }
 
   Future<List<Champion>> getChampions(String version, Locale lang) async {

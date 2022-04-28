@@ -81,12 +81,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox.square(
                                 dimension: 120,
                                 child: CachedNetworkImage(
-                                  imageUrl: AppConstants.championAPIBaseUrl +
-                                      versionNotifier.currentVersion +
-                                      AppConstants.championImageRoute +
-                                      champions[index].image!.full!,
-                                  cacheKey: champions[index].image!.full! +
-                                      versionNotifier.currentVersion,
+                          imageUrl: champions[index].image!.full != null
+                              ? AppConstants.championAPIBaseUrl +
+                                  versionNotifier.currentVersion +
+                                  AppConstants.championImageRoute +
+                                  champions[index].image!.full!
+                              : '',
+                          cacheKey: champions[index].image!.full != null
+                              ? champions[index].image!.full! +
+                                  versionNotifier.currentVersion
+                              : '',
                                 ),
                               ),
                               Expanded(

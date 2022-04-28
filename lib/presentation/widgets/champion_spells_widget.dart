@@ -52,7 +52,8 @@ class ChampionSpellsWidget extends StatelessWidget {
                             versionNotifier.currentVersion +
                             AppConstants.championPassiveImageRoute +
                             champ.passive!.image!.full!,
-                        cacheKey: champ.passive!.image!.full!+versionNotifier.currentVersion,
+                        cacheKey: champ.passive!.image!.full! +
+                            versionNotifier.currentVersion,
                       ),
                       Text(champ.passive!.description!.toString()),
                     ],
@@ -71,7 +72,7 @@ class ChampionSpellsWidget extends StatelessWidget {
           );
         },
         child: Container(
-          width: 100,
+          width: 90,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.amber,
@@ -91,15 +92,21 @@ class ChampionSpellsWidget extends StatelessWidget {
                       versionNotifier.currentVersion +
                       AppConstants.championPassiveImageRoute +
                       champ.passive!.image!.full!,
-                  cacheKey: champ.passive!.image!.full!+versionNotifier.currentVersion,
+                  cacheKey: champ.passive!.image!.full! +
+                      versionNotifier.currentVersion,
                 ),
               ),
-              Text(
-                champ.passive!.name!,
-                style: Theme.of(context).textTheme.bodyMedium,
-                overflow: TextOverflow.fade,
-                maxLines: 2,
-                textAlign: TextAlign.center,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    champ.passive!.name!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    overflow: TextOverflow.fade,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
@@ -135,7 +142,8 @@ class ChampionSpellsWidget extends StatelessWidget {
                             versionNotifier.currentVersion +
                             AppConstants.championPassiveImageRoute +
                             champSpell.image!.full!,
-                        cacheKey: champSpell.image!.full!+versionNotifier.currentVersion,
+                        cacheKey: champSpell.image!.full! +
+                            versionNotifier.currentVersion,
                       ),
                       Text(champSpell.description!.toString()),
                       Text(champSpell.tooltip!.toString()),
@@ -156,7 +164,7 @@ class ChampionSpellsWidget extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.all(8),
-          width: 100,
+          width: 90,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.amber,
@@ -175,15 +183,21 @@ class ChampionSpellsWidget extends StatelessWidget {
                       versionNotifier.currentVersion +
                       AppConstants.championSpellsImageRoute +
                       champSpell.image!.full!,
-                  cacheKey: champSpell.image!.full!+versionNotifier.currentVersion,
+                  cacheKey:
+                      champSpell.image!.full! + versionNotifier.currentVersion,
                 ),
               ),
-              Text(
-                champSpell.name!,
-                style: Theme.of(context).textTheme.bodyMedium,
-                overflow: TextOverflow.fade,
-                maxLines: 2,
-                textAlign: TextAlign.center,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    champSpell.name!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    overflow: TextOverflow.fade,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
