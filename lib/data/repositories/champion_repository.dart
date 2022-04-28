@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
+import '../../presentation/notifiers/connectivity_notifier.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/repository/champion_repository.dart';

@@ -3,12 +3,11 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
+import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
-import '../../data/data_sources/hive_service.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
@@ -25,7 +24,6 @@ class ChampDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var championRepository = Provider.of<ChampionRepository>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
-    var hiveProvider = Provider.of<HiveService>(context);
     //TODO: Extract paddings/margins to constants
     return FutureBuilder(
       future: championRepository.getDetailedChampion(

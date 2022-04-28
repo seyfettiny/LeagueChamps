@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../app/enums/champ_class.dart';
 import '../notifiers/search_notifier.dart';
-import 'package:provider/provider.dart';
 
 class SearchFilterWidget extends StatefulWidget {
   

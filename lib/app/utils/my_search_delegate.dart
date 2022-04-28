@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../presentation/widgets/search_filter_widget.dart';
+
 import '../../presentation/screens/search_screen.dart';
+import '../../presentation/widgets/search_filter_widget.dart';
 
 class MySearchDelegate extends SearchDelegate {
   @override

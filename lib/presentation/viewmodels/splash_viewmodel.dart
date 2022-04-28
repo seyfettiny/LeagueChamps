@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:leaguechamps/domain/use_cases/get_version_list_usecase.dart';
-import 'package:leaguechamps/domain/use_cases/get_version_usecase.dart';
+import '../../domain/use_cases/get_version_list_usecase.dart';
+import '../../domain/use_cases/get_version_usecase.dart';
 
 class SplashViewModel extends ChangeNotifier {
   final GetVersionUseCase _getVersionUserCase;

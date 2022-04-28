@@ -1,5 +1,4 @@
 import '../../domain/entities/champion.dart';
-
 import 'image_model.dart';
 import 'info_model.dart';
 import 'stats_model.dart';

@@ -2,18 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'app/constants/locale_constants.dart';
-import 'data/data_sources/hive_service.dart';
 import 'package:provider/provider.dart';
 
+import 'app/constants/app_constants.dart';
+import 'app/constants/locale_constants.dart';
+import 'app/routing/route_paths.dart';
+import 'app/routing/router.dart';
 import 'app/themes/dark_theme.dart';
 import 'app/themes/light_theme.dart';
-import 'providers.dart';
-import 'app/constants/app_constants.dart';
-import 'app/routing/router.dart';
+import 'data/data_sources/hive_service.dart';
 import 'presentation/notifiers/theme_notifier.dart';
-
-import 'app/routing/route_paths.dart';
+import 'providers.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();

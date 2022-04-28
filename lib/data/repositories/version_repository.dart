@@ -1,5 +1,5 @@
-import 'package:leaguechamps/data/data_sources/hive_service.dart';
-import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
+import '../data_sources/hive_service.dart';
+import '../../presentation/notifiers/connectivity_notifier.dart';
 
 import '../data_sources/data_dragon.dart';
 

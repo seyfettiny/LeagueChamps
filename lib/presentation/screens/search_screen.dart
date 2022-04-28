@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import '../../app/constants/app_constants.dart';
-import '../../app/constants/hive_constants.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/constants/app_constants.dart';
+import '../../app/constants/hive_constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../data/data_sources/hive_service.dart';
-import '../../data/models/champion_model.dart';
 import '../../domain/entities/champion.dart';
 import '../notifiers/search_notifier.dart';
 import '../notifiers/version_notifier.dart';

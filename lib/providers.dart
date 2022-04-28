@@ -1,8 +1,7 @@
-import 'package:leaguechamps/domain/use_cases/get_champion_list_usecase.dart';
-import 'package:leaguechamps/domain/use_cases/get_champion_usecase.dart';
-import 'package:leaguechamps/domain/use_cases/get_version_list_usecase.dart';
-import 'package:leaguechamps/domain/use_cases/get_version_usecase.dart';
-import 'package:leaguechamps/presentation/viewmodels/splash_viewmodel.dart';
+import 'domain/use_cases/get_champion_usecase.dart';
+import 'domain/use_cases/get_version_list_usecase.dart';
+import 'domain/use_cases/get_version_usecase.dart';
+import 'presentation/viewmodels/splash_viewmodel.dart';
 
 import 'data/data_sources/data_dragon.dart';
 import 'data/data_sources/hive_service.dart';

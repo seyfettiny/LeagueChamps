@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/presentation/notifiers/version_notifier.dart';
+import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';

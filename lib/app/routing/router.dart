@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../presentation/screens/skin_overview_screen.dart';
 
 import '../../presentation/screens/champ_detail_screen.dart';
-import '../../presentation/screens/settings_screen.dart';
 import '../../presentation/screens/home_screen.dart';
+import '../../presentation/screens/settings_screen.dart';
+import '../../presentation/screens/skin_overview_screen.dart';
 import '../../presentation/screens/splash_screen.dart';
 import 'route_paths.dart';
 

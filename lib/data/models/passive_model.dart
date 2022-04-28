@@ -1,5 +1,4 @@
 import '../../domain/entities/passive.dart';
-
 import 'image_model.dart';
 
 class PassiveModel extends Passive {

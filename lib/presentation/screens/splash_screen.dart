@@ -1,11 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/domain/use_cases/get_version_usecase.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
-import '../../data/repositories/version_repository.dart';
-import '../notifiers/connectivity_notifier.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
 class SplashScreen extends StatefulWidget {
