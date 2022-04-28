@@ -1,14 +1,13 @@
-import 'package:leaguechamps/app/usecase/usecase.dart';
+abstract class IGetVersionListUseCase {
+  Future<List<String>> execute();
+}
 
-class GetVersionListUseCase extends UseCase<List<String>, String> {
-  final _hiveService;
+class GetVersionListUseCase extends IGetVersionListUseCase {
   final _versionRepository;
-  GetVersionListUseCase(this._hiveService, this._versionRepository);
+  GetVersionListUseCase(this._versionRepository);
 
   @override
-  Future<List<String>> execute(String params) {
-    // TODO: implement execute
-
-    throw UnimplementedError();
+  Future<List<String>> execute() async {
+    return await _versionRepository.getVersionList();
   }
 }

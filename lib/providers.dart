@@ -46,13 +46,21 @@ List<SingleChildWidget> independentServices = [
 ];
 
 List<SingleChildWidget> dependentServices = [
-  ProxyProvider2<ChampionRepository, HiveService, GetVersionUserCase>(
-    update: (_, championRepository, hiveService, __) =>
-        GetVersionUserCase(championRepository, hiveService),
+  ProxyProvider<ChampionRepository, GetVersionUserCase>(
+    update: (_, championRepository, __) =>
+        GetVersionUserCase(championRepository),
   ),
-  ProxyProvider2<ChampionRepository, HiveService, GetVersionListUseCase>(
-    update: (_, championRepository, hiveService, __) =>
-        GetVersionListUseCase(championRepository, hiveService),
+  ProxyProvider<ChampionRepository, GetVersionListUseCase>(
+    update: (_, championRepository, __) =>
+        GetVersionListUseCase(championRepository),
+  ),
+  ProxyProvider<ChampionRepository, GetChampionUseCase>(
+    update: (_, championRepository, __) =>
+        GetChampionUseCase(championRepository),
+  ),
+  ProxyProvider<ChampionRepository, GetChampionListUseCase>(
+    update: (_, championRepository, __) =>
+        GetChampionListUseCase(championRepository),
   ),
   ProxyProvider3<DataDragonAPI, HiveService, ConnectivityNotifier,
       ChampionRepository>(
@@ -63,16 +71,5 @@ List<SingleChildWidget> dependentServices = [
       VersionRepository>(
     update: (_, dataDragonAPI, hiveService, connectivityNotifier, __) =>
         VersionRepository(dataDragonAPI, hiveService, connectivityNotifier),
-  ),
-  ProxyProvider3<ChampionRepository, HiveService, VersionNotifier,
-      GetChampionUseCase>(
-    update: (_, championRepository, hiveService, versionNotifier, __) =>
-        GetChampionUseCase(championRepository, hiveService, versionNotifier),
-  ),
-  ProxyProvider3<ChampionRepository, HiveService, VersionNotifier,
-      GetChampionListUseCase>(
-    update: (_, championRepository, hiveService, versionNotifier, __) =>
-        GetChampionListUseCase(
-            championRepository, hiveService, versionNotifier),
   ),
 ];

@@ -1,17 +1,17 @@
-import '../../app/usecase/usecase.dart';
+import 'package:flutter/material.dart';
+
 import '../entities/champion.dart';
 
-class GetChampionListUseCase extends UseCase<List<Champion>, String> {
+abstract class IGetChampionListUseCase {
+  Future<List<Champion>> execute(String champId,String version ,Locale lang);
+}
+class GetChampionListUseCase extends IGetChampionListUseCase {
   final _championRepository;
-  final _hiveService;
-  final _versionNotifier;
   GetChampionListUseCase(
-      this._championRepository, this._hiveService, this._versionNotifier);
+      this._championRepository);
 
   @override
-  Future<List<Champion>> execute(String params) {
-    // TODO: implement execute
-
-    throw UnimplementedError();
+  Future<List<Champion>> execute(String champId,String version ,Locale lang) async{
+    return await _championRepository.getChampionList(champId, version, lang);
   }
 }
