@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
 import 'package:leaguechamps/data/models/champion_detailed_model.dart';
@@ -44,12 +45,18 @@ class HiveService {
     Hive.registerAdapter(StatsAdapter());
   }
 
-  Future<void> saveChamps(List<Champion> champs) async {
+  Future<void> saveChampions(
+      {required String version,
+      required Locale lang,
+      required List<Champion> champions}) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     var saved = 0;
-    for (var champ in champs) {
-      if (!box.containsKey(champ.id)) {
-        await box.put(champ.id, champ);
+    for (var champ in champions) {
+      if (!box.containsKey(champ.id! + version + lang.toString())) {
+        await box.put(
+          champ.id! + version + lang.toString(),
+          champ,
+        );
         //TODO: remove this, just for debugging
         saved++;
       }
@@ -57,18 +64,21 @@ class HiveService {
     print('Saved $saved champions');
   }
 
-  Future<void> saveDetailedChamp(ChampDetailed champDetailed) async {
+  Future<void> saveDetailedChamp(
+      {required String version,
+      required Locale lang,
+      required ChampDetailed champDetailed}) async {
     final box = getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
-    if (!box.containsKey(champDetailed.id.toString())) {
+    if (!box.containsKey(champDetailed.id! + version + lang.toString())) {
       //Removing null objects from effect and effectBurn lists.
-      //Why effect and effectBurn lists contains null objects is explained here:
+      //Why effect and effectBurn lists does contain null objects explained here:
       //https://developer.riotgames.com/docs/lol#data-dragon_champions
       for (var item in champDetailed.spells!) {
         item.effect!.removeWhere((element) => item == null);
         item.effectBurn!.removeWhere((element) => item == null);
       }
       await box
-          .put(champDetailed.id, champDetailed)
+          .put(champDetailed.id! + version + lang.toString(), champDetailed)
           .then((value) => print('Saved detailed champ: ${champDetailed.id}'))
           .onError((error, stackTrace) => throw (error!));
     } else {
@@ -96,8 +106,8 @@ class HiveService {
     return box.get(HiveConstants.HIVE_KEY_VERSION_LIST);
   }
 
-  List<Champion> getChamps() {
-    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+  Future<List<Champion>> getChampions(String version, Locale lang) async {
+    final box = await getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     return box.values.toList().cast<Champion>();
   }
 

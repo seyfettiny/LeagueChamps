@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app/utils/toast_service.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
-  ConnectivityResult _connectivityResult = ConnectivityResult.bluetooth;
+  ConnectivityResult _connectivityResult = ConnectivityResult.wifi;
   ConnectivityResult get connectivity => _connectivityResult;
   String _connectionResponse = 'You are not connected';
   String get connectionResponse => _connectionResponse;
@@ -38,5 +38,8 @@ class ConnectivityNotifier extends ChangeNotifier {
       // _showToast(_connectionResponse, Colors.red);
     }
     notifyListeners();
+  }
+  bool hasConnection() {
+    return _connectivityResult != ConnectivityResult.none;
   }
 }

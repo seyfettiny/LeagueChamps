@@ -64,8 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<Champion> champions = snapshot.data;
-                  //TODO: move this to the VM
-                  hiveProvider.saveChamps(snapshot.data).then((value) => null);
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {

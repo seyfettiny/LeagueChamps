@@ -33,14 +33,6 @@ class ChampDetailScreen extends StatelessWidget {
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
-
-          //TODO: move this to the VM
-
-          // hiveProvider
-          //     .clearBox(
-          //         HiveConstants.HIVE_BOX_CHAMPDETAILED)
-          //     .then((value) => null);
-          hiveProvider.saveDetailedChamp(champ).then((value) => null);
           var champDefaultSkin =
               '${champ.skins!.where((element) => element.num == 0).first.num}';
           return Scaffold(
@@ -58,7 +50,8 @@ class ChampDetailScreen extends StatelessWidget {
                     AppConstants.championLoadingImageUrl +
                         champ.id! +
                         '_$champDefaultSkin.jpg',
-                    cacheKey: '${champ.id!}+_$champDefaultSkin.jpg'+versionNotifier.currentVersion,
+                    cacheKey: '${champ.id!}+_$champDefaultSkin.jpg' +
+                        versionNotifier.currentVersion,
                   ),
                 ),
               ),
@@ -177,12 +170,15 @@ class ChampDetailScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
+                                            //TODO: Add shimmer placeholder
                                             image: CachedNetworkImageProvider(
                                               AppConstants
                                                       .championLoadingImageUrl +
                                                   champ.id! +
                                                   '_${champSkin.num}.jpg',
-                                              cacheKey: champSkin.id!+versionNotifier.currentVersion,
+                                              cacheKey: champSkin.id! +
+                                                  versionNotifier
+                                                      .currentVersion,
                                             ),
                                           ),
                                         ),

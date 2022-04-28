@@ -1,30 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/notifiers/connectivity_notifier.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/repository/champion_repository.dart';
 import '../data_sources/data_dragon.dart';
+import '../data_sources/hive_service.dart';
+
 class ChampionRepository implements IChampionRepository {
   final DataDragonAPI _dataDragonAPI;
-
-  ChampionRepository(this._dataDragonAPI);
+  final HiveService _hiveService;
+  final ConnectivityNotifier _connectivityNotifier;
+  ChampionRepository(
+      this._dataDragonAPI, this._hiveService, this._connectivityNotifier);
   @override
-  Future<List<Champion>> getChampions(String version,
-      Locale lang) async {
-    try {
-      return await _dataDragonAPI.getChampions(version, lang);
-    } catch (e) {
-      throw Exception('Failed to load champions');
+  Future<List<Champion>> getChampions(String version, Locale lang) async {
+    if (_connectivityNotifier.hasConnection()) {
+      try {
+        final champions = await _dataDragonAPI.getChampions(version, lang);
+        await _hiveService.saveChampions(
+          version: version,
+          lang: lang,
+          champions: champions,
+        );
+        return champions;
+      } catch (e) {
+        print(e);
+        throw Exception('Failed to load champions');
+      }
+    } else {
+      try {
+        final champions = await _hiveService.getChampions(version, lang);
+        return champions;
+      } catch (e) {
+        throw Exception('Failed to load champions');
+      }
     }
   }
 
   @override
-  Future<dynamic> getDetailedChampion(String championId, String version,
-      Locale lang) async {
-    try {
-      return await _dataDragonAPI.getDetailedChampion(
-          championId, version, lang);
-    } catch (e) {
-      throw Exception('Failed to load champion $championId');
-    }
+  Future<dynamic> getDetailedChampion(
+      String championId, String version, Locale lang) async {
+    if (_connectivityNotifier.hasConnection()) {
+      final champDetailed =
+          await _dataDragonAPI.getDetailedChampion(championId, version, lang);
+      await _hiveService.saveDetailedChamp(
+        version: version,
+        lang: lang,
+        champDetailed: champDetailed,
+      );
+      return champDetailed;
+    } else {}
   }
 }
