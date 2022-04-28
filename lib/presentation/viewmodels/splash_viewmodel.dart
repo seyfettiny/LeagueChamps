@@ -1,3 +1,4 @@
+import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/cupertino.dart';
 import '../../domain/use_cases/get_version_list_usecase.dart';
 import '../../domain/use_cases/get_version_usecase.dart';
@@ -12,6 +13,7 @@ class SplashViewModel extends ChangeNotifier {
   }
 
   Future<String> getVersion() async {
+    print('${1}');
     return await _getVersionUserCase.execute();
   }
 }
