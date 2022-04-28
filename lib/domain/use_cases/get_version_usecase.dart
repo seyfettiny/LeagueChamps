@@ -1,10 +1,10 @@
-abstract class IGetVersionUserCase {
+abstract class IGetVersionUseCase {
   Future<String> execute();
 }
 
-class GetVersionUserCase extends IGetVersionUserCase {
+class GetVersionUseCase extends IGetVersionUseCase {
   final _versionRepository;
-  GetVersionUserCase(this._versionRepository);
+  GetVersionUseCase(this._versionRepository);
 
   @override
   Future<String> execute() async {

@@ -1,5 +1,5 @@
 abstract class IGetVersionListUseCase {
-  Future<List<String>> execute();
+  Future<List<dynamic>> execute();
 }
 
 class GetVersionListUseCase extends IGetVersionListUseCase {
@@ -7,7 +7,7 @@ class GetVersionListUseCase extends IGetVersionListUseCase {
   GetVersionListUseCase(this._versionRepository);
 
   @override
-  Future<List<String>> execute() async {
+  Future<List<dynamic>> execute() async {
     return await _versionRepository.getVersionList();
   }
 }
