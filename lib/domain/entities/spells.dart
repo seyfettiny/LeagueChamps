@@ -5,7 +5,7 @@ import 'level_tip.dart';
 
 part 'spells.g.dart';
 
-@HiveType(typeId: 8)
+@HiveType(typeId: 7)
 class Spells extends HiveObject {
   @HiveField(0)
   String? id;

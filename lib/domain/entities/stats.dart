@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'stats.g.dart';
 
-@HiveType(typeId: 9)
+@HiveType(typeId: 8)
 class Stats extends HiveObject {
   @HiveField(0)
   num? hp;

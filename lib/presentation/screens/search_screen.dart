@@ -25,16 +25,20 @@ class SearchFinder extends StatelessWidget {
           hiveProvider.getBox(HiveConstants.HIVE_BOX_CHAMPIONS).listenable(),
       builder: (context, Box championBox, _) {
         List results;
-        if (query.isEmpty && filterList.filters.isEmpty) {
+        if (query.isEmpty && filterList.filters.length == 0) {
           results = championBox.values.toList();
         } else {
-          results = championBox.values.where((champion) {
-            return champion.name!.toLowerCase().contains(query.toLowerCase());
-          }).where((champion) {
-            //TODO: refactor this
-            return champion.tags!.contains('${filterList.filters[0]}');
-          }).toList();
+          results = championBox.values
+              .where((champion) {
+                return champion.name!
+                    .toLowerCase()
+                    .contains(query.toLowerCase());
+              })
+              .where((champion) => champion.tags!
+                  .every((element) => filterList.filters.contains(element)))
+              .toList();
         }
+
         print('query: $query');
         print('filters: ${filterList.filters}');
         print('results: ${results.length}');
@@ -44,18 +48,21 @@ class SearchFinder extends StatelessWidget {
                 itemCount: results.length,
                 itemBuilder: (context, index) {
                   Champion champion = results[index];
+                  print('image: ${champion.image.toString()}');
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: CachedNetworkImage(
-                          //TODO: refactor this
-                          imageUrl: AppConstants.championAPIBaseUrl +
-                              '12.7.1' +
-                              AppConstants.championSquareImageRoute +
-                              champion.image!.full!,
-                          cacheKey: champion.image!.full!+versionNotifier.currentVersion,
+                          imageUrl: champion.image! != null
+                              ? AppConstants.championAPIBaseUrl +
+                                  versionNotifier.currentVersion +
+                                  AppConstants.championSquareImageRoute +
+                                  champion.image!.full!
+                              : '',
+                          cacheKey: champion.image!.full! +
+                              versionNotifier.currentVersion,
                           errorWidget: (context, url, error) => const SizedBox(
                             width: 56,
                             height: 56,
@@ -76,10 +83,7 @@ class SearchFinder extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           RoutePaths.champDetail,
-                          arguments: {
-                            'champId': champion.id,
-                            'version': '12.7.1'
-                          },
+                          arguments: {'champId': champion.id},
                         );
                       },
                     ),

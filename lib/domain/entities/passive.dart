@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'passive.g.dart';
 
-@HiveType(typeId: 6)
+@HiveType(typeId: 5)
 class Passive extends HiveObject {
   @HiveField(0)
   String? name;

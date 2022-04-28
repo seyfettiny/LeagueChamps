@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 part 'skins.g.dart';
 
-@HiveType(typeId: 7)
+@HiveType(typeId: 6)
 class Skins extends HiveObject {
   @HiveField(0)
   String? id;

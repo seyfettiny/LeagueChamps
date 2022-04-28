@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'info.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 3)
 class Info extends HiveObject{
   @HiveField(0)
   int? attack;
