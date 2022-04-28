@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
 import '../../data/data_sources/hive_service.dart';
+import '../../data/models/champion_model.dart';
 import '../../domain/entities/champion.dart';
 import '../notifiers/search_notifier.dart';
 import '../notifiers/version_notifier.dart';
@@ -18,51 +19,50 @@ class SearchFinder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var hiveProvider = Provider.of<HiveService>(context);
-    var filterList = Provider.of<SearchNotifier>(context);
+    var filterProvider = Provider.of<SearchNotifier>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
     return ValueListenableBuilder(
       valueListenable:
           hiveProvider.getBox(HiveConstants.HIVE_BOX_CHAMPIONS).listenable(),
       builder: (context, Box championBox, _) {
         List results;
-        if (query.isEmpty && filterList.filters.length == 0) {
+        if (query.isEmpty && filterProvider.filters.length == 0) {
           results = championBox.values.toList();
         } else {
-          results = championBox.values
-              .where((champion) {
-                return champion.name!
-                    .toLowerCase()
-                    .contains(query.toLowerCase());
-              })
-              .where((champion) => champion.tags!
-                  .every((element) => filterList.filters.contains(element)))
-              .toList();
-        }
+          results = championBox.values.where((champion) {
+            return champion.name!.toLowerCase().contains(query.toLowerCase()) ||
+                champion.tags!
+                    .join(' ')
+                    .contains(filterProvider.filters.join(' '));
+          }).toList();
 
-        print('query: $query');
-        print('filters: ${filterList.filters}');
-        print('results: ${results.length}');
+          //TODO: refactor this
+          results.retainWhere((champion) => champion.tags!
+              .join(' ')
+              .contains(filterProvider.filters.join(' ')));
+        }
         return results.isEmpty
             ? const Center(child: Text('No results found'))
             : ListView.builder(
                 itemCount: results.length,
                 itemBuilder: (context, index) {
                   Champion champion = results[index];
-                  print('image: ${champion.image.toString()}');
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: CachedNetworkImage(
-                          imageUrl: champion.image! != null
+                          imageUrl: champion.image!.full != null
                               ? AppConstants.championAPIBaseUrl +
                                   versionNotifier.currentVersion +
                                   AppConstants.championSquareImageRoute +
                                   champion.image!.full!
                               : '',
-                          cacheKey: champion.image!.full! +
-                              versionNotifier.currentVersion,
+                          cacheKey: champion.image!.full != null
+                              ? champion.image!.full! +
+                                  versionNotifier.currentVersion
+                              : '',
                           errorWidget: (context, url, error) => const SizedBox(
                             width: 56,
                             height: 56,
