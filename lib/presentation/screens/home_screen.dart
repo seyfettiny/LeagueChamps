@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/viewmodels/home_viewmodel.dart';
 import '../notifiers/version_notifier.dart';
 import '../../domain/entities/champion.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +9,6 @@ import 'package:provider/provider.dart';
 import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../app/utils/my_search_delegate.dart';
-import '../../data/data_sources/hive_service.dart';
-import '../../data/repositories/champion_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -23,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    var hiveProvider = Provider.of<HiveService>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
     return Scaffold(
       appBar: AppBar(
@@ -55,14 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: Consumer<ChampionRepository>(
-          builder: (context, championRepository, child) {
+        child: Consumer<HomeViewModel>(
+          builder: (context, homeViewModel, child) {
             return FutureBuilder(
-              future: championRepository.getChampions(
+              future: homeViewModel.getChampions(
                   versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<Champion> champions = snapshot.data;
+                  //TODO: add AnimatedList to make more noticeble that champ insert or delete when version changes
                   return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
@@ -73,23 +72,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               arguments: {'champId': champions[index].id});
                         },
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 16),
+                          margin: const EdgeInsets.only(bottom: 16),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox.square(
                                 dimension: 120,
                                 child: CachedNetworkImage(
-                          imageUrl: champions[index].image!.full != null
-                              ? AppConstants.championAPIBaseUrl +
-                                  versionNotifier.currentVersion +
-                                  AppConstants.championImageRoute +
-                                  champions[index].image!.full!
-                              : '',
-                          cacheKey: champions[index].image!.full != null
-                              ? champions[index].image!.full! +
-                                  versionNotifier.currentVersion
-                              : '',
+                                  imageUrl: champions[index].image!.full != null
+                                      ? AppConstants.championAPIBaseUrl +
+                                          versionNotifier.currentVersion +
+                                          AppConstants.championImageRoute +
+                                          champions[index].image!.full!
+                                      : '',
+                                  cacheKey: champions[index].image!.full != null
+                                      ? champions[index].image!.full! +
+                                          versionNotifier.currentVersion
+                                      : '',
                                 ),
                               ),
                               Expanded(

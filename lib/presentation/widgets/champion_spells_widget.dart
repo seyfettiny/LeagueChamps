@@ -43,20 +43,22 @@ class ChampionSpellsWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: AppConstants.championAPIBaseUrl +
-                            versionNotifier.currentVersion +
-                            AppConstants.championPassiveImageRoute +
-                            champ.passive!.image!.full!,
-                        cacheKey: champ.passive!.image!.full! +
-                            versionNotifier.currentVersion,
-                      ),
-                      Text(champ.passive!.description!.toString()),
-                    ],
+                  content: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: AppConstants.championAPIBaseUrl +
+                              versionNotifier.currentVersion +
+                              AppConstants.championPassiveImageRoute +
+                              champ.passive!.image!.full!,
+                          cacheKey: champ.passive!.image!.full! +
+                              versionNotifier.currentVersion,
+                        ),
+                        Text(champ.passive!.description!.toString()),
+                      ],
+                    ),
                   ),
                   actions: <Widget>[
                     TextButton(
@@ -133,21 +135,23 @@ class ChampionSpellsWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  content: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: AppConstants.championAPIBaseUrl +
-                            versionNotifier.currentVersion +
-                            AppConstants.championPassiveImageRoute +
-                            champSpell.image!.full!,
-                        cacheKey: champSpell.image!.full! +
-                            versionNotifier.currentVersion,
-                      ),
-                      Text(champSpell.description!.toString()),
-                      Text(champSpell.tooltip!.toString()),
-                    ],
+                  content: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: AppConstants.championAPIBaseUrl +
+                              versionNotifier.currentVersion +
+                              AppConstants.championPassiveImageRoute +
+                              champSpell.image!.full!,
+                          cacheKey: champSpell.image!.full! +
+                              versionNotifier.currentVersion,
+                        ),
+                        Text(champSpell.description!.toString()),
+                        Text(champSpell.tooltip!.toString()),
+                      ],
+                    ),
                   ),
                   actions: <Widget>[
                     TextButton(
