@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import '../../app/utils/toast_service.dart';
@@ -10,6 +12,7 @@ class ConnectivityNotifier extends ChangeNotifier {
 
   ConnectivityNotifier() {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      print(result.name);
       resultHandler(result);
     });
   }
@@ -19,6 +22,7 @@ class ConnectivityNotifier extends ChangeNotifier {
   }
 
   void resultHandler(ConnectivityResult result) {
+    //TODO: refactor this
     _connectivityResult = result;
     switch (result) {
       case ConnectivityResult.none:
@@ -26,12 +30,33 @@ class ConnectivityNotifier extends ChangeNotifier {
         ToastService.showErrorToast(_connectionResponse);
         break;
       case ConnectivityResult.mobile:
-        _connectionResponse = 'Connected';
-        ToastService.showSuccessToast(_connectionResponse);
+        final _result = InternetAddress.lookup('google.com');
+        _result.then((result) {
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            _connectionResponse = 'Connected';
+            print('Lookup result: ${result[0]}');
+            ToastService.showSuccessToast(_connectionResponse);
+          } else {
+            _connectionResponse = 'You have no internet connection';
+            print('Lookup result: $result');
+            ToastService.showErrorToast(_connectionResponse);
+          }
+        });
         break;
       case ConnectivityResult.wifi:
-        _connectionResponse = 'Connected';
-        ToastService.showSuccessToast(_connectionResponse);
+        final _result = InternetAddress.lookup('google.com');
+        _result.then((result) {
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            _connectionResponse = 'Connected';
+            print('Lookup result: ${result[0]}');
+            ToastService.showSuccessToast(_connectionResponse);
+          } else {
+            _connectionResponse = 'You have no internet connection';
+            print('Lookup result: $result');
+
+            ToastService.showErrorToast(_connectionResponse);
+          }
+        });
         break;
       default:
         _connectionResponse = 'You are not connected';
@@ -39,6 +64,7 @@ class ConnectivityNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   bool hasConnection() {
     return _connectivityResult != ConnectivityResult.none;
   }

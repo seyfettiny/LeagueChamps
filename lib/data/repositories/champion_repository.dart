@@ -49,6 +49,10 @@ class ChampionRepository implements IChampionRepository {
         champDetailed: champDetailed,
       );
       return champDetailed;
-    } else {}
+    } else {
+      final champDetailed =
+          await _hiveService.getDetailedChamp(championId,version, lang);
+      return champDetailed;
+    }
   }
 }

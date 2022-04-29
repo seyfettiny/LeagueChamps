@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,13 @@ class SearchFinder extends StatelessWidget {
     var filterProvider = Provider.of<SearchNotifier>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
     return ValueListenableBuilder(
-      valueListenable:
-          hiveProvider.getBox(HiveConstants.HIVE_BOX_CHAMPIONS).listenable(),
+      valueListenable: hiveProvider
+          .getBox(
+            HiveConstants.HIVE_BOX_CHAMPIONS +
+                versionNotifier.currentVersion +
+                context.locale.toString(),
+          )
+          .listenable(),
       builder: (context, Box championBox, _) {
         List results;
         if (query.isEmpty && filterProvider.filters.length == 0) {

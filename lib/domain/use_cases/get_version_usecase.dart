@@ -1,9 +1,11 @@
+import '../../data/repositories/version_repository.dart';
+
 abstract class IGetVersionUseCase {
   Future<String> execute();
 }
 
 class GetVersionUseCase extends IGetVersionUseCase {
-  final _versionRepository;
+  final  VersionRepository _versionRepository;
   GetVersionUseCase(this._versionRepository);
 
   @override
