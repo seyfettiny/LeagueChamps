@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import '../entities/champion.dart';
+import 'package:leaguechamps/data/repositories/champion_repository.dart';
+import '../entities/champion_detailed.dart';
 
 abstract class IGetChampionUseCase {
-  Future<Champion> execute(String champId, String version, Locale lang);
+  Future<ChampDetailed> execute(String champId, String version, Locale lang);
 }
 
 class GetChampionUseCase extends IGetChampionUseCase {
-  final _championRepository;
+  final ChampionRepository _championRepository;
   GetChampionUseCase(this._championRepository);
 
   @override
-  Future<Champion> execute(String champId, String version, Locale lang) async {
-    return await _championRepository.getChampion(champId, version, lang);
+  Future<ChampDetailed> execute(String champId, String version, Locale lang) async {
+    return await _championRepository.getDetailedChampion(champId, version, lang);
   }
 }

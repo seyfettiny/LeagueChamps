@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/domain/entities/champion_detailed.dart';
 import '../../presentation/notifiers/connectivity_notifier.dart';
 
 import '../../domain/entities/champion.dart';
@@ -38,7 +39,7 @@ class ChampionRepository implements IChampionRepository {
   }
 
   @override
-  Future<dynamic> getDetailedChampion(
+  Future<ChampDetailed> getDetailedChampion(
       String championId, String version, Locale lang) async {
     if (_connectivityNotifier.hasConnection()) {
       final champDetailed =
