@@ -2,12 +2,12 @@ targets:
   $default:
     builders:
       hive|hive:
-        enabled: true
+        enabled: false
         generate_for:
           - '**/models/**.dart'
         options:
           include_if_null: false
       mockito|mockito:
-        enabled: false
+        enabled: true
         options:
           include_if_null: false
