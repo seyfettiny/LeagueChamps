@@ -24,7 +24,7 @@ class Spells extends HiveObject {
   @HiveField(7)
   final String? cooldownBurn;
   @HiveField(8)
-  final List<int>? cost;
+  final List<dynamic>? cost;
   @HiveField(9)
   final String? costBurn;
   // @HiveField(10)
@@ -34,13 +34,13 @@ class Spells extends HiveObject {
   @HiveField(12)
   final List<dynamic>? effectBurn;
   @HiveField(13)
-  final List? vars;
+  final List<dynamic>? vars;
   @HiveField(14)
   final String? costType;
   @HiveField(15)
   final String? maxammo;
   @HiveField(16)
-  final List<int>? range;
+  final List<dynamic>? range;
   @HiveField(17)
   final String? rangeBurn;
   @HiveField(18)

@@ -28,11 +28,11 @@ class ChampDetailed extends HiveObject {
   @HiveField(7)
   final String? blurb;
   @HiveField(8)
-  final List<dynamic>? allytips;
+  final List<String>? allytips;
   @HiveField(9)
-  final List<dynamic>? enemytips;
+  final List<String>? enemytips;
   @HiveField(10)
-  final List<dynamic>? tags;
+  final List<String>? tags;
   @HiveField(11)
   final String? partype;
   @HiveField(12)
@@ -44,7 +44,7 @@ class ChampDetailed extends HiveObject {
   @HiveField(15)
   final Passive? passive;
   @HiveField(16)
-  final List? recommended;
+  final List<dynamic>? recommended;
 
   ChampDetailed({
     required this.id,

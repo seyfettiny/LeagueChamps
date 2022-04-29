@@ -9,6 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../repository/champion_repository_test.mocks.dart';
+
 @GenerateMocks([GetChampionListUseCase])
 void main() {
   late MockChampionRepository mockChampionRepository;
@@ -44,6 +45,16 @@ void main() {
       hp: 585,
       hpperlevel: 90,
       mp: 300,
+      hpregen: 12,
+      hpregenperlevel: 0.8,
+      mpregen: 6,
+      mpregenperlevel: 0.8,
+      crit: 0,
+      critperlevel: 0,
+      attackdamage: 60,
+      attackdamageperlevel: 3,
+      attackspeed: -0.04,
+      attackspeedperlevel: 3,
       mpperlevel: 40,
       movespeed: 345,
       armor: 36,
@@ -58,7 +69,8 @@ void main() {
     (index) => _champion,
   );
   test('should return a list of champions', () async {
-    when(mockChampionRepository.getChampions(version, lang)).thenAnswer((_) async => _result);
+    when(mockChampionRepository.getChampions(version, lang))
+        .thenAnswer((_) async => _result);
     final champions = await getChampionListUseCase.execute(version, lang);
     expect(champions.length, greaterThan(0));
   });

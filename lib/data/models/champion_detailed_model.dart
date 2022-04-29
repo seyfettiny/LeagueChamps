@@ -59,7 +59,7 @@ class ChampDetailedModel extends ChampDetailed {
         tags: List<String>.from(json["tags"].map((x) => x)),
         partype: json["partype"],
         info: InfoModel.fromJson(json["info"]),
-        stats: Map.from(json["stats"]).map((k, v) => MapEntry<String, double>(k, v.toDouble())),
+        stats: StatsModel.fromJson(json['stats']),
         spells: List<SpellsModel>.from(json["spells"].map((x) => SpellsModel.fromJson(x))),
         passive: PassiveModel.fromJson(json["passive"]),
         recommended: List<dynamic>.from(json["recommended"].map((x) => x)),
