@@ -8,38 +8,39 @@ part 'champion.g.dart';
 @HiveType(typeId: 1)
 class Champion extends HiveObject {
   @HiveField(0)
-  String? version;
+  final String? version;
   @HiveField(1)
-  String? id;
+  final String? id;
   @HiveField(2)
-  String? key;
+  final String? key;
   @HiveField(3)
-  String? name;
+  final String? name;
   @HiveField(4)
-  String? title;
+  final String? title;
   @HiveField(5)
-  String? blurb;
+  final String? blurb;
   @HiveField(6)
-  Info? info;
+  final Info? info;
   @HiveField(7)
-  Image? image;
+  final Image? image;
   @HiveField(8)
-  List<String>? tags;
+  final List<String>? tags;
   @HiveField(9)
-  String? partype;
+  final String? partype;
   @HiveField(10)
-  Stats? stats;
+  final Stats? stats;
 
-  Champion(
-      {this.version,
-      this.id,
-      this.key,
-      this.name,
-      this.title,
-      this.blurb,
-      this.info,
-      this.image,
-      this.tags,
-      this.partype,
-      this.stats});
+  Champion({
+    required this.version,
+    required this.id,
+    required this.key,
+    required this.name,
+    required this.title,
+    required this.blurb,
+    required this.info,
+    required this.image,
+    required this.tags,
+    required this.partype,
+    required this.stats,
+  });
 }

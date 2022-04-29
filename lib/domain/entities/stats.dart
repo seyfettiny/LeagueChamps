@@ -5,65 +5,66 @@ part 'stats.g.dart';
 @HiveType(typeId: 8)
 class Stats extends HiveObject {
   @HiveField(0)
-  num? hp;
+  final num? hp;
   @HiveField(1)
-  num? hpperlevel;
+  final num? hpperlevel;
   @HiveField(2)
-  num? mp;
+  final num? mp;
   @HiveField(3)
-  num? mpperlevel;
+  final num? mpperlevel;
   @HiveField(4)
-  num? movespeed;
+  final num? movespeed;
   @HiveField(5)
-  num? armor;
+  final num? armor;
   @HiveField(6)
-  num? armorperlevel;
+  final num? armorperlevel;
   @HiveField(7)
-  num? spellblock;
+  final num? spellblock;
   @HiveField(8)
-  num? spellblockperlevel;
+  final num? spellblockperlevel;
   @HiveField(9)
-  num? attackrange;
+  final num? attackrange;
   @HiveField(10)
-  num? hpregen;
+  final num? hpregen;
   @HiveField(11)
-  num? hpregenperlevel;
+  final num? hpregenperlevel;
   @HiveField(12)
-  num? mpregen;
+  final num? mpregen;
   @HiveField(13)
-  num? mpregenperlevel;
+  final num? mpregenperlevel;
   @HiveField(14)
-  num? crit;
+  final num? crit;
   @HiveField(15)
-  num? critperlevel;
+  final num? critperlevel;
   @HiveField(16)
-  num? attackdamage;
+  final num? attackdamage;
   @HiveField(17)
-  num? attackdamageperlevel;
+  final num? attackdamageperlevel;
   @HiveField(18)
-  num? attackspeedperlevel;
+  final num? attackspeedperlevel;
   @HiveField(19)
-  num? attackspeed;
+  final num? attackspeed;
 
-  Stats(
-      {this.hp,
-      this.hpperlevel,
-      this.mp,
-      this.mpperlevel,
-      this.movespeed,
-      this.armor,
-      this.armorperlevel,
-      this.spellblock,
-      this.spellblockperlevel,
-      this.attackrange,
-      this.hpregen,
-      this.hpregenperlevel,
-      this.mpregen,
-      this.mpregenperlevel,
-      this.crit,
-      this.critperlevel,
-      this.attackdamage,
-      this.attackdamageperlevel,
-      this.attackspeedperlevel,
-      this.attackspeed});
+  Stats({
+    required this.hp,
+    required this.hpperlevel,
+    required this.mp,
+    required this.mpperlevel,
+    required this.movespeed,
+    required this.armor,
+    required this.armorperlevel,
+    required this.spellblock,
+    required this.spellblockperlevel,
+    required this.attackrange,
+    required this.hpregen,
+    required this.hpregenperlevel,
+    required this.mpregen,
+    required this.mpregenperlevel,
+    required this.crit,
+    required this.critperlevel,
+    required this.attackdamage,
+    required this.attackdamageperlevel,
+    required this.attackspeedperlevel,
+    required this.attackspeed,
+  });
 }

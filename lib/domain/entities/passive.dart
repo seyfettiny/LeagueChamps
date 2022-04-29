@@ -6,11 +6,15 @@ part 'passive.g.dart';
 @HiveType(typeId: 5)
 class Passive extends HiveObject {
   @HiveField(0)
-  String? name;
+  final String? name;
   @HiveField(1)
-  String? description;
+  final String? description;
   @HiveField(2)
-  Image? image;
+  final Image? image;
 
-  Passive({name, description, image});
+  Passive({
+    required this.name,
+    required this.description,
+    required this.image,
+  });
 }

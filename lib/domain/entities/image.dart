@@ -5,19 +5,27 @@ part 'image.g.dart';
 @HiveType(typeId: 2)
 class Image extends HiveObject {
   @HiveField(0)
-  String? full;
+  final String? full;
   @HiveField(1)
-  String? sprite;
+  final String? sprite;
   @HiveField(2)
-  String? group;
+  final String? group;
   @HiveField(3)
-  int? x;
+  final int? x;
   @HiveField(4)
-  int? y;
+  final int? y;
   @HiveField(5)
-  int? w;
+  final int? w;
   @HiveField(6)
-  int? h;
+  final int? h;
 
-  Image({full, sprite, group, x, y, w, h});
+  Image({
+    required this.full,
+    required this.sprite,
+    required this.group,
+    required this.x,
+    required this.y,
+    required this.w,
+    required this.h,
+  });
 }

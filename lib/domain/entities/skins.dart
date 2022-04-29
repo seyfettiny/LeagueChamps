@@ -7,13 +7,18 @@ part 'skins.g.dart';
 @HiveType(typeId: 6)
 class Skins extends HiveObject {
   @HiveField(0)
-  String? id;
+  final String? id;
   @HiveField(1)
-  int? num;
+  final int? num;
   @HiveField(2)
-  String? name;
+  final String? name;
   @HiveField(3)
-  bool? chromas;
+  final bool? chromas;
 
-  Skins({id, num, name, chromas});
+  Skins({
+    required this.id,
+    required this.num,
+    required this.name,
+    required this.chromas,
+  });
 }

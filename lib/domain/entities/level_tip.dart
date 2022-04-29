@@ -5,9 +5,12 @@ part 'level_tip.g.dart';
 @HiveType(typeId: 4)
 class Leveltip extends HiveObject {
   @HiveField(0)
-  List<String>? label;
+  final List<String>? label;
   @HiveField(1)
-  List<String>? effect;
+  final List<String>? effect;
 
-  Leveltip({label, effect});
+  Leveltip({
+    required this.label,
+    required this.effect,
+  });
 }

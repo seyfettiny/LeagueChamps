@@ -8,64 +8,64 @@ part 'spells.g.dart';
 @HiveType(typeId: 7)
 class Spells extends HiveObject {
   @HiveField(0)
-  String? id;
+  final String? id;
   @HiveField(1)
-  String? name;
+  final String? name;
   @HiveField(2)
-  String? description;
+  final String? description;
   @HiveField(3)
-  String? tooltip;
+  final String? tooltip;
   @HiveField(4)
-  Leveltip? leveltip;
+  final Leveltip? leveltip;
   @HiveField(5)
-  int? maxrank;
+  final int? maxrank;
   @HiveField(6)
-  List<dynamic>? cooldown;
+  final List<dynamic>? cooldown;
   @HiveField(7)
-  String? cooldownBurn;
+  final String? cooldownBurn;
   @HiveField(8)
-  List<int>? cost;
+  final List<int>? cost;
   @HiveField(9)
-  String? costBurn;
+  final String? costBurn;
   // @HiveField(10)
   // Datavalues? datavalues;
   @HiveField(11)
-  List<dynamic>? effect;
+  final List<dynamic>? effect;
   @HiveField(12)
-  List<dynamic>? effectBurn;
+  final List<dynamic>? effectBurn;
   @HiveField(13)
-  List? vars;
+  final List? vars;
   @HiveField(14)
-  String? costType;
+  final String? costType;
   @HiveField(15)
-  String? maxammo;
+  final String? maxammo;
   @HiveField(16)
-  List<int>? range;
+  final List<int>? range;
   @HiveField(17)
-  String? rangeBurn;
+  final String? rangeBurn;
   @HiveField(18)
-  Image? image;
+  final Image? image;
   @HiveField(19)
-  String? resource;
-  Spells(
-      {id,
-      name,
-      description,
-      tooltip,
-      leveltip,
-      maxrank,
-      cooldown,
-      cooldownBurn,
-      cost,
-      costBurn,
-      //datavalues,
-      effect,
-      effectBurn,
-      vars,
-      costType,
-      maxammo,
-      range,
-      rangeBurn,
-      image,
-      resource});
+  final String? resource;
+  Spells({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.tooltip,
+    required this.leveltip,
+    required this.maxrank,
+    required this.cooldown,
+    required this.cooldownBurn,
+    required this.cost,
+    required this.costBurn,
+    required this.effect,
+    required this.effectBurn,
+    required this.vars,
+    required this.image,
+    required this.costType,
+    required this.maxammo,
+    required this.range,
+    required this.rangeBurn,
+    required this.resource,
+  });
 }

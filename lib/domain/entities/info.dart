@@ -5,13 +5,18 @@ part 'info.g.dart';
 @HiveType(typeId: 3)
 class Info extends HiveObject {
   @HiveField(0)
-  int? attack;
+  final int? attack;
   @HiveField(1)
-  int? defense;
+  final int? defense;
   @HiveField(2)
-  int? magic;
+  final int? magic;
   @HiveField(3)
-  int? difficulty;
+  final int? difficulty;
 
-  Info({attack, defense, magic, difficulty});
+  Info({
+    required this.attack,
+    required this.defense,
+    required this.magic,
+    required this.difficulty,
+  });
 }

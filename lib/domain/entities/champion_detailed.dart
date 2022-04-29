@@ -12,56 +12,57 @@ part 'champion_detailed.g.dart';
 @HiveType(typeId: 0)
 class ChampDetailed extends HiveObject {
   @HiveField(0)
-  String? id;
+  final String? id;
   @HiveField(1)
-  String? key;
+  final String? key;
   @HiveField(2)
-  String? name;
+  final String? name;
   @HiveField(3)
-  String? title;
+  final String? title;
   @HiveField(4)
-  Image? image;
+  final Image? image;
   @HiveField(5)
-  List<Skins>? skins;
+  final List<Skins>? skins;
   @HiveField(6)
-  String? lore;
+  final String? lore;
   @HiveField(7)
-  String? blurb;
+  final String? blurb;
   @HiveField(8)
-  List<dynamic>? allytips;
+  final List<dynamic>? allytips;
   @HiveField(9)
-  List<dynamic>? enemytips;
+  final List<dynamic>? enemytips;
   @HiveField(10)
-  List<dynamic>? tags;
+  final List<dynamic>? tags;
   @HiveField(11)
-  String? partype;
+  final String? partype;
   @HiveField(12)
-  Info? info;
+  final Info? info;
   @HiveField(13)
-  Stats? stats;
+  final Stats? stats;
   @HiveField(14)
-  List<Spells>? spells;
+  final List<Spells>? spells;
   @HiveField(15)
-  Passive? passive;
+  final Passive? passive;
   @HiveField(16)
-  List? recommended;
+  final List? recommended;
 
-  ChampDetailed(
-      {this.id,
-      this.key,
-      this.name,
-      this.title,
-      this.image,
-      this.skins,
-      this.lore,
-      this.blurb,
-      this.allytips,
-      this.enemytips,
-      this.tags,
-      this.partype,
-      this.info,
-      this.stats,
-      this.spells,
-      this.passive,
-      this.recommended});
+  ChampDetailed({
+    required this.id,
+    required this.key,
+    required this.name,
+    required this.title,
+    required this.image,
+    required this.skins,
+    required this.lore,
+    required this.blurb,
+    required this.allytips,
+    required this.enemytips,
+    required this.tags,
+    required this.partype,
+    required this.info,
+    required this.stats,
+    required this.spells,
+    required this.passive,
+    required this.recommended,
+  });
 }
