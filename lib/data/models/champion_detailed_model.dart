@@ -45,36 +45,25 @@ class ChampDetailedModel extends ChampDetailed {
           recommended: recommended,
         );
 
-  ChampDetailedModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    key = json['key'];
-    name = json['name'];
-    title = json['title'];
-    image = json['image'] != null ? ImageModel.fromJson(json['image']) : null;
-    if (json['skins'] != null) {
-      skins = <SkinsModel>[];
-      json['skins'].forEach((v) {
-        skins!.add(SkinsModel.fromJson(v));
-      });
-    }
-    lore = json['lore'];
-    blurb = json['blurb'];
-    allytips = json['allytips'].cast<String>();
-    enemytips = json['enemytips'].cast<String>();
-    tags = json['tags'].cast<String>();
-    partype = json['partype'];
-    info = json['info'] != null ? InfoModel.fromJson(json['info']) : null;
-    stats = json['stats'] != null ? StatsModel.fromJson(json['stats']) : null;
-    if (json['spells'] != null) {
-      spells = <SpellsModel>[];
-      json['spells'].forEach((v) {
-        spells!.add(SpellsModel.fromJson(v));
-      });
-    }
-    passive =
-        json['passive'] != null ? PassiveModel.fromJson(json['passive']) : null;
-    recommended = json['recommended'];
-  }
+    factory ChampDetailedModel.fromJson(Map<String, dynamic> json) => ChampDetailedModel(
+        id: json["id"],
+        key: json["key"],
+        name: json["name"],
+        title: json["title"],
+        image: ImageModel.fromJson(json["image"]),
+        skins: List<SkinsModel>.from(json["skins"].map((x) => SkinsModel.fromJson(x))),
+        lore: json["lore"],
+        blurb: json["blurb"],
+        allytips: List<String>.from(json["allytips"].map((x) => x)),
+        enemytips: List<String>.from(json["enemytips"].map((x) => x)),
+        tags: List<String>.from(json["tags"].map((x) => x)),
+        partype: json["partype"],
+        info: InfoModel.fromJson(json["info"]),
+        stats: Map.from(json["stats"]).map((k, v) => MapEntry<String, double>(k, v.toDouble())),
+        spells: List<SpellsModel>.from(json["spells"].map((x) => SpellsModel.fromJson(x))),
+        passive: PassiveModel.fromJson(json["passive"]),
+        recommended: List<dynamic>.from(json["recommended"].map((x) => x)),
+    );
 
   @override
   String toString() {

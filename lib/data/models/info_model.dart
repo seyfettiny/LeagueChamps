@@ -8,12 +8,12 @@ class InfoModel extends Info {
             magic: magic,
             difficulty: difficulty);
 
-  InfoModel.fromJson(Map<String, dynamic> json) {
-    attack = json['attack'];
-    defense = json['defense'];
-    magic = json['magic'];
-    difficulty = json['difficulty'];
-  }
+    factory InfoModel.fromJson(Map<String, dynamic> json) => InfoModel(
+        attack: json["attack"],
+        defense: json["defense"],
+        magic: json["magic"],
+        difficulty: json["difficulty"],
+    );
   @override
   String toString() {
     return 'Info(attack: $attack, defense: $defense, magic: $magic, difficulty: $difficulty)';

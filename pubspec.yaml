@@ -41,6 +41,8 @@ dependencies:
 
   #Toast messages
   fluttertoast: ^8.0.9
+
+  #Excluding generated files from coverage
   remove_from_coverage: ^2.0.0
 
 dev_dependencies:
