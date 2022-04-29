@@ -27,7 +27,7 @@ class HiveService {
     _registerAdapters();
     await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
-    await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    //await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPIONS);
     //TODO: open box when needed. With that we can use box.compact and box.close
     await Hive.openBox(HiveConstants.HIVE_BOX_CHAMPDETAILED);
   }
@@ -45,11 +45,36 @@ class HiveService {
     Hive.registerAdapter(StatsAdapter());
   }
 
+  //[Version Related]
+  Future<void> saveVersion(String version) async {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    await box.put(HiveConstants.HIVE_KEY_CURRENT_VERSION, version);
+  }
+
+  Future<void> saveVersionList(List<dynamic> versions) async {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    await box.put(HiveConstants.HIVE_KEY_VERSION_LIST, versions);
+  }
+
+  String getCurrentVersion() {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION) ?? '';
+  }
+
+  List<dynamic> getVersionList() {
+    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
+    return box.get(HiveConstants.HIVE_KEY_VERSION_LIST) ?? [];
+  }
+  //[END Version Related]
+
+  //[Champion Related]
   Future<void> saveChampions(
       {required String version,
       required Locale lang,
       required List<Champion> champions}) async {
-    final box = getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    final box =
+        getBox(HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString());
+    !box.isOpen ? await Hive.openBox(box.name) : null;
     var saved = 0;
     for (var champ in champions) {
       if (!box.containsKey(champ.id! + version + lang.toString())) {
@@ -86,28 +111,9 @@ class HiveService {
     }
   }
 
-  Future<void> saveVersion(String version) async {
-    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    await box.put(HiveConstants.HIVE_KEY_CURRENT_VERSION, version);
-  }
-
-  Future<void> saveVersionList(List<dynamic> versions) async {
-    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    await box.put(HiveConstants.HIVE_KEY_VERSION_LIST, versions);
-  }
-
-  String getCurrentVersion() {
-    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    return box.get(HiveConstants.HIVE_KEY_CURRENT_VERSION) ?? '';
-  }
-
-  List<dynamic> getVersionList() {
-    final box = getBox(HiveConstants.HIVE_BOX_VERSION);
-    return box.get(HiveConstants.HIVE_KEY_VERSION_LIST) ?? [];
-  }
-
   Future<List<Champion>> getChampions(String version, Locale lang) async {
-    final box = await getBox(HiveConstants.HIVE_BOX_CHAMPIONS);
+    final box = await getBox(
+        HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString());
     return box.values.toList().cast<Champion>();
   }
 
@@ -116,21 +122,15 @@ class HiveService {
     return box.get(id);
   }
 
-  ChampDetailedModel getDetailedChamp(String id) {
-    return getBox(HiveConstants.HIVE_BOX_CHAMPDETAILED).get(id);
+  Future<ChampDetailedModel> getDetailedChamp(
+      String id, String version, Locale lang) async {
+    return await getBox(
+            HiveConstants.HIVE_BOX_CHAMPDETAILED + version + lang.toString())
+        .get(id);
   }
+  //[END Champion Related]
 
-  Box getBox(String boxName) {
-    return Hive.box(boxName);
-  }
-
-  Future<void> clearBox(String boxName) async {
-    if (getBox(boxName).isEmpty) {
-      print(boxName + ' is empty');
-    }
-    await getBox(boxName).clear();
-  }
-
+  //[Settings Related]
   void setDarkTheme(bool theme) {
     final box = getBox(HiveConstants.HIVE_BOX_SETTINGS);
     box.put(HiveConstants.HIVE_KEY_THEME, theme);
@@ -144,4 +144,26 @@ class HiveService {
     }
     return box.get(HiveConstants.HIVE_KEY_THEME);
   }
+  //[END Settings Related]
+
+  //[Box Related]
+  Box getBox(String boxName) {
+    return Hive.box(boxName);
+  }
+
+  Future<void> openBox(String boxName) async {
+    await Hive.openBox(boxName);
+  }
+
+  Future<void> closeBox(String boxName) async {
+    await getBox(boxName).close();
+  }
+
+  Future<void> clearBox(String boxName) async {
+    if (getBox(boxName).isEmpty) {
+      print(boxName + ' is empty');
+    }
+    await getBox(boxName).clear();
+  }
+  //[END Box Related]
 }
