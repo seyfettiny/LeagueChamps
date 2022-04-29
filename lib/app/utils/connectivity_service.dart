@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
-import '../../app/utils/toast_service.dart';
+import 'toast_service.dart';
 
-class ConnectivityNotifier extends ChangeNotifier {
+class ConnectivityService {
   ConnectivityResult _connectivityResult = ConnectivityResult.none;
   ConnectivityResult get connectivity => _connectivityResult;
   String _connectionResponse = 'You are not connected';
   String get connectionResponse => _connectionResponse;
 
-  ConnectivityNotifier() {
+  ConnectivityService() {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       print(result.name);
       resultHandler(result);
@@ -63,7 +63,6 @@ class ConnectivityNotifier extends ChangeNotifier {
         _connectionResponse = 'You are not connected';
       // _showToast(_connectionResponse, Colors.red);
     }
-    notifyListeners();
   }
 
   bool hasConnection() {

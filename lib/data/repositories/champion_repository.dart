@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/champion_detailed.dart';
-import '../../presentation/notifiers/connectivity_notifier.dart';
+import '../../app/utils/connectivity_service.dart';
 
 import '../../domain/entities/champion.dart';
 import '../../domain/repository/champion_repository.dart';
@@ -10,12 +10,12 @@ import '../data_sources/hive_service.dart';
 class ChampionRepository implements IChampionRepository {
   final DataDragonAPI _dataDragonAPI;
   final HiveService _hiveService;
-  final ConnectivityNotifier _connectivityNotifier;
+  final ConnectivityService _connectivityService;
   ChampionRepository(
-      this._dataDragonAPI, this._hiveService, this._connectivityNotifier);
+      this._dataDragonAPI, this._hiveService, this._connectivityService);
   @override
   Future<List<Champion>> getChampions(String version, Locale lang) async {
-    if (_connectivityNotifier.hasConnection()) {
+    if (_connectivityService.hasConnection()) {
       try {
         final champions = await _dataDragonAPI.getChampions(version, lang);
         await _hiveService.saveChampions(
@@ -41,7 +41,7 @@ class ChampionRepository implements IChampionRepository {
   @override
   Future<ChampDetailed> getDetailedChampion(
       String championId, String version, Locale lang) async {
-    if (_connectivityNotifier.hasConnection()) {
+    if (_connectivityService.hasConnection()) {
       final champDetailed =
           await _dataDragonAPI.getDetailedChampion(championId, version, lang);
       await _hiveService.saveDetailedChamp(
@@ -52,7 +52,7 @@ class ChampionRepository implements IChampionRepository {
       return champDetailed;
     } else {
       final champDetailed =
-          await _hiveService.getDetailedChamp(championId,version, lang);
+          await _hiveService.getDetailedChamp(championId, version, lang);
       return champDetailed;
     }
   }

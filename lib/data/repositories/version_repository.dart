@@ -1,18 +1,18 @@
 import '../../domain/repository/version_repository.dart';
-import '../../presentation/notifiers/connectivity_notifier.dart';
+import '../../app/utils/connectivity_service.dart';
 import '../data_sources/data_dragon.dart';
 import '../data_sources/hive_service.dart';
 
 class VersionRepository implements IVersionRepository {
   final DataDragonAPI _dataDragonAPI;
   final HiveService _hiveService;
-  final ConnectivityNotifier _connectivityNotifier;
+  final ConnectivityService _connectivityService;
   VersionRepository(
-      this._dataDragonAPI, this._hiveService, this._connectivityNotifier);
+      this._dataDragonAPI, this._hiveService, this._connectivityService);
 
   @override
   Future<String> getVersion() async {
-    if (_connectivityNotifier.hasConnection()) {
+    if (_connectivityService.hasConnection()) {
       try {
         final version = await _dataDragonAPI.getVersion();
         await _hiveService.saveVersion(version);
@@ -35,7 +35,7 @@ class VersionRepository implements IVersionRepository {
 
   @override
   Future<List<dynamic>> getVersionList() async {
-    if (_connectivityNotifier.hasConnection()) {
+    if (_connectivityService.hasConnection()) {
       try {
         final versionList = await _dataDragonAPI.getVersionList();
         await _hiveService.saveVersionList(versionList);

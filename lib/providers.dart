@@ -1,22 +1,23 @@
 import 'domain/use_cases/get_champion_list_usecase.dart';
-import 'presentation/viewmodels/home_viewmodel.dart';
-
 import 'domain/use_cases/get_champion_usecase.dart';
 import 'domain/use_cases/get_version_list_usecase.dart';
 import 'domain/use_cases/get_version_usecase.dart';
-import 'presentation/viewmodels/splash_viewmodel.dart';
 
 import 'data/data_sources/data_dragon.dart';
 import 'data/data_sources/hive_service.dart';
 import 'data/repositories/champion_repository.dart';
 import 'data/repositories/version_repository.dart';
-import 'presentation/notifiers/connectivity_notifier.dart';
+import 'app/utils/connectivity_service.dart';
+
 import 'presentation/notifiers/search_notifier.dart';
 import 'presentation/notifiers/version_notifier.dart';
+import 'presentation/notifiers/theme_notifier.dart';
+
+import 'presentation/viewmodels/splash_viewmodel.dart';
+import 'presentation/viewmodels/home_viewmodel.dart';
+
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
-import 'presentation/notifiers/theme_notifier.dart';
 
 List<SingleChildWidget> providers = [
   ...independentServices,
@@ -30,9 +31,12 @@ List<SingleChildWidget> independentServices = [
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),
-  ChangeNotifierProvider<ConnectivityNotifier>(
-    create: (_) => ConnectivityNotifier(),
+  Provider<ConnectivityService>(
+    create: (_) => ConnectivityService(),
   ),
+  // ChangeNotifierProvider<ConnectivityService>(
+  //   create: (_) => ConnectivityService(),
+  // ),
   ChangeNotifierProvider<SearchNotifier>(
     create: (_) => SearchNotifier(),
   ),
@@ -49,15 +53,15 @@ List<SingleChildWidget> dependentServices = [
       Provider.of<HiveService>(context, listen: false),
     ),
   ),
-  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityNotifier,
+  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityService,
       ChampionRepository>(
-    update: (_, dataDragonAPI, hiveService, connectivityNotifier, __) =>
-        ChampionRepository(dataDragonAPI, hiveService, connectivityNotifier),
+    update: (_, dataDragonAPI, hiveService, connectivityService, __) =>
+        ChampionRepository(dataDragonAPI, hiveService, connectivityService),
   ),
-  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityNotifier,
+  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityService,
       VersionRepository>(
-    update: (_, dataDragonAPI, hiveService, connectivityNotifier, __) =>
-        VersionRepository(dataDragonAPI, hiveService, connectivityNotifier),
+    update: (_, dataDragonAPI, hiveService, connectivityService, __) =>
+        VersionRepository(dataDragonAPI, hiveService, connectivityService),
   ),
   ProxyProvider<VersionRepository, GetVersionUseCase>(
     update: (_, versionRepository, __) => GetVersionUseCase(versionRepository),
@@ -74,7 +78,6 @@ List<SingleChildWidget> dependentServices = [
     update: (_, championRepository, __) =>
         GetChampionListUseCase(championRepository),
   ),
-
   ChangeNotifierProvider<SplashViewModel>(
     create: (context) => SplashViewModel(
       Provider.of<GetVersionUseCase>(context, listen: false),
