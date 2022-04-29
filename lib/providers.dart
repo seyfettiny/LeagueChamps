@@ -1,5 +1,5 @@
-import 'package:leaguechamps/domain/use_cases/get_champion_list_usecase.dart';
-import 'package:leaguechamps/presentation/viewmodels/home_viewmodel.dart';
+import 'domain/use_cases/get_champion_list_usecase.dart';
+import 'presentation/viewmodels/home_viewmodel.dart';
 
 import 'domain/use_cases/get_champion_usecase.dart';
 import 'domain/use_cases/get_version_list_usecase.dart';
@@ -74,10 +74,7 @@ List<SingleChildWidget> dependentServices = [
     update: (_, championRepository, __) =>
         GetChampionListUseCase(championRepository),
   ),
-  // ProxyProvider2<GetVersionUseCase, GetVersionListUseCase, SplashViewModel>(
-  //   update: (_, getVersionUseCase, getVersionListUseCase, __) =>
-  //       SplashViewModel(getVersionUseCase, getVersionListUseCase),
-  // ),
+
   ChangeNotifierProvider<SplashViewModel>(
     create: (context) => SplashViewModel(
       Provider.of<GetVersionUseCase>(context, listen: false),

@@ -1,9 +1,7 @@
-import '../data_sources/hive_service.dart';
-import '../../presentation/notifiers/connectivity_notifier.dart';
-
-import '../data_sources/data_dragon.dart';
-
 import '../../domain/repository/version_repository.dart';
+import '../../presentation/notifiers/connectivity_notifier.dart';
+import '../data_sources/data_dragon.dart';
+import '../data_sources/hive_service.dart';
 
 class VersionRepository implements IVersionRepository {
   final DataDragonAPI _dataDragonAPI;

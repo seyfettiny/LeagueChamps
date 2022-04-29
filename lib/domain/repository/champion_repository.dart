@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/domain/entities/champion_detailed.dart';
+import '../entities/champion_detailed.dart';
 
 import '../entities/champion.dart';
 

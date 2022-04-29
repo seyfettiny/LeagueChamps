@@ -1,5 +1,6 @@
-import 'image.dart';
 import 'package:hive/hive.dart';
+
+import 'image.dart';
 
 part 'passive.g.dart';
 

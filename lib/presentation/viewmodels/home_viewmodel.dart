@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:leaguechamps/domain/entities/champion.dart';
-import 'package:leaguechamps/domain/use_cases/get_champion_list_usecase.dart';
+import '../../domain/entities/champion.dart';
+import '../../domain/use_cases/get_champion_list_usecase.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final GetChampionListUseCase _getChampionListUseCase;

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/presentation/viewmodels/home_viewmodel.dart';
+import '../viewmodels/home_viewmodel.dart';
 import '../notifiers/version_notifier.dart';
 import '../../domain/entities/champion.dart';
 import 'package:provider/provider.dart';

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+
 import '../../app/utils/toast_service.dart';
 
 class ConnectivityNotifier extends ChangeNotifier {
