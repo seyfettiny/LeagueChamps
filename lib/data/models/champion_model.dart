@@ -19,19 +19,20 @@ class ChampionModel extends Champion {
             partype: partype,
             stats: stats);
 
-  ChampionModel.fromJson(Map<String, dynamic> json) {
-    version = json['version'];
-    id = json['id'];
-    key = json['key'];
-    name = json['name'];
-    title = json['title'];
-    blurb = json['blurb'];
-    info = json['info'] != null ? InfoModel.fromJson(json['info']) : null;
-    image = json['image'] != null ? ImageModel.fromJson(json['image']) : null;
-    tags = json['tags'].cast<String>();
-    partype = json['partype'];
-    stats = json['stats'] != null ? StatsModel.fromJson(json['stats']) : null;
-  }
+  factory ChampionModel.fromJson(Map<String, dynamic> json) => ChampionModel(
+        version: json["version"],
+        id: json["id"],
+        key: json["key"],
+        name: json["name"],
+        title: json["title"],
+        blurb: json["blurb"],
+        info: InfoModel.fromJson(json["info"]),
+        image: ImageModel.fromJson(json["image"]),
+        tags: List<String>.from(json["tags"].map((x) => x)),
+        partype: json["partype"],
+        stats:
+            json["stats"] == null ? null : StatsModel.fromJson(json["stats"]),
+      );
 
   @override
   String toString() {
