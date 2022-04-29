@@ -11,7 +11,6 @@ import 'package:leaguechamps/data/models/skins_model.dart';
 import 'package:leaguechamps/data/models/spells_model.dart';
 import 'package:leaguechamps/data/models/stats_model.dart';
 import 'package:leaguechamps/domain/entities/champion_detailed.dart';
-import 'package:mockito/mockito.dart';
 
 void main() {
   final ChampDetailedModel model = ChampDetailedModel(
