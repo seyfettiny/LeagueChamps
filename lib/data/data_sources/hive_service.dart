@@ -72,9 +72,11 @@ class HiveService {
       {required String version,
       required Locale lang,
       required List<Champion> champions}) async {
-    final box =
-        getBox(HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString());
-    !box.isOpen ? await Hive.openBox(box.name) : null;
+    final boxName =
+        HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString();
+    await Hive.boxExists(boxName)
+        .then((value) async => await Hive.openBox(boxName));
+    final box = getBox(boxName);
     var saved = 0;
     for (var champ in champions) {
       if (!box.containsKey(champ.id! + version + lang.toString())) {
@@ -86,6 +88,7 @@ class HiveService {
         saved++;
       }
     }
+    print('Box $boxName: ${getBox(boxName).isOpen} ');
     print('Saved $saved champions');
   }
 
