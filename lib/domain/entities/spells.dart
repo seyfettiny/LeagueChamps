@@ -47,7 +47,6 @@ class Spells extends HiveObject {
   Image? image;
   @HiveField(19)
   String? resource;
-  @HiveField(20)
   Spells(
       {id,
       name,

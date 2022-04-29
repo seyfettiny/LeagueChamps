@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/domain/entities/champion_detailed.dart';
 import 'package:leaguechamps/domain/entities/image.dart';
 import 'package:leaguechamps/domain/entities/info.dart';
+import 'package:leaguechamps/domain/entities/level_tip.dart';
 import 'package:leaguechamps/domain/entities/passive.dart';
 import 'package:leaguechamps/domain/entities/skins.dart';
 import 'package:leaguechamps/domain/entities/spells.dart';
@@ -75,7 +76,40 @@ void main() {
         h: 48,
       ),
     ),
-    spells: <Spells>[],
+    spells: <Spells>[
+      Spells(
+        id: '',
+        name: 'Dark Flight',
+        description: '',
+        image: Image(
+          full: 'Aatrox.png',
+          sprite: 'champion0.png',
+          group: 'champion',
+          x: 0,
+          y: 0,
+          w: 48,
+          h: 48,
+        ),
+        leveltip: Leveltip(
+          label: ["Cooldown", "Damage", "Total AD Ratio"],
+          effect: [],
+        ),
+        tooltip: '',
+        resource: '',
+        maxrank: 1,
+        cooldown: [],
+        cooldownBurn: '',
+        cost: [],
+        costBurn: '',
+        effect: [],
+        effectBurn: [],
+        vars: [],
+        costType: '',
+        maxammo: '',
+        range: [],
+        rangeBurn: [],
+      ),
+    ],
     stats: Stats(
       hp: 585,
       hpperlevel: 90,

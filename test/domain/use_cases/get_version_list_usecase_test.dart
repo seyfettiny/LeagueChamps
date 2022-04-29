@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../repository/version_repository_test.mocks.dart';
-import 'get_version_usecase_test.mocks.dart';
 @GenerateMocks([GetVersionListUseCase])
 void main() {
   late MockVersionRepository mockVersionRepository;
