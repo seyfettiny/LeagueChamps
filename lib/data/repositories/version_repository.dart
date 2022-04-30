@@ -1,56 +1,26 @@
 import '../../domain/repository/version_repository.dart';
-import '../../app/utils/connectivity_service.dart';
 import '../data_sources/data_dragon.dart';
-import '../data_sources/hive_service.dart';
 
 class VersionRepository implements IVersionRepository {
   final DataDragonAPI _dataDragonAPI;
-  final HiveService _hiveService;
-  final ConnectivityService _connectivityService;
   VersionRepository(
-      this._dataDragonAPI, this._hiveService, this._connectivityService);
+      this._dataDragonAPI);
 
   @override
   Future<String> getVersion() async {
-    if (_connectivityService.hasConnection()) {
-      try {
-        final version = await _dataDragonAPI.getVersion();
-        await _hiveService.saveVersion(version);
-        print('version: $version');
-        return version;
-      } catch (e) {
-        print(e);
-        throw Exception('Failed to load version');
-      }
-    } else {
-      try {
-        final version = _hiveService.getCurrentVersion();
-        print('version: $version');
-        return version;
-      } catch (e) {
-        throw Exception('Failed to load version');
-      }
+    try {
+      return await _dataDragonAPI.getVersion();
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
   @override
   Future<List<dynamic>> getVersionList() async {
-    if (_connectivityService.hasConnection()) {
-      try {
-        final versionList = await _dataDragonAPI.getVersionList();
-        await _hiveService.saveVersionList(versionList);
-        return versionList;
-      } catch (e) {
-        print(e);
-        throw Exception('Failed to load version list');
-      }
-    } else {
-      try {
-        final versionList = _hiveService.getVersionList();
-        return versionList;
-      } catch (e) {
-        throw Exception('Failed to load version list');
-      }
+    try {
+      return await _dataDragonAPI.getVersionList();
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

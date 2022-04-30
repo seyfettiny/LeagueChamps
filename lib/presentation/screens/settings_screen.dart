@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/translations/locale_keys.g.dart';
 import '../notifiers/theme_notifier.dart';
+import '../notifiers/version_notifier.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -44,7 +44,6 @@ class SettingsScreen extends StatelessWidget {
             title: DropdownButton<String>(
               isExpanded: true,
               onChanged: (version) {
-                //TODO: changing version does not update the data,pass the version to the hiveService
                 versionNotifier.changeVersion(version!);
               },
               value: versionNotifier.currentVersion,

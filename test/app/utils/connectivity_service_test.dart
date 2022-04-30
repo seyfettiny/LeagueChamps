@@ -5,6 +5,5 @@ import 'package:mockito/annotations.dart';
 @GenerateMocks([ConnectivityService])
 void main() {
   testWidgets('connectivity service ...', (tester) async {
-    // TODO: Implement test
   });
 }

@@ -1,59 +1,30 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/champion_detailed.dart';
-import '../../app/utils/connectivity_service.dart';
 
 import '../../domain/entities/champion.dart';
+import '../../domain/entities/champion_detailed.dart';
 import '../../domain/repository/champion_repository.dart';
 import '../data_sources/data_dragon.dart';
-import '../data_sources/hive_service.dart';
 
 class ChampionRepository implements IChampionRepository {
   final DataDragonAPI _dataDragonAPI;
-  final HiveService _hiveService;
-  final ConnectivityService _connectivityService;
-  ChampionRepository(
-      this._dataDragonAPI, this._hiveService, this._connectivityService);
+  ChampionRepository(this._dataDragonAPI);
   @override
   Future<List<Champion>> getChampions(String version, Locale lang) async {
-    if (_connectivityService.hasConnection()) {
-      try {
-        final champions = await _dataDragonAPI.getChampions(version, lang);
-        await _hiveService.saveChampions(
-          version: version,
-          lang: lang,
-          champions: champions,
-        );
-        return champions;
-      } catch (e) {
-        print(e);
-        throw Exception('Failed to load champions');
-      }
-    } else {
-      try {
-        final champions = await _hiveService.getChampions(version, lang);
-        return champions;
-      } catch (e) {
-        throw Exception('Failed to load champions');
-      }
+    try {
+      return await _dataDragonAPI.getChampions(version, lang);
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
   @override
   Future<ChampDetailed> getDetailedChampion(
       String championId, String version, Locale lang) async {
-    if (_connectivityService.hasConnection()) {
-      final champDetailed =
-          await _dataDragonAPI.getDetailedChampion(championId, version, lang);
-      await _hiveService.saveDetailedChamp(
-        version: version,
-        lang: lang,
-        champDetailed: champDetailed,
-      );
-      return champDetailed;
-    } else {
-      final champDetailed =
-          await _hiveService.getDetailedChamp(championId, version, lang);
-      return champDetailed;
+    try {
+      return await _dataDragonAPI.getDetailedChampion(
+          championId, version, lang);
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

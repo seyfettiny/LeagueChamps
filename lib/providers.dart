@@ -37,6 +37,9 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<SearchNotifier>(
     create: (_) => SearchNotifier(),
   ),
+  ChangeNotifierProvider<VersionNotifier>(
+    create: (context) => VersionNotifier(),
+  ),
 ];
 
 List<SingleChildWidget> dependentServices = [
@@ -45,20 +48,13 @@ List<SingleChildWidget> dependentServices = [
       Provider.of<HiveService>(context, listen: false),
     ),
   ),
-  ChangeNotifierProvider<VersionNotifier>(
-    create: (context) => VersionNotifier(
-      Provider.of<HiveService>(context, listen: false),
+  ProxyProvider<DataDragonAPI, ChampionRepository>(
+    update: (_, dataDragonAPI, __) => ChampionRepository(
+      dataDragonAPI,
     ),
   ),
-  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityService,
-      ChampionRepository>(
-    update: (_, dataDragonAPI, hiveService, connectivityService, __) =>
-        ChampionRepository(dataDragonAPI, hiveService, connectivityService),
-  ),
-  ProxyProvider3<DataDragonAPI, HiveService, ConnectivityService,
-      VersionRepository>(
-    update: (_, dataDragonAPI, hiveService, connectivityService, __) =>
-        VersionRepository(dataDragonAPI, hiveService, connectivityService),
+  ProxyProvider<DataDragonAPI, VersionRepository>(
+    update: (_, dataDragonAPI, __) => VersionRepository(dataDragonAPI),
   ),
   ProxyProvider<VersionRepository, GetVersionUseCase>(
     update: (_, versionRepository, __) => GetVersionUseCase(versionRepository),

@@ -5,6 +5,5 @@ import 'package:mockito/annotations.dart';
 @GenerateMocks([HiveService])
 void main() {
   testWidgets('hive service ...', (tester) async {
-    // TODO: Implement test
   });
 }

@@ -43,7 +43,7 @@ class DataDragonAPI implements IDataDragonAPI {
     final response = await _client.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-      return jsonResponse.getRange(0,25).toList();
+      return jsonResponse.getRange(0, 65).toList();
     } else {
       ToastService.showErrorToast(
           'Failed to load version: ${response.statusCode}');
