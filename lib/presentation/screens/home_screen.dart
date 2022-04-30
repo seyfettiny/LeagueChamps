@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   @override
   Widget build(BuildContext context) {
     var versionNotifier = Provider.of<VersionNotifier>(context);
