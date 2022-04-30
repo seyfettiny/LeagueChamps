@@ -34,9 +34,6 @@ List<SingleChildWidget> independentServices = [
   Provider<ConnectivityService>(
     create: (_) => ConnectivityService(),
   ),
-  // ChangeNotifierProvider<ConnectivityService>(
-  //   create: (_) => ConnectivityService(),
-  // ),
   ChangeNotifierProvider<SearchNotifier>(
     create: (_) => SearchNotifier(),
   ),
