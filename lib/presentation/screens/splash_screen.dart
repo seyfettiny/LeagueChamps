@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/app/utils/connectivity_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _connectivityService = Provider.of<ConnectivityService>(context);
     return Scaffold(
       body: Center(
         child: Consumer<SplashViewModel>(
@@ -32,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 splashViewModel.getVersionList(),
               ]),
               builder: (context, AsyncSnapshot snapshot) {
+                _connectivityService.hasConnection() ? print(true) : print(false);
                 if (snapshot.hasData) {
                   return snapshot.data[0] == ''
                       ? const Center(

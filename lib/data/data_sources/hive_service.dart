@@ -115,9 +115,20 @@ class HiveService {
   }
 
   Future<List<Champion>> getChampions(String version, Locale lang) async {
-    final box = await getBox(
-        HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString());
-    return box.values.toList().cast<Champion>();
+    final boxName =
+        HiveConstants.HIVE_BOX_CHAMPIONS + version + lang.toString();
+    print('Box $boxName isOpen ${Hive.isBoxOpen(boxName)} ');
+    print('Box $boxName isExists ${await Hive.boxExists(boxName)} ');
+    if (Hive.isBoxOpen(boxName)) {
+      final box = await getBox(boxName);
+      return box.values.toList().cast<Champion>();
+    } else if (await Hive.boxExists(boxName)) {
+      await openBox(boxName);
+      final box = getBox(boxName);
+      return box.values.toList().cast<Champion>();
+    } else {
+      return [];
+    }
   }
 
   Champion getChamp(String id) {

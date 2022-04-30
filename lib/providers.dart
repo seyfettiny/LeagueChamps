@@ -31,7 +31,7 @@ List<SingleChildWidget> independentServices = [
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),
-  Provider<ConnectivityService>(
+  ChangeNotifierProvider<ConnectivityService>(
     create: (_) => ConnectivityService(),
   ),
   ChangeNotifierProvider<SearchNotifier>(

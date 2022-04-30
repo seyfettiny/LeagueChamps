@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'toast_service.dart';
 
-class ConnectivityService {
+class ConnectivityService extends ChangeNotifier {
   ConnectivityResult _connectivityResult = ConnectivityResult.none;
   ConnectivityResult get connectivity => _connectivityResult;
   String _connectionResponse = 'You are not connected';
@@ -17,11 +17,6 @@ class ConnectivityService {
       resultHandler(result);
     });
   }
-  void init() async {
-    ConnectivityResult result = await Connectivity().checkConnectivity();
-    resultHandler(result);
-  }
-
   void resultHandler(ConnectivityResult result) {
     //TODO: refactor this
     _connectivityResult = result;
@@ -37,10 +32,12 @@ class ConnectivityService {
             _connectionResponse = 'Connected';
             print('Lookup result: ${result[0]}');
             ToastService.showSuccessToast(_connectionResponse);
+            notifyListeners();
           } else {
             _connectionResponse = 'You have no internet connection';
             print('Lookup result: $result');
             ToastService.showErrorToast(_connectionResponse);
+            notifyListeners();
           }
         });
         break;
@@ -51,11 +48,13 @@ class ConnectivityService {
             _connectionResponse = 'Connected';
             print('Lookup result: ${result[0]}');
             ToastService.showSuccessToast(_connectionResponse);
+            notifyListeners();
           } else {
             _connectionResponse = 'You have no internet connection';
             print('Lookup result: $result');
 
             ToastService.showErrorToast(_connectionResponse);
+            notifyListeners();
           }
         });
         break;
