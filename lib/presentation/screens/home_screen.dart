@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../viewmodels/home_viewmodel.dart';
-import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
 import '../../app/utils/my_search_delegate.dart';
+import '../notifiers/search_notifier.dart';
+import '../notifiers/version_notifier.dart';
+import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -58,23 +59,18 @@ class _HomeScreenState extends State<HomeScreen> {
               future: homeViewModel.getChampions(
                   versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
+                final _searchNotifier = Provider.of<SearchNotifier>(context);
                 if (snapshot.hasData) {
+                  _searchNotifier.addChampions(snapshot.data);
                   print('List length: ${snapshot.data.length}');
                   //TODO: add AnimatedList to make more noticeble that champ insert or delete when version changes
-                  return snapshot.data.length == 0
-                      ? const Center(
-                          child: Text(
-                            'Looks like no champions found \n for this version and/or language',
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            var champion = snapshot.data[index];
-                            return ChampionListItem(champion: champion);
-                          },
-                        );
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      var champion = snapshot.data[index];
+                      return ChampionListItem(champion: champion);
+                    },
+                  );
                 }
                 return const CircularProgressIndicator();
               },

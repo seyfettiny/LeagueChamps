@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../entities/champion_detailed.dart';
 
 import '../entities/champion.dart';
+import '../entities/champion_detailed.dart';
 
 abstract class IChampionRepository {
   Future<List<Champion>> getChampions(String version, Locale lang);

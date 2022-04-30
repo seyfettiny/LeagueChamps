@@ -1,5 +1,4 @@
 import '../../domain/entities/spells.dart';
-
 import 'image_model.dart';
 import 'level_tip_model.dart';
 

@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../domain/entities/champion_detailed.dart';
+import '../notifiers/version_notifier.dart';
 
 class ChampionSpellsWidget extends StatelessWidget {
   const ChampionSpellsWidget({

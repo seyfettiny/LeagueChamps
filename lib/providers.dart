@@ -1,23 +1,21 @@
-import 'domain/use_cases/get_champion_list_usecase.dart';
-import 'domain/use_cases/get_champion_usecase.dart';
-import 'domain/use_cases/get_version_list_usecase.dart';
-import 'domain/use_cases/get_version_usecase.dart';
 
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
+
+import 'app/utils/connectivity_service.dart';
 import 'data/data_sources/data_dragon.dart';
 import 'data/data_sources/hive_service.dart';
 import 'data/repositories/champion_repository.dart';
 import 'data/repositories/version_repository.dart';
-import 'app/utils/connectivity_service.dart';
-
+import 'domain/use_cases/get_champion_list_usecase.dart';
+import 'domain/use_cases/get_champion_usecase.dart';
+import 'domain/use_cases/get_version_list_usecase.dart';
+import 'domain/use_cases/get_version_usecase.dart';
 import 'presentation/notifiers/search_notifier.dart';
-import 'presentation/notifiers/version_notifier.dart';
 import 'presentation/notifiers/theme_notifier.dart';
-
-import 'presentation/viewmodels/splash_viewmodel.dart';
+import 'presentation/notifiers/version_notifier.dart';
 import 'presentation/viewmodels/home_viewmodel.dart';
-
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
+import 'presentation/viewmodels/splash_viewmodel.dart';
 
 List<SingleChildWidget> providers = [
   ...independentServices,
