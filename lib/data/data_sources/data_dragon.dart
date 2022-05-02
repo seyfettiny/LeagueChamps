@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../app/constants/app_constants.dart';
-import '../../app/utils/toast_service.dart';
 import '../models/champion_detailed_model.dart';
 import '../models/champion_model.dart';
 
@@ -17,43 +16,35 @@ abstract class IDataDragonAPI {
 }
 
 class DataDragonAPI implements IDataDragonAPI {
-  final http.Client _client;
+  final http.Client? client;
 
-  static final DataDragonAPI _instance = DataDragonAPI._internal();
-
-  factory DataDragonAPI() => _instance;
-
-  DataDragonAPI._internal() : _client = http.Client();
+  const DataDragonAPI(this.client);
 
   @override
   Future<String> getVersion() async {
-    final response = await _client.get(Uri.parse(AppConstants.versionsUrl));
+    final response = await client!.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       return jsonResponse[0];
     } else {
-      ToastService.showErrorToast(
-          'Failed to load version: ${response.statusCode}');
       throw Exception('Failed to load version');
     }
   }
 
   @override
   Future<List<dynamic>> getVersionList() async {
-    final response = await _client.get(Uri.parse(AppConstants.versionsUrl));
+    final response = await client!.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       return jsonResponse.getRange(0, 65).toList();
     } else {
-      ToastService.showErrorToast(
-          'Failed to load version: ${response.statusCode}');
       throw Exception('Failed to load version');
     }
   }
 
   @override
   Future<List<ChampionModel>> getChampions(String version, Locale lang) async {
-    final response = await _client.get(Uri.parse(
+    final response = await client!.get(Uri.parse(
         '${AppConstants.championAPIBaseUrl}$version/data/$lang/champion.json'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
@@ -66,8 +57,6 @@ class DataDragonAPI implements IDataDragonAPI {
       );
       return champions;
     } else {
-      ToastService.showErrorToast(
-          'Failed to load champion: ${response.statusCode}');
       throw Exception('Failed to load champions');
     }
   }
@@ -75,17 +64,14 @@ class DataDragonAPI implements IDataDragonAPI {
   @override
   Future<dynamic> getDetailedChampion(
       String championId, String version, Locale lang) async {
-    final response = await _client.get(Uri.parse(
+    final response = await client!.get(Uri.parse(
         '${AppConstants.championAPIBaseUrl}$version/data/$lang/champion/$championId.json'));
-    print(
-        'url: ${AppConstants.championAPIBaseUrl}$version/data/$lang/champion/$championId.json');
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       final Map<String, dynamic> data = jsonResponse['data'][championId];
       return ChampDetailedModel.fromJson(data);
     } else {
-      print(response.body);
-      ToastService.showErrorToast(
+      Exception(
           'Failed to load champion: $championId (${response.statusCode})');
     }
   }

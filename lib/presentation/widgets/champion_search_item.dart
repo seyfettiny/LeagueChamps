@@ -35,7 +35,6 @@ class ChampionSearchItem extends StatelessWidget {
                 ? champion.image!.full! + versionNotifier.currentVersion
                 : '',
             errorWidget: (context, url, error) {
-              print(champion.image!.full);
 
               return const SizedBox(
                 width: 56,

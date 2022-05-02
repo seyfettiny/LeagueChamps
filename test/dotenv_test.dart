@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 
 import 'dart:io';
 
@@ -7,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   setUp(() {
-    print(Directory.current.toString());
     dotenv.testLoad(fileInput: File('test/.env').readAsStringSync());
   });
   test('able to load .env', () {

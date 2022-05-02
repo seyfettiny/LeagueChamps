@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leaguechamps/app/constants/hive_constants.dart';
 class HiveService {
@@ -18,7 +17,6 @@ class HiveService {
   void setDarkTheme(bool theme) {
     final box = getBox(HiveConstants.HIVE_BOX_SETTINGS);
     box.put(HiveConstants.HIVE_KEY_THEME, theme);
-    print(box.get(HiveConstants.HIVE_KEY_THEME));
   }
 
   bool isDarkTheme() {
@@ -44,9 +42,6 @@ class HiveService {
   }
 
   Future<void> clearBox(String boxName) async {
-    if (getBox(boxName).isEmpty) {
-      print(boxName + ' is empty');
-    }
     await getBox(boxName).clear();
   }
   //[END Box Related]

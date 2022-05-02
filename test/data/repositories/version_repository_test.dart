@@ -16,15 +16,27 @@ void main() {
         mockDataDragonAPI);
   });
   group('getVersion', () {
-    test('should get version and save it to the Hive', () async {
+    test('should get version', () async {
       when(mockDataDragonAPI.getVersion()).thenAnswer((_) async => '9.24.1');
       final version = await repository.getVersion();
       expect(version, '9.24.1');
     });
     test('should throw Exception when getVersion', () async {
       when(mockDataDragonAPI.getVersion())
-          .thenThrow(Exception('Failed to load version'));
+          .thenThrow(Exception());
       expect(repository.getVersion(), throwsException);
+    });
+  });
+  group('getVersionList', () {
+        test('should get list of version', () async {
+      when(mockDataDragonAPI.getVersionList()).thenAnswer((_) async => ['9.24.1', '9.24.0']);
+      final version = await repository.getVersionList();
+      expect(version, ['9.24.1', '9.24.0']);
+    });
+    test('should throw Exception when getVersionList', () async {
+      when(mockDataDragonAPI.getVersionList())
+          .thenThrow(Exception());
+      expect(repository.getVersionList(), throwsException);
     });
   });
 }

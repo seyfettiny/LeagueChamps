@@ -61,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 final _searchNotifier = Provider.of<SearchNotifier>(context);
                 if (snapshot.hasData) {
                   _searchNotifier.addChampions(snapshot.data);
-                  print('List length: ${snapshot.data.length}');
                   //TODO: add AnimatedList to make more noticeble that champ insert or delete when version changes
                   return ListView.builder(
                     itemCount: snapshot.data.length,

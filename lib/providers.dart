@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -16,6 +17,7 @@ import 'presentation/notifiers/theme_notifier.dart';
 import 'presentation/notifiers/version_notifier.dart';
 import 'presentation/viewmodels/home_viewmodel.dart';
 import 'presentation/viewmodels/splash_viewmodel.dart';
+import 'package:http/http.dart' as http;
 
 List<SingleChildWidget> providers = [
   ...independentServices,
@@ -23,9 +25,7 @@ List<SingleChildWidget> providers = [
 ];
 
 List<SingleChildWidget> independentServices = [
-  Provider<DataDragonAPI>(
-    create: (_) => DataDragonAPI(),
-  ),
+  Provider<http.Client>(create: (_) => http.Client()),
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),
@@ -45,6 +45,9 @@ List<SingleChildWidget> dependentServices = [
     create: (context) => ThemeNotifier(
       Provider.of<HiveService>(context, listen: false),
     ),
+  ),
+  ProxyProvider<http.Client, DataDragonAPI>(
+    update: (_, client, __) => DataDragonAPI(client),
   ),
   ProxyProvider<DataDragonAPI, ChampionRepository>(
     update: (_, dataDragonAPI, __) => ChampionRepository(

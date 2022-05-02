@@ -16,7 +16,6 @@ class ChampionListItem extends StatelessWidget {
     final versionNotifier = Provider.of<VersionNotifier>(context);
     return InkWell(
       onTap: () {
-        print(champion.id);
         Navigator.pushNamed(context, RoutePaths.champDetail,
             arguments: {'champId': champion.id});
       },

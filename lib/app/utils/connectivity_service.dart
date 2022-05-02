@@ -13,7 +13,6 @@ class ConnectivityService extends ChangeNotifier {
 
   ConnectivityService() {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      print(result.name);
       resultHandler(result);
     });
   }
@@ -30,12 +29,10 @@ class ConnectivityService extends ChangeNotifier {
         _result.then((result) {
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
             _connectionResponse = 'Connected';
-            print('Lookup result: ${result[0]}');
             ToastService.showSuccessToast(_connectionResponse);
             notifyListeners();
           } else {
             _connectionResponse = 'You have no internet connection';
-            print('Lookup result: $result');
             ToastService.showErrorToast(_connectionResponse);
             notifyListeners();
           }
@@ -46,13 +43,10 @@ class ConnectivityService extends ChangeNotifier {
         _result.then((result) {
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
             _connectionResponse = 'Connected';
-            print('Lookup result: ${result[0]}');
             ToastService.showSuccessToast(_connectionResponse);
             notifyListeners();
           } else {
             _connectionResponse = 'You have no internet connection';
-            print('Lookup result: $result');
-
             ToastService.showErrorToast(_connectionResponse);
             notifyListeners();
           }
