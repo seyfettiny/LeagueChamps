@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '../notifiers/version_notifier.dart';
 import '../../app/utils/connectivity_service.dart';
 import 'package:provider/provider.dart';
@@ -38,13 +39,20 @@ class _SplashScreenState extends State<SplashScreen> {
               builder: (context, AsyncSnapshot snapshot) {
                 if (_connectivityService.hasConnection()) {
                   if (snapshot.hasData) {
-                    _versionNotifier.setVersionList(snapshot.data[1]);
-                    _versionNotifier.changeVersion(snapshot.data[0]);
+                    Future.delayed(const Duration(seconds: 1), () {
+                      _versionNotifier.changeVersion(snapshot.data[0]);
+                      _versionNotifier.setVersionList(snapshot.data[1]);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, RoutePaths.home, (route) => false);
+                    });
+
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () {
+                            _versionNotifier.setVersionList(snapshot.data[1]);
+                            _versionNotifier.changeVersion(snapshot.data[0]);
                             Navigator.pushNamedAndRemoveUntil(
                                 context, RoutePaths.home, (route) => false);
                           },

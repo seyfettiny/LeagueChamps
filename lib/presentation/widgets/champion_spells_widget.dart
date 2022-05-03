@@ -149,7 +149,7 @@ class ChampionSpellsWidget extends StatelessWidget {
                               versionNotifier.currentVersion,
                         ),
                         Text(champSpell.description!.toString()),
-                        Text(champSpell.tooltip!.toString()),
+                        //Text(champSpell.tooltip!.toString()),
                       ],
                     ),
                   ),
