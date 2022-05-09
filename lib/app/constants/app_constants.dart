@@ -9,13 +9,13 @@ class AppConstants {
 
   // ...Aatrox_0.jpg
   static const championSplashImageUrl =
-      '${championAPIBaseUrl}img/champion/splash/';
+      '$championAPIBaseUrl/${championImageRoute}splash/';
   static const championCenteredImageUrl =
-      '${championAPIBaseUrl}img/champion/centered/';
+      '$championAPIBaseUrl/${championImageRoute}centered/';
   static const championTileImageUrl =
-      '${championAPIBaseUrl}img/champion/tiles/';
+      '$championAPIBaseUrl/${championImageRoute}tiles/';
   static const championLoadingImageUrl =
-      '${championAPIBaseUrl}img/champion/loading/';
+      '$championAPIBaseUrl/${championImageRoute}loading/';
 
   static const championImageRoute = '/img/champion/';
   static const championPassiveImageRoute = '/img/passive/';
