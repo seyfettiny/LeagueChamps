@@ -1,15 +1,10 @@
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/routing/route_paths.dart';
 import '../../domain/entities/champion.dart';
-import '../notifiers/version_notifier.dart';
 
 class ChampionListItem extends StatelessWidget {
   final Champion champion;
@@ -17,21 +12,20 @@ class ChampionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final versionNotifier = Provider.of<VersionNotifier>(context);
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, RoutePaths.champDetail,
-            arguments: {'champId': champion.id});
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        margin: const EdgeInsets.only(bottom: 16),
-        borderOnForeground: false,
-        elevation: 8,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      margin: const EdgeInsets.only(bottom: 16),
+      borderOnForeground: false,
+      elevation: 8,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, RoutePaths.champDetail,
+                arguments: {'champId': champion.id});
+          },
           child: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -137,9 +131,7 @@ class ChampionListItem extends StatelessWidget {
                       ),
                       Text(
                         champion.blurb!.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 4,
                       ),

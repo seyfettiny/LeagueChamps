@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:leaguechamps/app/constants/hive_constants.dart';
+import '../../app/constants/hive_constants.dart';
 class HiveService {
   static final HiveService _instance = HiveService._internal();
 

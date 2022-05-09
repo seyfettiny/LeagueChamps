@@ -5,6 +5,7 @@ final darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
   toggleableActiveColor: Colors.blue[800],
+  cardColor: Colors.black,
   chipTheme: const ChipThemeData(
     backgroundColor: Colors.black,
     selectedColor: Color.fromARGB(255, 193, 133, 30),

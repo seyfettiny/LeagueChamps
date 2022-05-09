@@ -19,6 +19,7 @@ class _SearchFilterWidgetState extends State<SearchFilterWidget> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0),
           child: FilterChip(
+            //TODO: translate filter chip labels
             label: Text(tag.name.toString()),
             elevation: 2,
             selectedColor: Theme.of(context).chipTheme.selectedColor,
@@ -52,6 +53,7 @@ class _SearchFilterWidgetState extends State<SearchFilterWidget> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
+            //TODO: translate here
             const Text('Filter by: '),
             ..._filterWidgets,
           ],

@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../notifiers/version_notifier.dart';
-import '../../app/utils/connectivity_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
+import '../../app/utils/connectivity_service.dart';
+import '../notifiers/version_notifier.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
 class SplashScreen extends StatefulWidget {
