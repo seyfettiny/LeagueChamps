@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -44,20 +43,16 @@ class ChampionListItem extends StatelessWidget {
               // Had to add this check for fiddlesticks because it has the name "FiddleSticks" at cdn
               // instead of ${champion.id} like every other champion.
               CachedNetworkImage(
-                imageUrl: champion.image!.full != null
-                    ? AppConstants.championCenteredImageUrl +
-                        (champion.id! == 'Fiddlesticks'
-                            ? 'FiddleSticks'
-                            : champion.id!) +
-                        '_0.jpg'
-                    : '',
-                cacheKey: champion.image!.full != null
-                    ? AppConstants.championCenteredImageUrl +
-                        (champion.id! == 'Fiddlesticks'
-                            ? 'FiddleSticks'
-                            : champion.id!) +
-                        '_0.jpg'
-                    : '',
+                imageUrl: AppConstants.championCenteredImageUrl +
+                    (champion.id! == 'Fiddlesticks'
+                        ? 'FiddleSticks'
+                        : champion.id!) +
+                    '_0.jpg',
+                cacheKey: AppConstants.championCenteredImageUrl +
+                    (champion.id! == 'Fiddlesticks'
+                        ? 'FiddleSticks'
+                        : champion.id!) +
+                    '_0.jpg',
               ),
               Positioned(
                 height: 250,
