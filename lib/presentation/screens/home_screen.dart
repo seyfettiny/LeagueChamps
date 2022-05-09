@@ -55,23 +55,25 @@ class HomeScreen extends StatelessWidget {
                 if (snapshot.hasData) {
                   _searchNotifier.addChampions(snapshot.data);
                   //TODO: add AnimatedList
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    padding: const EdgeInsets.all(8),
-                    itemBuilder: (context, index) {
-                      var champion = snapshot.data[index];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 600),
-                        child: SlideAnimation(
-                          curve: Curves.easeOutExpo,
-                          horizontalOffset: 100,
-                          child: FadeInAnimation(
-                            child: ChampionListItem(champion: champion),
+                  return AnimationLimiter(
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      padding: const EdgeInsets.all(8),
+                      itemBuilder: (context, index) {
+                        var champion = snapshot.data[index];
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 600),
+                          child: SlideAnimation(
+                            curve: Curves.easeOutExpo,
+                            horizontalOffset: 100,
+                            child: FadeInAnimation(
+                              child: ChampionListItem(champion: champion),
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
                 return const CircularProgressIndicator();
