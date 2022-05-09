@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/routing/route_paths.dart';
@@ -9,19 +10,12 @@ import '../notifiers/version_notifier.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var versionNotifier = Provider.of<VersionNotifier>(context);
+    final _searchNotifier = Provider.of<SearchNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text.rich(
@@ -58,16 +52,28 @@ class _HomeScreenState extends State<HomeScreen> {
               future: homeViewModel.getChampions(
                   versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                final _searchNotifier = Provider.of<SearchNotifier>(context);
                 if (snapshot.hasData) {
                   _searchNotifier.addChampions(snapshot.data);
-                  //TODO: add AnimatedList to make more noticeble that champ insert or delete when version changes
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      var champion = snapshot.data[index];
-                      return ChampionListItem(champion: champion);
-                    },
+                  //TODO: add AnimatedList
+                  return AnimationLimiter(
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      padding: const EdgeInsets.all(8),
+                      itemBuilder: (context, index) {
+                        var champion = snapshot.data[index];
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 600),
+                          child: SlideAnimation(
+                            curve: Curves.easeOutExpo,
+                            horizontalOffset: 100,
+                            child: FadeInAnimation(
+                              child: ChampionListItem(champion: champion),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 }
                 return const CircularProgressIndicator();

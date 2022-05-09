@@ -25,7 +25,9 @@ List<SingleChildWidget> providers = [
 ];
 
 List<SingleChildWidget> independentServices = [
-  Provider<http.Client>(create: (_) => http.Client()),
+  Provider<http.Client>(
+    create: (_) => http.Client(),
+  ),
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),

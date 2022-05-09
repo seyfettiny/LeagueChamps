@@ -45,6 +45,9 @@ dependencies:
   #Excluding generated files from coverage
   remove_from_coverage: ^2.0.0
 
+  #Animating widgets
+  flutter_staggered_animations: ^1.0.0
+
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
