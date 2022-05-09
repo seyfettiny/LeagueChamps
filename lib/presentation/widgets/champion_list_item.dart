@@ -1,4 +1,8 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,65 +23,132 @@ class ChampionListItem extends StatelessWidget {
         Navigator.pushNamed(context, RoutePaths.champDetail,
             arguments: {'champId': champion.id});
       },
-      child: Container(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         margin: const EdgeInsets.only(bottom: 16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox.square(
-              dimension: 120,
-              child: CachedNetworkImage(
+        borderOnForeground: false,
+        elevation: 8,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              // child: CachedNetworkImage(
+              //   imageUrl: champion.image!.full != null
+              //       ? AppConstants.championAPIBaseUrl +
+              //           versionNotifier.currentVersion +
+              //           AppConstants.championImageRoute +
+              //           champion.image!.full!
+              //       : '',
+              //   cacheKey: champion.image!.full != null
+              //       ? champion.image!.full! + versionNotifier.currentVersion
+              //       : '',
+              // ),
+
+              // Had to add this check for fiddlesticks because it has the name "FiddleSticks" at cdn
+              // instead of ${champion.id} like every other champion.
+              CachedNetworkImage(
                 imageUrl: champion.image!.full != null
-                    ? AppConstants.championAPIBaseUrl +
-                        versionNotifier.currentVersion +
-                        AppConstants.championImageRoute +
-                        champion.image!.full!
+                    ? AppConstants.championCenteredImageUrl +
+                        (champion.id! == 'Fiddlesticks'
+                            ? 'FiddleSticks'
+                            : champion.id!) +
+                        '_0.jpg'
                     : '',
                 cacheKey: champion.image!.full != null
-                    ? champion.image!.full! + versionNotifier.currentVersion
+                    ? AppConstants.championCenteredImageUrl +
+                        (champion.id! == 'Fiddlesticks'
+                            ? 'FiddleSticks'
+                            : champion.id!) +
+                        '_0.jpg'
                     : '',
               ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+              Positioned(
+                height: 250,
+                right: 0,
+                left: 0,
+                bottom: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withAlpha(250),
+                        Colors.black.withAlpha(80),
+                        Colors.black.withAlpha(0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                left: 0,
+                top: 80,
+                bottom: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        champion.name! + ', ',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            champion.name! + ', ',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Expanded(
+                            child: Text(
+                              champion.title!,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          ...champion.tags!.map((tag) {
+                            return Image(
+                              height: 30,
+                              width: 30,
+                              image: AssetImage(
+                                  'assets/champ_classes/${tag}_icon.png'),
+                            );
+                          })
+                        ],
                       ),
-                      Flexible(
+                      Align(
+                        alignment: Alignment.centerRight,
                         child: Text(
-                          champion.title!,
+                          champion.tags!.join(', '),
                           style: const TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
                               fontStyle: FontStyle.italic),
-                          overflow: TextOverflow.ellipsis,
                         ),
+                      ),
+                      Text(
+                        champion.blurb!.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
                       ),
                     ],
                   ),
-                  Text(
-                    champion.tags!.join(', '),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  Text(
-                    champion.blurb!.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
