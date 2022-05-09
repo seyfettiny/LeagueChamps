@@ -16,55 +16,43 @@ class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+        return fadeTransition(const SplashScreen());
 
       case RoutePaths.settings:
-        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+        return fadeTransition(const SettingsScreen());
 
       case RoutePaths.champDetail:
         final arg = settings.arguments as Map;
-        return PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 400),
-          pageBuilder: (BuildContext context, Animation<double> animation,
-              Animation<double> secondaryAnimation) {
-            return ChampDetailScreen(
-              champId: arg['champId'],
-            );
-          },
-          transitionsBuilder: (BuildContext context,
-              Animation<double> animation,
-              Animation<double> secondaryAnimation,
-              Widget child) {
-            return Align(
-              child: FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
-            );
-          },
-        );
+        return fadeTransition(ChampDetailScreen(champId: arg['champId']));
 
       case RoutePaths.skinOverview:
         final arg = settings.arguments as Map;
-        return CupertinoPageRoute(
-          builder: (_) => SkinOverViewScreen(
-            skin: arg['skin'],
-            skinId: arg['skinId'],
-          ),
+        return fadeTransition(
+          SkinOverViewScreen(skin: arg['skin'], skinId: arg['skinId']),
         );
 
       case RoutePaths.home:
-        return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
-        );
+        return fadeTransition(const HomeScreen());
       default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
+        return fadeTransition(
+          Scaffold(
             body: Center(
               child: Text('No route defined for ${settings.name}'),
             ),
-          ),
+          )
         );
     }
+  }
+
+  static PageRouteBuilder fadeTransition(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
   }
 }
