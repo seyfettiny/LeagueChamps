@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../notifiers/version_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../../domain/entities/champion_detailed.dart';

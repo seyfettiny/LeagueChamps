@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/notifiers/search_notifier.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
 import '../../app/utils/my_search_delegate.dart';
-import '../notifiers/search_notifier.dart';
-import '../notifiers/version_notifier.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 

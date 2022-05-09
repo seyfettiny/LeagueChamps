@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 
 import 'app/constants/app_constants.dart';
 import 'app/constants/locale_constants.dart';
+import 'app/notifiers/theme_notifier.dart';
 import 'app/routing/route_paths.dart';
 import 'app/routing/router.dart';
 import 'app/themes/dark_theme.dart';
 import 'app/themes/light_theme.dart';
 import 'data/data_sources/hive_service.dart';
-import 'presentation/notifiers/theme_notifier.dart';
 import 'providers.dart';
 
 main() async {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/notifiers/search_notifier.dart';
 import '../../domain/entities/champion.dart';
-import '../notifiers/search_notifier.dart';
 import '../widgets/champion_search_item.dart';
 
 class SearchFinder extends StatelessWidget {

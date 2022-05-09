@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
 import '../../domain/entities/champion.dart';
-import '../notifiers/version_notifier.dart';
 
 class ChampionSearchItem extends StatelessWidget {
   const ChampionSearchItem({

@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/notifiers/theme_notifier.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../app/translations/locale_keys.g.dart';
-import '../notifiers/theme_notifier.dart';
-import '../notifiers/version_notifier.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../domain/entities/champion_detailed.dart';
-import '../notifiers/version_notifier.dart';
 
 class ChampionSpellsWidget extends StatelessWidget {
   const ChampionSpellsWidget({
