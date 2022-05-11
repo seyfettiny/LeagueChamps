@@ -27,16 +27,19 @@ class ChampDetailScreen extends StatefulWidget {
 
 class _ChampDetailScreenState extends State<ChampDetailScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation _animation;
+  late final AnimationController _controller;
+  late final Animation _animation;
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
-    )..forward();
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -50,7 +53,6 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
     var championRepository = Provider.of<ChampionRepository>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
 
-    _controller.forward();
     return FutureBuilder(
       future: championRepository.getDetailedChampion(
           widget.champId, versionNotifier.currentVersion, context.locale),
@@ -59,6 +61,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
           ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
           var champDefaultSkin =
               '${champ.skins!.where((element) => element.num == 0).first.num}';
+          _controller.forward();
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: BlurredAppBar(
@@ -145,8 +148,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           AnimatedOpacity(
-                            opacity: _animation.value,
-                            duration: _controller.duration!,
+                            opacity: _controller.value,
+                            duration: const Duration(milliseconds: 500),
                             child: Text(
                               '\n Lore: ${champ.lore}',
                               style: Theme.of(context).textTheme.bodyMedium,
