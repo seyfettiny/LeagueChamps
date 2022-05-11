@@ -78,7 +78,7 @@ class ChampionListItem extends StatelessWidget {
               Positioned(
                 right: 0,
                 left: 0,
-                top: 80,
+                top: 90,
                 bottom: 0,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -105,30 +105,38 @@ class ChampionListItem extends StatelessWidget {
                             ),
                           ),
                           ...champion.tags!.map((tag) {
-                            return Image(
-                              height: 30,
-                              width: 30,
-                              image: AssetImage(
-                                  'assets/champ_classes/${tag}_icon.png'),
+                            return Tooltip(
+                              triggerMode: TooltipTriggerMode.tap,
+                              message: tag.toString(),
+                              child: Image(
+                                height: 30,
+                                width: 30,
+                                image: AssetImage(
+                                    'assets/champ_classes/${tag}_icon.png'),
+                              ),
                             );
                           })
                         ],
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          champion.tags!.join(', '),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              fontStyle: FontStyle.italic),
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: Text(
+                      //     champion.tags!.join(', '),
+                      //     style: const TextStyle(
+                      //         fontWeight: FontWeight.w500,
+                      //         fontSize: 14,
+                      //         fontStyle: FontStyle.italic),
+                      //   ),
+                      // ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            champion.blurb!.toString(),
+                            style: Theme.of(context).textTheme.labelMedium,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 4,
+                          ),
                         ),
-                      ),
-                      Text(
-                        champion.blurb!.toString(),
-                        style: Theme.of(context).textTheme.bodyText1,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
                       ),
                     ],
                   ),

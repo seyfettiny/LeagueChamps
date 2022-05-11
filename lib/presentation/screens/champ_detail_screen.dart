@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
@@ -13,7 +14,7 @@ import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
 import '../widgets/champion_spells_widget.dart';
 
-class ChampDetailScreen extends StatelessWidget {
+class ChampDetailScreen extends StatefulWidget {
   final String champId;
   const ChampDetailScreen({
     Key? key,
@@ -21,13 +22,38 @@ class ChampDetailScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ChampDetailScreen> createState() => _ChampDetailScreenState();
+}
+
+class _ChampDetailScreenState extends State<ChampDetailScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _animation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    )..forward();
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var championRepository = Provider.of<ChampionRepository>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
-    //TODO: Extract paddings/margins to constants
+
+    _controller.forward();
     return FutureBuilder(
       future: championRepository.getDetailedChampion(
-          champId, versionNotifier.currentVersion, context.locale),
+          widget.champId, versionNotifier.currentVersion, context.locale),
       builder: (context, asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
@@ -75,12 +101,25 @@ class ChampDetailScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: champ.tags!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return Image(
-                                  image: AssetImage(
-                                    'assets/champ_classes/${champ.tags![index]}_icon.png',
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: SlideAnimation(
+                                    horizontalOffset: 80,
+                                    child: FadeInAnimation(
+                                      child: Tooltip(
+                                        message: champ.tags![index],
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        child: Image(
+                                          image: AssetImage(
+                                            'assets/champ_classes/${champ.tags![index]}_icon.png',
+                                          ),
+                                          height: 36,
+                                          width: 36,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  height: 36,
-                                  width: 36,
                                 );
                               },
                             ),
@@ -105,9 +144,13 @@ class ChampDetailScreen extends StatelessWidget {
                             '\n partype: ${champ.partype}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          Text(
-                            '\n Lore: ${champ.lore}',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          AnimatedOpacity(
+                            opacity: _animation.value,
+                            duration: _controller.duration!,
+                            child: Text(
+                              '\n Lore: ${champ.lore}',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ),
                           Text(
                             '\n allytips: ${champ.allytips}',
@@ -127,10 +170,19 @@ class ChampDetailScreen extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: champ.spells!.length + 1,
                                 itemBuilder: (context, index) {
-                                  return ChampionSpellsWidget(
-                                      index: index,
-                                      champ: champ,
-                                      context: context);
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 500),
+                                    child: SlideAnimation(
+                                      horizontalOffset: 80,
+                                      child: FadeInAnimation(
+                                        child: ChampionSpellsWidget(
+                                            index: index,
+                                            champ: champ,
+                                            context: context),
+                                      ),
+                                    ),
+                                  );
                                 }),
                           ),
                           Text(
