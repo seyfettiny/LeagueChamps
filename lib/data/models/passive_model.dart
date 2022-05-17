@@ -10,6 +10,18 @@ class PassiveModel extends Passive {
         description: json["description"],
         image: ImageModel.fromJson(json["image"]),
       );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PassiveModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          description == other.description &&
+          image == other.image;
+  @override
+  int get hashCode => name.hashCode ^ description.hashCode ^ image.hashCode;
+
   @override
   String toString() {
     return 'Passive(name: $name, description: $description, image: $image)';

@@ -12,6 +12,20 @@ class SkinsModel extends Skins {
       );
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SkinsModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          this.num == other.num &&
+          name == other.name &&
+          chromas == other.chromas;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ this.num.hashCode ^ name.hashCode ^ chromas.hashCode;
+
+  @override
   String toString() {
     return 'Skins(id: $id, num: ${this.num}, name: $name, chromas: $chromas)';
   }

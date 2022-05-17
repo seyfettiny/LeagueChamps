@@ -45,13 +45,15 @@ class ChampDetailedModel extends ChampDetailed {
           recommended: recommended,
         );
 
-    factory ChampDetailedModel.fromJson(Map<String, dynamic> json) => ChampDetailedModel(
+  factory ChampDetailedModel.fromJson(Map<String, dynamic> json) =>
+      ChampDetailedModel(
         id: json["id"],
         key: json["key"],
         name: json["name"],
         title: json["title"],
         image: ImageModel.fromJson(json["image"]),
-        skins: List<SkinsModel>.from(json["skins"].map((x) => SkinsModel.fromJson(x))),
+        skins: List<SkinsModel>.from(
+            json["skins"].map((x) => SkinsModel.fromJson(x))),
         lore: json["lore"],
         blurb: json["blurb"],
         allytips: List<String>.from(json["allytips"].map((x) => x)),
@@ -60,10 +62,54 @@ class ChampDetailedModel extends ChampDetailed {
         partype: json["partype"],
         info: InfoModel.fromJson(json["info"]),
         stats: StatsModel.fromJson(json['stats']),
-        spells: List<SpellsModel>.from(json["spells"].map((x) => SpellsModel.fromJson(x))),
+        spells: List<SpellsModel>.from(
+            json["spells"].map((x) => SpellsModel.fromJson(x))),
         passive: PassiveModel.fromJson(json["passive"]),
         recommended: List<dynamic>.from(json["recommended"].map((x) => x)),
-    );
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ChampDetailedModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          key == other.key &&
+          name == other.name &&
+          title == other.title &&
+          image == other.image &&
+          skins == other.skins &&
+          lore == other.lore &&
+          blurb == other.blurb &&
+          allytips == other.allytips &&
+          enemytips == other.enemytips &&
+          tags == other.tags &&
+          partype == other.partype &&
+          info == other.info &&
+          stats == other.stats &&
+          spells == other.spells &&
+          passive == other.passive &&
+          recommended == other.recommended;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      key.hashCode ^
+      name.hashCode ^
+      title.hashCode ^
+      image.hashCode ^
+      skins.hashCode ^
+      lore.hashCode ^
+      blurb.hashCode ^
+      allytips.hashCode ^
+      enemytips.hashCode ^
+      tags.hashCode ^
+      partype.hashCode ^
+      info.hashCode ^
+      stats.hashCode ^
+      spells.hashCode ^
+      passive.hashCode ^
+      recommended.hashCode;
 
   @override
   String toString() {

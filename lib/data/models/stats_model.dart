@@ -68,6 +68,55 @@ class StatsModel extends Stats {
       );
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is StatsModel &&
+          runtimeType == other.runtimeType &&
+          hp == other.hp &&
+          hpperlevel == other.hpperlevel &&
+          mp == other.mp &&
+          mpperlevel == other.mpperlevel &&
+          movespeed == other.movespeed &&
+          armor == other.armor &&
+          armorperlevel == other.armorperlevel &&
+          spellblock == other.spellblock &&
+          spellblockperlevel == other.spellblockperlevel &&
+          attackrange == other.attackrange &&
+          hpregen == other.hpregen &&
+          hpregenperlevel == other.hpregenperlevel &&
+          mpregen == other.mpregen &&
+          mpregenperlevel == other.mpregenperlevel &&
+          crit == other.crit &&
+          critperlevel == other.critperlevel &&
+          attackdamage == other.attackdamage &&
+          attackdamageperlevel == other.attackdamageperlevel &&
+          attackspeedperlevel == other.attackspeedperlevel &&
+          attackspeed == other.attackspeed;
+
+  @override
+  int get hashCode =>
+      hp.hashCode ^
+      hpperlevel.hashCode ^
+      mp.hashCode ^
+      mpperlevel.hashCode ^
+      movespeed.hashCode ^
+      armor.hashCode ^
+      armorperlevel.hashCode ^
+      spellblock.hashCode ^
+      spellblockperlevel.hashCode ^
+      attackrange.hashCode ^
+      hpregen.hashCode ^
+      hpregenperlevel.hashCode ^
+      mpregen.hashCode ^
+      mpregenperlevel.hashCode ^
+      crit.hashCode ^
+      critperlevel.hashCode ^
+      attackdamage.hashCode ^
+      attackdamageperlevel.hashCode ^
+      attackspeedperlevel.hashCode ^
+      attackspeed.hashCode;
+
+  @override
   String toString() {
     return 'Stats(hp: $hp, hpperlevel: $hpperlevel, mp: $mp, mpperlevel: $mpperlevel, movespeed: $movespeed, armor: $armor, armorperlevel: $armorperlevel, spellblock: $spellblock, spellblockperlevel: $spellblockperlevel, attackrange: $attackrange, hpregen: $hpregen, hpregenperlevel: $hpregenperlevel, mpregen: $mpregen, mpregenperlevel: $mpregenperlevel, crit: $crit, critperlevel: $critperlevel, attackdamage: $attackdamage, attackdamageperlevel: $attackdamageperlevel, attackspeedperlevel: $attackspeedperlevel, attackspeed: $attackspeed)';
   }

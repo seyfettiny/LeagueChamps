@@ -14,7 +14,6 @@ class SpellsModel extends Spells {
       cooldownBurn,
       cost,
       costBurn,
-      //datavalues,
       effect,
       effectBurn,
       vars,
@@ -35,7 +34,6 @@ class SpellsModel extends Spells {
           cooldownBurn: cooldownBurn,
           cost: cost,
           costBurn: costBurn,
-          //datavalues: datavalues,
           effect: effect,
           effectBurn: effectBurn,
           vars: vars,
@@ -68,6 +66,54 @@ class SpellsModel extends Spells {
         image: ImageModel.fromJson(json["image"]),
         resource: json["resource"],
       );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpellsModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          description == other.description &&
+          tooltip == other.tooltip &&
+          leveltip == other.leveltip &&
+          maxrank == other.maxrank &&
+          cooldown == other.cooldown &&
+          cooldownBurn == other.cooldownBurn &&
+          cost == other.cost &&
+          costBurn == other.costBurn &&
+          effect == other.effect &&
+          effectBurn == other.effectBurn &&
+          vars == other.vars &&
+          costType == other.costType &&
+          maxammo == other.maxammo &&
+          range == other.range &&
+          rangeBurn == other.rangeBurn &&
+          image == other.image &&
+          resource == other.resource;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      description.hashCode ^
+      tooltip.hashCode ^
+      leveltip.hashCode ^
+      maxrank.hashCode ^
+      cooldown.hashCode ^
+      cooldownBurn.hashCode ^
+      cost.hashCode ^
+      costBurn.hashCode ^
+      effect.hashCode ^
+      effectBurn.hashCode ^
+      vars.hashCode ^
+      costType.hashCode ^
+      maxammo.hashCode ^
+      range.hashCode ^
+      rangeBurn.hashCode ^
+      image.hashCode ^
+      resource.hashCode;
+
   @override
   String toString() {
     return 'Spells(id: $id, name: $name, description: $description, tooltip: $tooltip, leveltip: $leveltip, maxrank: $maxrank, cooldown: $cooldown, cooldownBurn: $cooldownBurn, cost: $cost, costBurn: $costBurn, effect: $effect, effectBurn: $effectBurn, vars: $vars, costType: $costType, maxammo: $maxammo, range: $range, rangeBurn: $rangeBurn, image: $image, resource: $resource)';
