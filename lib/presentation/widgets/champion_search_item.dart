@@ -25,7 +25,6 @@ class ChampionSearchItem extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: CachedNetworkImage(
-            //TODO:  BUG champ image returns null
             imageUrl: champion.image!.full != null
                 ? AppConstants.championAPIBaseUrl +
                     versionNotifier.currentVersion +
@@ -47,12 +46,13 @@ class ChampionSearchItem extends StatelessWidget {
             },
             placeholder: (context, url) => SizedBox(
               child: Shimmer.fromColors(
-                  child: const SizedBox(
-                    width: 56,
-                    height: 56,
+                  child: Container(
+                    color: Colors.grey,
+                    width: 54,
+                    height: 54,
                   ),
-                  baseColor: Colors.blueGrey,
-                  highlightColor: Colors.grey[200]!),
+                  baseColor: Colors.grey[700]!,
+                  highlightColor: Colors.grey[500]!),
             ),
           ),
         ),
