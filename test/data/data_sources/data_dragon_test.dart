@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/app/constants/app_constants.dart';
 import 'package:leaguechamps/data/data_sources/data_dragon.dart';
+import 'package:leaguechamps/data/models/champion_detailed_model.dart';
 import 'package:leaguechamps/data/models/champion_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -53,25 +55,67 @@ void main() {
       expect(dataDragonAPI.getVersionList(), throwsA(isA<Exception>()));
     });
   });
-  group('getChampion', () {
-    const _version = '12.8.1';
-    const _lang = Locale('en', 'US');
+  const _version = '12.5.1';
+  const _champId = 'Ahri';
+  const _lang = Locale('tr', 'TR');
+  group('getChampions', () {
     final _url =
         '${AppConstants.championAPIBaseUrl}$_version/data/$_lang/champion.json';
-    final _championList = [
-      ChampionModel.fromJson(jsonDecode(
-          File('test/helpers/dummy_champion.json').readAsStringSync()))
-    ];
-    print(jsonEncode(
-        File('test/helpers/dummy_champion.json').readAsStringSync()));
+    Map jsonResult = json.decode(
+        File('test/helpers/dummy_champion.json').readAsStringSync())['data'];
+    final _championList = [];
+    jsonResult.forEach((key, value) {
+      _championList.add(ChampionModel.fromJson(value));
+    });
 
     test('should return championList', () async {
-      when(mockClient.get(any)).thenAnswer((_) async => http.Response(
-          jsonEncode(
-              File('test/helpers/dummy_champion.json').readAsStringSync()),
-          200));
+      when(mockClient.get(Uri.parse(_url))).thenAnswer((_) async =>
+          http.Response(
+              File('test/helpers/dummy_champion.json').readAsStringSync(), 200,
+              headers: {
+                HttpHeaders.contentTypeHeader:
+                    'application/json; charset=utf-8',
+              }));
       final result = await dataDragonAPI.getChampions(_version, _lang);
-      expect(result, equals(_championList));
+      //TODO: refactor this
+      expect(result[0].info,_championList[0].info);
+    });
+
+    test('should throw an exception when getting championList', () {
+      when(mockClient.get(Uri.parse(_url))).thenThrow((Exception()));
+      final result = dataDragonAPI.getChampions(_version, _lang);
+      expect(result, throwsException);
+    });
+    test('should return different statusCode when getting championList', () {
+      when(mockClient.get(Uri.parse(_url)))
+          .thenAnswer((_) async => http.Response('Something went wrong', 404));
+      final result = dataDragonAPI.getChampions(_version, _lang);
+      expect(result, throwsException);
+    });
+  });
+  group('getChampionDetailed', () {
+    final _url =
+        '${AppConstants.championAPIBaseUrl}$_version/data/$_lang/$_champId.json';
+    Map<String, dynamic> jsonResult = json.decode(
+        File('test/helpers/dummy_champ_detailed.json').readAsStringSync());
+    final _championDetailed = ChampDetailedModel.fromJson(jsonResult['data'][_champId]);
+    test('should return a champDetailedModel', () async {
+      when(mockClient.get(any)).thenAnswer((_) async =>
+          http.Response(
+              File('test/helpers/dummy_champ_detailed.json').readAsStringSync(),
+              200,
+              headers: {
+                HttpHeaders.contentTypeHeader:
+                    'application/json; charset=utf-8',
+              }));
+     final ChampDetailedModel result =
+          await dataDragonAPI.getDetailedChampion(_champId, _version, _lang);
+      expect(result.info, equals(_championDetailed.info));
+    });
+    test('should throw an exception when getting championDetailed', () {
+      when(mockClient.get(any)).thenThrow((Exception()));
+      final result = dataDragonAPI.getDetailedChampion(_champId, _version, _lang);
+      expect(result, throwsException);
     });
   });
 }
