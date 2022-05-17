@@ -12,6 +12,7 @@ import '../../app/routing/route_paths.dart';
 import '../../data/repositories/champion_repository.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
+import '../widgets/champion_info_widget.dart';
 import '../widgets/champion_spells_widget.dart';
 
 class ChampDetailScreen extends StatefulWidget {
@@ -91,279 +92,299 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                   width: double.infinity,
                   color: Colors.black.withOpacity(0.4),
                   child: SingleChildScrollView(
-                    child: SizedBox(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              versionNotifier.currentVersion.toString(),
-                              style: Theme.of(context).textTheme.caption,
-                            ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            versionNotifier.currentVersion.toString(),
+                            style: Theme.of(context).textTheme.caption,
                           ),
-                          ChampionInfoWidget(
-                              champ: champ),
-                          SizedBox(
-                            height: 50,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: champ.tags!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 600),
-                                  child: SlideAnimation(
-                                    horizontalOffset: 20,
-                                    child: FadeInAnimation(
-                                      child: Tooltip(
-                                        message: champ.tags![index],
-                                        triggerMode: TooltipTriggerMode.tap,
-                                        child: Image(
-                                          image: AssetImage(
-                                            'assets/champ_classes/${champ.tags![index]}_icon.png',
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, bottom: 16),
+                              child: ChampionInfoWidget(champ: champ),
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 50,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: champ.tags!.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 600),
+                                      child: SlideAnimation(
+                                        horizontalOffset: 20,
+                                        child: FadeInAnimation(
+                                          child: Tooltip(
+                                            message: champ.tags![index],
+                                            triggerMode: TooltipTriggerMode.tap,
+                                            child: Image(
+                                              image: AssetImage(
+                                                'assets/champ_classes/${champ.tags![index]}_icon.png',
+                                              ),
+                                              height: 36,
+                                              width: 36,
+                                            ),
                                           ),
-                                          height: 36,
-                                          width: 36,
                                         ),
                                       ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Text(
+                        //   '\n partype: ${champ.partype}',
+                        //   style: Theme.of(context).textTheme.bodyMedium,
+                        // ),
+                        AnimatedOpacity(
+                          duration: const Duration(milliseconds: 500),
+                          opacity: _controller.value * 10,
+                          curve: Curves.easeInOut,
+                          child: AnimatedSlide(
+                            curve: Curves.easeInOut,
+                            offset: Offset(
+                                (_controller.upperBound) - _controller.value,
+                                0),
+                            duration: const Duration(milliseconds: 500),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                '${champ.lore}',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Ally tips',
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ),
+                        SizedBox(
+                          height: 120,
+                          child: AnimationLimiter(
+                            child: PageView.builder(
+                              scrollDirection: Axis.horizontal,
+                              controller: PageController(
+                                viewportFraction: 0.96,
+                              ),
+                              itemCount: champ.allytips!.length,
+                              itemBuilder: (BuildContext context, index) =>
+                                  AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 600),
+                                child: SlideAnimation(
+                                  curve: Curves.easeOutExpo,
+                                  horizontalOffset: 100,
+                                  child: FadeInAnimation(
+                                    child: Card(
+                                      margin: const EdgeInsets.only(right: 24),
+                                      color: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                        side: const BorderSide(
+                                          color: Color(0xffc6a66a),
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            champ.allytips![index],
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 5,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: champ.enemytips!.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Enemy tips',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
+                              ),
+                              SizedBox(
+                                height: 120,
+                                child: AnimationLimiter(
+                                  child: PageView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    controller: PageController(
+                                      viewportFraction: 0.96,
+                                    ),
+                                    itemCount: champ.enemytips!.length,
+                                    itemBuilder: (BuildContext context,
+                                            index) =>
+                                        AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 800),
+                                      child: SlideAnimation(
+                                        curve: Curves.easeOutExpo,
+                                        horizontalOffset: 100,
+                                        child: FadeInAnimation(
+                                          child: Card(
+                                            margin: const EdgeInsets.only(
+                                                right: 24),
+                                            color: Colors.transparent,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              side: const BorderSide(
+                                                color: Color(0xffc6a66a),
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  champ.enemytips![index],
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 5,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            'Spells',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 140,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: champ.spells!.length + 1,
+                              itemBuilder: (context, index) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 1000),
+                                  child: SlideAnimation(
+                                    horizontalOffset: 80,
+                                    child: FadeInAnimation(
+                                      child: ChampionSpellsWidget(
+                                          index: index,
+                                          champ: champ,
+                                          context: context),
                                     ),
                                   ),
                                 );
-                              },
-                            ),
+                              }),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            'Skins',
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
-
-                          // Text(
-                          //   '\n partype: ${champ.partype}',
-                          //   style: Theme.of(context).textTheme.bodyMedium,
-                          // ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: _controller.value * 10,
-                            curve: Curves.easeInOut,
-                            child: AnimatedSlide(
-                              curve: Curves.easeInOut,
-                              offset: Offset(
-                                  (_controller.upperBound) - _controller.value,
-                                  0),
-                              duration: const Duration(milliseconds: 500),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  '${champ.lore}',
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text('Ally tips',
-                                style: Theme.of(context).textTheme.titleMedium),
-                          ),
-                          SizedBox(
-                            height: 120,
-                            child: AnimationLimiter(
-                              child: PageView.builder(
-                                scrollDirection: Axis.horizontal,
-                                controller: PageController(
-                                  viewportFraction: 0.90,
-                                ),
-                                itemCount: champ.allytips!.length,
-                                itemBuilder: (BuildContext context, index) =>
-                                    AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 600),
-                                  child: SlideAnimation(
-                                    curve: Curves.easeOutExpo,
-                                    horizontalOffset: 100,
-                                    child: FadeInAnimation(
-                                      child: Card(
-                                        margin:
-                                            const EdgeInsets.only(right: 24),
-                                        color: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          side: const BorderSide(
-                                            color: Color(0xffc6a66a),
-                                            width: 2,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              champ.allytips![index],
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 5,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text('Enemy tips',
-                                style: Theme.of(context).textTheme.titleMedium),
-                          ),
-                          SizedBox(
-                            height: 120,
-                            child: AnimationLimiter(
-                              child: PageView.builder(
-                                scrollDirection: Axis.horizontal,
-                                controller: PageController(
-                                  viewportFraction: 0.90,
-                                ),
-                                itemCount: champ.enemytips!.length,
-                                itemBuilder: (BuildContext context, index) =>
-                                    AnimationConfiguration.staggeredList(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 800),
-                                  child: SlideAnimation(
-                                    curve: Curves.easeOutExpo,
-                                    horizontalOffset: 100,
-                                    child: FadeInAnimation(
-                                      child: Card(
-                                        margin:
-                                            const EdgeInsets.only(right: 24),
-                                        color: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          side: const BorderSide(
-                                            color: Color(0xffc6a66a),
-                                            width: 2,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              champ.enemytips![index],
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 5,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(
-                              'Spells',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 140,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: champ.spells!.length + 1,
-                                itemBuilder: (context, index) {
-                                  return AnimationConfiguration.staggeredList(
-                                    position: index,
-                                    duration:
-                                        const Duration(milliseconds: 1000),
-                                    child: SlideAnimation(
-                                      horizontalOffset: 80,
-                                      child: FadeInAnimation(
-                                        child: ChampionSpellsWidget(
-                                            index: index,
-                                            champ: champ,
-                                            context: context),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(
-                              'Skins',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 300,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: champ.skins!.length,
-                              itemBuilder: (context, index) {
-                                var champSkin = champ.skins![index];
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RoutePaths.skinOverview,
-                                          arguments: {
-                                            'skin': AppConstants
+                        ),
+                        SizedBox(
+                          height: 300,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: champ.skins!.length,
+                            itemBuilder: (context, index) {
+                              var champSkin = champ.skins![index];
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RoutePaths.skinOverview,
+                                        arguments: {
+                                          'skin': AppConstants
+                                                  .championLoadingImageUrl +
+                                              champ.id! +
+                                              '_${champSkin.num}.jpg',
+                                          'skinId': champSkin.id
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 8, left: 8, top: 16),
+                                      width: 140,
+                                      height: 250,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          //TODO: Add shimmer placeholder
+                                          image: CachedNetworkImageProvider(
+                                            AppConstants
                                                     .championLoadingImageUrl +
                                                 champ.id! +
                                                 '_${champSkin.num}.jpg',
-                                            'skinId': champSkin.id
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(
-                                            right: 8, left: 8, top: 16),
-                                        width: 140,
-                                        height: 250,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            //TODO: Add shimmer placeholder
-                                            image: CachedNetworkImageProvider(
-                                              AppConstants
-                                                      .championLoadingImageUrl +
-                                                  champ.id! +
-                                                  '_${champSkin.num}.jpg',
-                                              cacheKey: champSkin.id! +
-                                                  versionNotifier
-                                                      .currentVersion,
-                                            ),
+                                            cacheKey: champSkin.id! +
+                                                versionNotifier.currentVersion,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      champSkin.name! == 'default'
-                                          ? ''
-                                          : champSkin.name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              overflow: TextOverflow.ellipsis),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
+                                  ),
+                                  Text(
+                                    champSkin.name! == 'default'
+                                        ? ''
+                                        : champSkin.name!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            overflow: TextOverflow.ellipsis),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -377,110 +398,4 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
       },
     );
   }
-}
-
-class ChampionInfoWidget extends StatefulWidget {
-  final ChampDetailed champ;
-  const ChampionInfoWidget({
-    Key? key,
-    required this.champ,
-  }) : super(key: key);
-
-  @override
-  State<ChampionInfoWidget> createState() => _ChampionInfoWidgetState();
-}
-
-class _ChampionInfoWidgetState extends State<ChampionInfoWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Attack: ${widget.champ.info!.attack.toString()}',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        CustomPaint(
-          painter: ChampInfoPainter(
-            info: widget.champ.info!.attack!.toDouble(),
-          ),
-          size: Size(MediaQuery.of(context).size.width / 2, 30),
-        ),
-        Text(
-          'Defence: ${widget.champ.info!.defense.toString()}',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        CustomPaint(
-          painter: ChampInfoPainter(
-            info: widget.champ.info!.defense!.toDouble(),
-            
-          ),
-          size: Size(MediaQuery.of(context).size.width / 2, 30),
-        ),
-        Text(
-          'Magic: ${widget.champ.info!.magic.toString()}',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        CustomPaint(
-          painter: ChampInfoPainter(
-            info: widget.champ.info!.magic!.toDouble(),
-          ),
-          size: Size(MediaQuery.of(context).size.width / 2, 30),
-        ),
-        Text(
-          'Difficulty: ${widget.champ.info!.difficulty.toString()}',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        CustomPaint(
-          painter: ChampInfoPainter(
-            info: widget.champ.info!.difficulty!.toDouble(),
-          ),
-          size: Size(MediaQuery.of(context).size.width / 2, 30),
-        ),
-      ],
-    );
-  }
-}
-
-class ChampInfoPainter extends CustomPainter {
-  final double info;
-  ChampInfoPainter({
-    required this.info,
-  });
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..shader = const LinearGradient(
-        colors: [
-          Color(0xffAA771C),
-          Color(0xffc6a66a),
-        ],
-        stops: [
-          0.0,
-          1.0,
-        ],
-      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 15;
-    final path = Path();
-    path.moveTo(0, size.height / 2);
-    path.lineTo(info * size.width / 10, size.height / 2);
-    canvas.drawPath(path, paint);
-    final paint2 = Paint()
-      ..color = Color(0xffc6a66a)
-      ..style = PaintingStyle.fill
-      //..strokeCap = StrokeCap.round
-      ..strokeWidth = 2;
-    final path2 = Path();
-    path2.moveTo(0, size.height / 2);
-    path2.lineTo(size.width * info, size.height / 2);
-    canvas.drawPath(path2, paint2);
-  }
-
-  @override
-  bool shouldRepaint(ChampInfoPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(ChampInfoPainter oldDelegate) => false;
 }
