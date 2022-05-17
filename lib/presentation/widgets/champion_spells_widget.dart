@@ -77,7 +77,7 @@ class ChampionSpellsWidget extends StatelessWidget {
           width: 90,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.amber,
+              color: const Color(0xffc6a66a),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(
@@ -171,7 +171,7 @@ class ChampionSpellsWidget extends StatelessWidget {
           width: 90,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.amber,
+              color: const Color(0xffc6a66a),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(

@@ -31,15 +31,13 @@ class MyRouter {
         );
 
       case RoutePaths.home:
-        return fadeTransition(const HomeScreen());
+        return fadeTransition(HomeScreen());
       default:
-        return fadeTransition(
-          Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          )
-        );
+        return fadeTransition(Scaffold(
+          body: Center(
+            child: Text('No route defined for ${settings.name}'),
+          ),
+        ));
     }
   }
 

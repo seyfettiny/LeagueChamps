@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/search_notifier.dart';
@@ -11,28 +12,42 @@ import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+  final Shader? linearGradient = const LinearGradient(
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+    colors: <Color>[Color(0xff7c5e28), Color(0xffcabd8f)],
+  ).createShader(
+    const Rect.fromLTWH(0.0, 0.0, 100.0, 50.0),
+  );
   @override
   Widget build(BuildContext context) {
+    List<Champion> champions = [];
     var versionNotifier = Provider.of<VersionNotifier>(context);
     final _searchNotifier = Provider.of<SearchNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text.rich(
-          TextSpan(
-            children: <TextSpan>[
-              TextSpan(
+        title: ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) => linearGradient!,
+          child: const Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
                   text: 'League',
-                  style: TextStyle(fontWeight: FontWeight.w800)),
-              TextSpan(
-                  text: 'Champs',
-                  style: TextStyle(fontWeight: FontWeight.w300)),
-            ],
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+                TextSpan(
+                    text: 'Champs',
+                    style: TextStyle(fontWeight: FontWeight.w300)),
+              ],
+            ),
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {
+              _searchNotifier.addChampions(champions);
               showSearch(context: context, delegate: MySearchDelegate());
             },
             icon: const Icon(Icons.search),
@@ -53,8 +68,7 @@ class HomeScreen extends StatelessWidget {
                   versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  _searchNotifier.addChampions(snapshot.data);
-                  //TODO: add AnimatedList
+                  champions = snapshot.data;
                   return AnimationLimiter(
                     child: ListView.builder(
                       itemCount: snapshot.data.length,

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
+import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
 import '../../domain/entities/champion.dart';
 
@@ -11,6 +13,7 @@ class ChampionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final versionNotifier = Provider.of<VersionNotifier>(context);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -49,6 +52,7 @@ class ChampionListItem extends StatelessWidget {
                         : champion.id!) +
                     '_0.jpg',
                 cacheKey: AppConstants.championCenteredImageUrl +
+                    versionNotifier.currentVersion +
                     (champion.id! == 'Fiddlesticks'
                         ? 'FiddleSticks'
                         : champion.id!) +
@@ -118,16 +122,6 @@ class ChampionListItem extends StatelessWidget {
                           })
                         ],
                       ),
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: Text(
-                      //     champion.tags!.join(', '),
-                      //     style: const TextStyle(
-                      //         fontWeight: FontWeight.w500,
-                      //         fontSize: 14,
-                      //         fontStyle: FontStyle.italic),
-                      //   ),
-                      // ),
                       Expanded(
                         child: Center(
                           child: Text(

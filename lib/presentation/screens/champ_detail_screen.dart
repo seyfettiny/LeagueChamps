@@ -34,7 +34,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 100),
+      lowerBound: 0,
+      upperBound: 0.1,
     );
 
     _controller.addListener(() {
@@ -94,10 +96,15 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'version: ${versionNotifier.currentVersion.toString()}',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              versionNotifier.currentVersion.toString(),
+                              style: Theme.of(context).textTheme.caption,
+                            ),
                           ),
+                          ChampionInfoWidget(
+                              champ: champ),
                           SizedBox(
                             height: 50,
                             child: ListView.builder(
@@ -106,9 +113,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               itemBuilder: (BuildContext context, int index) {
                                 return AnimationConfiguration.staggeredList(
                                   position: index,
-                                  duration: const Duration(milliseconds: 300),
+                                  duration: const Duration(milliseconds: 600),
                                   child: SlideAnimation(
-                                    horizontalOffset: 80,
+                                    horizontalOffset: 20,
                                     child: FadeInAnimation(
                                       child: Tooltip(
                                         message: champ.tags![index],
@@ -127,45 +134,144 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               },
                             ),
                           ),
-                          Text(
-                            'Attack: ${champ.info!.attack.toString()}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            'Defence: ${champ.info!.defense.toString()}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            'Magic: ${champ.info!.magic.toString()}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            'Difficulty: ${champ.info!.difficulty.toString()}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            '\n partype: ${champ.partype}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+
+                          // Text(
+                          //   '\n partype: ${champ.partype}',
+                          //   style: Theme.of(context).textTheme.bodyMedium,
+                          // ),
                           AnimatedOpacity(
-                            opacity: _controller.value,
                             duration: const Duration(milliseconds: 500),
-                            child: Text(
-                              '\n Lore: ${champ.lore}',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            opacity: _controller.value * 10,
+                            curve: Curves.easeInOut,
+                            child: AnimatedSlide(
+                              curve: Curves.easeInOut,
+                              offset: Offset(
+                                  (_controller.upperBound) - _controller.value,
+                                  0),
+                              duration: const Duration(milliseconds: 500),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  '${champ.lore}',
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
                             ),
                           ),
-                          Text(
-                            '\n allytips: ${champ.allytips}',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text('Ally tips',
+                                style: Theme.of(context).textTheme.titleMedium),
                           ),
-                          Text(
-                            '\n enemytips: ${champ.enemytips}',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          SizedBox(
+                            height: 120,
+                            child: AnimationLimiter(
+                              child: PageView.builder(
+                                scrollDirection: Axis.horizontal,
+                                controller: PageController(
+                                  viewportFraction: 0.90,
+                                ),
+                                itemCount: champ.allytips!.length,
+                                itemBuilder: (BuildContext context, index) =>
+                                    AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 600),
+                                  child: SlideAnimation(
+                                    curve: Curves.easeOutExpo,
+                                    horizontalOffset: 100,
+                                    child: FadeInAnimation(
+                                      child: Card(
+                                        margin:
+                                            const EdgeInsets.only(right: 24),
+                                        color: Colors.transparent,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          side: const BorderSide(
+                                            color: Color(0xffc6a66a),
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              champ.allytips![index],
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 5,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                          Text(
-                            '\n spells: \n',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text('Enemy tips',
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ),
+                          SizedBox(
+                            height: 120,
+                            child: AnimationLimiter(
+                              child: PageView.builder(
+                                scrollDirection: Axis.horizontal,
+                                controller: PageController(
+                                  viewportFraction: 0.90,
+                                ),
+                                itemCount: champ.enemytips!.length,
+                                itemBuilder: (BuildContext context, index) =>
+                                    AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 800),
+                                  child: SlideAnimation(
+                                    curve: Curves.easeOutExpo,
+                                    horizontalOffset: 100,
+                                    child: FadeInAnimation(
+                                      child: Card(
+                                        margin:
+                                            const EdgeInsets.only(right: 24),
+                                        color: Colors.transparent,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          side: const BorderSide(
+                                            color: Color(0xffc6a66a),
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              champ.enemytips![index],
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 5,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              'Spells',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                           SizedBox(
                             height: 140,
@@ -175,7 +281,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                 itemBuilder: (context, index) {
                                   return AnimationConfiguration.staggeredList(
                                     position: index,
-                                    duration: const Duration(milliseconds: 500),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
                                     child: SlideAnimation(
                                       horizontalOffset: 80,
                                       child: FadeInAnimation(
@@ -188,9 +295,12 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   );
                                 }),
                           ),
-                          Text(
-                            '\n skins: \n',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              'Skins',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                           SizedBox(
                             height: 300,
@@ -216,8 +326,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                         );
                                       },
                                       child: Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 16),
+                                        margin: const EdgeInsets.only(
+                                            right: 8, left: 8, top: 16),
                                         width: 140,
                                         height: 250,
                                         decoration: BoxDecoration(
@@ -267,4 +377,110 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
       },
     );
   }
+}
+
+class ChampionInfoWidget extends StatefulWidget {
+  final ChampDetailed champ;
+  const ChampionInfoWidget({
+    Key? key,
+    required this.champ,
+  }) : super(key: key);
+
+  @override
+  State<ChampionInfoWidget> createState() => _ChampionInfoWidgetState();
+}
+
+class _ChampionInfoWidgetState extends State<ChampionInfoWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Attack: ${widget.champ.info!.attack.toString()}',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        CustomPaint(
+          painter: ChampInfoPainter(
+            info: widget.champ.info!.attack!.toDouble(),
+          ),
+          size: Size(MediaQuery.of(context).size.width / 2, 30),
+        ),
+        Text(
+          'Defence: ${widget.champ.info!.defense.toString()}',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        CustomPaint(
+          painter: ChampInfoPainter(
+            info: widget.champ.info!.defense!.toDouble(),
+            
+          ),
+          size: Size(MediaQuery.of(context).size.width / 2, 30),
+        ),
+        Text(
+          'Magic: ${widget.champ.info!.magic.toString()}',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        CustomPaint(
+          painter: ChampInfoPainter(
+            info: widget.champ.info!.magic!.toDouble(),
+          ),
+          size: Size(MediaQuery.of(context).size.width / 2, 30),
+        ),
+        Text(
+          'Difficulty: ${widget.champ.info!.difficulty.toString()}',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        CustomPaint(
+          painter: ChampInfoPainter(
+            info: widget.champ.info!.difficulty!.toDouble(),
+          ),
+          size: Size(MediaQuery.of(context).size.width / 2, 30),
+        ),
+      ],
+    );
+  }
+}
+
+class ChampInfoPainter extends CustomPainter {
+  final double info;
+  ChampInfoPainter({
+    required this.info,
+  });
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..shader = const LinearGradient(
+        colors: [
+          Color(0xffAA771C),
+          Color(0xffc6a66a),
+        ],
+        stops: [
+          0.0,
+          1.0,
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 15;
+    final path = Path();
+    path.moveTo(0, size.height / 2);
+    path.lineTo(info * size.width / 10, size.height / 2);
+    canvas.drawPath(path, paint);
+    final paint2 = Paint()
+      ..color = Color(0xffc6a66a)
+      ..style = PaintingStyle.fill
+      //..strokeCap = StrokeCap.round
+      ..strokeWidth = 2;
+    final path2 = Path();
+    path2.moveTo(0, size.height / 2);
+    path2.lineTo(size.width * info, size.height / 2);
+    canvas.drawPath(path2, paint2);
+  }
+
+  @override
+  bool shouldRepaint(ChampInfoPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(ChampInfoPainter oldDelegate) => false;
 }

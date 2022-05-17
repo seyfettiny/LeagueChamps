@@ -7,23 +7,12 @@ import '../../app/routing/route_paths.dart';
 import '../../app/utils/connectivity_service.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  //TODO: precache images for homescreen
-  //    precacheImage(CachedNetworkImageProvider('url'), context);
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _isRedirected = true;
     final _connectivityService = Provider.of<ConnectivityService>(context);
     final _versionNotifier = Provider.of<VersionNotifier>(context);
     return Scaffold(
@@ -43,19 +32,24 @@ class _SplashScreenState extends State<SplashScreen> {
                       _versionNotifier.setVersionList(snapshot.data[1]);
                       Navigator.pushNamedAndRemoveUntil(
                           context, RoutePaths.home, (route) => false);
+                    }).onError((error, stackTrace) {
+                      _isRedirected = false;
+                      return null;
                     });
-
                     return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _versionNotifier.setVersionList(snapshot.data[1]);
-                            _versionNotifier.changeVersion(snapshot.data[0]);
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, RoutePaths.home, (route) => false);
-                          },
-                          child: const Text('Button'),
+                        Visibility(
+                          visible: !_isRedirected,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _versionNotifier.setVersionList(snapshot.data[1]);
+                              _versionNotifier.changeVersion(snapshot.data[0]);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, RoutePaths.home, (route) => false);
+                            },
+                            child: const Text('Button'),
+                          ),
                         ),
                         Text(snapshot.data[0].toString()),
                         Text(context.locale.toString().tr()),
