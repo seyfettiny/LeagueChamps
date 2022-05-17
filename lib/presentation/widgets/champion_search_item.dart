@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/notifiers/version_notifier.dart';
@@ -35,7 +36,6 @@ class ChampionSearchItem extends StatelessWidget {
                 ? champion.image!.full! + versionNotifier.currentVersion
                 : '',
             errorWidget: (context, url, error) {
-
               return const SizedBox(
                 width: 56,
                 height: 56,
@@ -45,10 +45,14 @@ class ChampionSearchItem extends StatelessWidget {
                 ),
               );
             },
-            placeholder: (context, url) => const SizedBox(
-              width: 56,
-              height: 56,
-              child: CircularProgressIndicator(),
+            placeholder: (context, url) => SizedBox(
+              child: Shimmer.fromColors(
+                  child: const SizedBox(
+                    width: 56,
+                    height: 56,
+                  ),
+                  baseColor: Colors.blueGrey,
+                  highlightColor: Colors.grey[200]!),
             ),
           ),
         ),

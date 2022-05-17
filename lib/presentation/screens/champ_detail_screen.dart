@@ -67,6 +67,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
           _controller.forward();
           return Scaffold(
             extendBodyBehindAppBar: true,
+            backgroundColor: Colors.black,
             appBar: BlurredAppBar(
               name: champ.name!,
               title: champ.title!,
@@ -90,7 +91,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                 child: Container(
                   padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
                   width: double.infinity,
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withOpacity(0.2),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -187,7 +188,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               itemBuilder: (BuildContext context, index) =>
                                   AnimationConfiguration.staggeredList(
                                 position: index,
-                                duration: const Duration(milliseconds: 600),
+                                duration: const Duration(milliseconds: 1000),
                                 child: SlideAnimation(
                                   curve: Curves.easeOutExpo,
                                   horizontalOffset: 100,
@@ -248,7 +249,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                         AnimationConfiguration.staggeredList(
                                       position: index,
                                       duration:
-                                          const Duration(milliseconds: 800),
+                                          const Duration(milliseconds: 1400),
                                       child: SlideAnimation(
                                         curve: Curves.easeOutExpo,
                                         horizontalOffset: 100,
