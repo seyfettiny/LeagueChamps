@@ -31,18 +31,6 @@ class ChampionListItem extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              // child: CachedNetworkImage(
-              //   imageUrl: champion.image!.full != null
-              //       ? AppConstants.championAPIBaseUrl +
-              //           versionNotifier.currentVersion +
-              //           AppConstants.championImageRoute +
-              //           champion.image!.full!
-              //       : '',
-              //   cacheKey: champion.image!.full != null
-              //       ? champion.image!.full! + versionNotifier.currentVersion
-              //       : '',
-              // ),
-
               // Had to add this check for fiddlesticks because it has the name "FiddleSticks" at cdn
               // instead of ${champion.id} like every other champion.
               CachedNetworkImage(
@@ -85,7 +73,7 @@ class ChampionListItem extends StatelessWidget {
                 top: 90,
                 bottom: 0,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +114,7 @@ class ChampionListItem extends StatelessWidget {
                         child: Center(
                           child: Text(
                             champion.blurb!.toString(),
-                            style: Theme.of(context).textTheme.labelMedium,
+                            style: Theme.of(context).textTheme.bodyMedium,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 4,
                           ),

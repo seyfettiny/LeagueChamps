@@ -27,7 +27,11 @@ class MyRouter {
       case RoutePaths.skinOverview:
         final arg = settings.arguments as Map;
         return fadeTransition(
-          SkinOverViewScreen(skin: arg['skin'], skinId: arg['skinId']),
+          SkinOverViewScreen(
+            skinUrl: arg['skinUrl'],
+            skinId: arg['skinId'],
+            skinName: arg['skinName'],
+          ),
         );
 
       case RoutePaths.home:

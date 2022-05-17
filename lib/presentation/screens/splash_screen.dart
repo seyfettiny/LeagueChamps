@@ -15,54 +15,61 @@ class SplashScreen extends StatelessWidget {
     var _isRedirected = true;
     final _connectivityService = Provider.of<ConnectivityService>(context);
     final _versionNotifier = Provider.of<VersionNotifier>(context);
-    return Scaffold(
-      body: Center(
-        child: Consumer<SplashViewModel>(
-          builder: (context, splashViewModel, child) {
-            return FutureBuilder(
-              future: Future.wait([
-                splashViewModel.getVersion(),
-                splashViewModel.getVersionList(),
-              ]),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (_connectivityService.hasConnection()) {
-                  if (snapshot.hasData) {
-                    Future.delayed(const Duration(seconds: 2), () {
-                      _versionNotifier.changeVersion(snapshot.data[0]);
-                      _versionNotifier.setVersionList(snapshot.data[1]);
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, RoutePaths.home, (route) => false);
-                    }).onError((error, stackTrace) {
-                      _isRedirected = false;
-                      return null;
-                    });
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Visibility(
-                          visible: !_isRedirected,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _versionNotifier.setVersionList(snapshot.data[1]);
-                              _versionNotifier.changeVersion(snapshot.data[0]);
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, RoutePaths.home, (route) => false);
-                            },
-                            child: const Text('Button'),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        body: Center(
+          child: Consumer<SplashViewModel>(
+            builder: (context, splashViewModel, child) {
+              return FutureBuilder(
+                future: Future.wait([
+                  splashViewModel.getVersion(),
+                  splashViewModel.getVersionList(),
+                ]),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (_connectivityService.hasConnection()) {
+                    if (snapshot.hasData) {
+                      Future.delayed(const Duration(seconds: 2), () {
+                        _versionNotifier.changeVersion(snapshot.data[0]);
+                        _versionNotifier.setVersionList(snapshot.data[1]);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RoutePaths.home, (route) => false);
+                      }).onError((error, stackTrace) {
+                        _isRedirected = false;
+                        return null;
+                      });
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Visibility(
+                            visible: !_isRedirected,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _versionNotifier
+                                    .setVersionList(snapshot.data[1]);
+                                _versionNotifier
+                                    .changeVersion(snapshot.data[0]);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, RoutePaths.home, (route) => false);
+                              },
+                              child: const Text('Button'),
+                            ),
                           ),
-                        ),
-                        Text(snapshot.data[0].toString()),
-                        Text(context.locale.toString().tr()),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
+                          Text(snapshot.data[0].toString()),
+                          Text(context.locale.toString().tr()),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
                   }
-                }
-                return const Text('No connection');
-              },
-            );
-          },
+                  return const Text('No connection');
+                },
+              );
+            },
+          ),
         ),
       ),
     );

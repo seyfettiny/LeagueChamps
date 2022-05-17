@@ -106,16 +106,18 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 16, bottom: 16),
                               child: ChampionInfoWidget(champ: champ),
                             ),
-                            Expanded(
+                            Flexible(
                               child: SizedBox(
                                 height: 50,
                                 child: ListView.builder(
+                                  shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: champ.tags!.length,
                                   itemBuilder:
@@ -333,6 +335,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             itemCount: champ.skins!.length,
                             itemBuilder: (context, index) {
                               var champSkin = champ.skins![index];
+                              print(champSkin.name);
                               return Column(
                                 children: [
                                   InkWell(
@@ -341,11 +344,12 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                         context,
                                         RoutePaths.skinOverview,
                                         arguments: {
-                                          'skin': AppConstants
+                                          'skinUrl': AppConstants
                                                   .championLoadingImageUrl +
                                               champ.id! +
                                               '_${champSkin.num}.jpg',
-                                          'skinId': champSkin.id
+                                          'skinId': champSkin.id,
+                                          'skinName': champSkin.name
                                         },
                                       );
                                     },
@@ -356,6 +360,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                       height: 250,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
+                                          filterQuality: FilterQuality.high,
                                           fit: BoxFit.cover,
                                           //TODO: Add shimmer placeholder
                                           image: CachedNetworkImageProvider(
@@ -365,6 +370,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                                 '_${champSkin.num}.jpg',
                                             cacheKey: champSkin.id! +
                                                 versionNotifier.currentVersion,
+                                            maxWidth: 1000,
                                           ),
                                         ),
                                       ),
