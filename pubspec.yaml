@@ -51,6 +51,9 @@ dependencies:
   #Loading states
   shimmer: ^2.0.0
 
+  #For Privacy Policy
+  webview_flutter: ^3.0.4
+
 flutter_icons:
   android: true
   ios: true

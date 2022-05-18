@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/screens/champ_detail_screen.dart';
 import '../../presentation/screens/home_screen.dart';
+import '../../presentation/screens/privacy_policy_screen.dart';
 import '../../presentation/screens/settings_screen.dart';
 import '../../presentation/screens/skin_overview_screen.dart';
 import '../../presentation/screens/splash_screen.dart';
@@ -19,6 +20,9 @@ class MyRouter {
 
       case RoutePaths.settings:
         return fadeTransition(const SettingsScreen());
+
+      case RoutePaths.privacyPolicy:
+        return fadeTransition(const PrivacyPolicyScreen());
 
       case RoutePaths.champDetail:
         final arg = settings.arguments as Map;

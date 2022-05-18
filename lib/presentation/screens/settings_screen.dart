@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/app/routing/route_paths.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/theme_notifier.dart';
@@ -39,7 +40,6 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
           ),
-          ListTile(title: Text(LocaleKeys.hello.tr())),
           ListTile(
             title: DropdownButton<String>(
               isExpanded: true,
@@ -150,6 +150,15 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
           ),
+          ListTile(
+            title: const Text('Privacy Policy'),
+            trailing: const Icon(
+              Icons.arrow_right,
+            ),
+            onTap: () {
+              Navigator.of(context).pushNamed(RoutePaths.privacyPolicy);
+            },
+          )
         ],
       ),
     );
