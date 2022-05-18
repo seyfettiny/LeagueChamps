@@ -78,7 +78,7 @@ void main() {
               }));
       final result = await dataDragonAPI.getChampions(_version, _lang);
       //TODO: refactor this
-      expect(result[0].info,_championList[0].info);
+      expect(result[0].info, _championList[0].info);
     });
 
     test('should throw an exception when getting championList', () {
@@ -87,7 +87,7 @@ void main() {
       expect(result, throwsException);
     });
     test('should return different statusCode when getting championList', () {
-      when(mockClient.get(Uri.parse(_url)))
+      when(mockClient.get(any))
           .thenAnswer((_) async => http.Response('Something went wrong', 404));
       final result = dataDragonAPI.getChampions(_version, _lang);
       expect(result, throwsException);
@@ -98,23 +98,32 @@ void main() {
         '${AppConstants.championAPIBaseUrl}$_version/data/$_lang/$_champId.json';
     Map<String, dynamic> jsonResult = json.decode(
         File('test/helpers/dummy_champ_detailed.json').readAsStringSync());
-    final _championDetailed = ChampDetailedModel.fromJson(jsonResult['data'][_champId]);
+    final _championDetailed =
+        ChampDetailedModel.fromJson(jsonResult['data'][_champId]);
     test('should return a champDetailedModel', () async {
-      when(mockClient.get(any)).thenAnswer((_) async =>
-          http.Response(
+      when(mockClient.get(any)).thenAnswer((_) async => http.Response(
               File('test/helpers/dummy_champ_detailed.json').readAsStringSync(),
               200,
               headers: {
                 HttpHeaders.contentTypeHeader:
                     'application/json; charset=utf-8',
               }));
-     final ChampDetailedModel result =
+      final ChampDetailedModel result =
           await dataDragonAPI.getDetailedChampion(_champId, _version, _lang);
       expect(result.info, equals(_championDetailed.info));
     });
     test('should throw an exception when getting championDetailed', () {
       when(mockClient.get(any)).thenThrow((Exception()));
-      final result = dataDragonAPI.getDetailedChampion(_champId, _version, _lang);
+      final result =
+          dataDragonAPI.getDetailedChampion(_champId, _version, _lang);
+      expect(result, throwsException);
+    });
+    test('should return different statusCode when getting championDetailed',
+        () {
+      when(mockClient.get(any))
+          .thenAnswer((_) async => http.Response('Something went wrong', 400));
+      final result =
+          dataDragonAPI.getDetailedChampion(_champId, _champId, _lang);
       expect(result, throwsException);
     });
   });
