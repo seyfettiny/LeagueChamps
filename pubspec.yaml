@@ -51,6 +51,11 @@ dependencies:
   #Loading states
   shimmer: ^2.0.0
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'assets/images/icon.png'
+
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
@@ -60,6 +65,10 @@ dev_dependencies:
   hive_generator: ^1.1.2
   build_runner: ^2.1.7
 
+  #App Logo
+  icons_launcher: ^1.1.8
+
+
 flutter:
   uses-material-design: true
 
@@ -67,4 +76,5 @@ flutter:
     - .env
     - assets/translations/
     - assets/champ_classes/
+    - assets/images/
     

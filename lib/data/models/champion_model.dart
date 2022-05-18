@@ -33,7 +33,7 @@ class ChampionModel extends Champion {
         stats:
             json["stats"] == null ? null : StatsModel.fromJson(json["stats"]),
       );
-      
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

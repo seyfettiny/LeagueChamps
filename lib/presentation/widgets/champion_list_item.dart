@@ -96,7 +96,7 @@ class ChampionListItem extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          ...champion.tags!.map((tag) {
+                          ...champion.tags.map((tag) {
                             return Tooltip(
                               triggerMode: TooltipTriggerMode.tap,
                               message: tag.toString(),
