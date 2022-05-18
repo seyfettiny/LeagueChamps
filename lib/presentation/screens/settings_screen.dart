@@ -20,6 +20,7 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('Settings'),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           ListTile(
             title: DropdownButton(
@@ -158,6 +159,16 @@ class SettingsScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed(RoutePaths.privacyPolicy);
             },
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              alignment: Alignment.bottomCenter,
+              child: const Text(
+                'LeagueChamps isn\'t endorsed by Riot Games and doesn\'t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc',
+                textAlign: TextAlign.center,
+              ),
+            ),
           )
         ],
       ),

@@ -76,6 +76,7 @@ class ChampionListItem extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -110,14 +111,12 @@ class ChampionListItem extends StatelessWidget {
                           })
                         ],
                       ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            champion.blurb!.toString(),
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 4,
-                          ),
+                      Flexible(
+                        child: Text(
+                          champion.blurb!.toString(),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
                         ),
                       ),
                     ],
