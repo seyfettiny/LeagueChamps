@@ -71,8 +71,7 @@ class DataDragonAPI implements IDataDragonAPI {
       final Map<String, dynamic> data = jsonResponse['data'][championId];
       return ChampDetailedModel.fromJson(data);
     } else {
-      Exception(
-          'Failed to load champion: $championId (${response.statusCode})');
+      throw Exception('Failed to load champion');
     }
   }
 }
