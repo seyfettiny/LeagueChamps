@@ -126,7 +126,7 @@ void main() {
     test('should return a valid model after fromJson', () {
       final rawJson =
           File('test/helpers/dummy_champ_detailed.json').readAsStringSync();
-      final Map<String, dynamic> jsonMap = jsonDecode(rawJson);
+      final Map<String, dynamic> jsonMap = jsonDecode(rawJson)['data']['Ahri'];
       final result = ChampDetailedModel.fromJson(jsonMap);
       expect(result, isA<ChampDetailed>());
     });

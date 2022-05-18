@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/data/models/info_model.dart';
 import 'package:leaguechamps/domain/entities/info.dart';
@@ -19,5 +21,11 @@ void main() {
   });
   test('should be subtype of Info', () {
     expect(model, isA<Info>());
+  });
+  test('should have same hashcode', () {
+    final mockModel = model;
+    final result = InfoModel.fromJson(
+        jsonDecode('{"attack":8,"defense":4,"magic":3,"difficulty":4}'));
+    expect(mockModel.hashCode, result.hashCode);
   });
 }

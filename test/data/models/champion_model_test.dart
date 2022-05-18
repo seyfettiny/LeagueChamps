@@ -7,72 +7,70 @@ import 'package:leaguechamps/data/models/image_model.dart';
 import 'package:leaguechamps/data/models/info_model.dart';
 import 'package:leaguechamps/data/models/stats_model.dart';
 import 'package:leaguechamps/domain/entities/champion.dart';
+import 'package:mockito/mockito.dart';
 
 void main() {
   final ChampionModel model = ChampionModel(
-    id: 'id',
-    key: 'key',
-    version: '12.7.1',
-    name: 'name',
-    title: 'title',
-    blurb: 'blurb',
-    tags: ['tags'],
-    partype: 'partype',
+    version: "12.5.1",
+    id: "Aatrox",
+    key: "266",
+    name: "Aatrox",
+    title: "Darkin Kılıcı",
+    blurb:
+        "Bir zamanlar Shurima'yı Hiçlik'e karşı savunan onurlu savaşçılar olan Aatrox'la kardeşleri zamanla Runeterra için çok daha büyük bir tehdit haline geldiler ve sonunda ölümlülerin kurnazca büyülerine yenildiler. Fakat yüzyıllar boyu hapis kalan Aatrox...",
+    info: InfoModel(attack: 8, defense: 4, magic: 3, difficulty: 4),
     image: ImageModel(
-      full: 'full',
-      sprite: 'sprite',
-      group: 'group',
-      x: 0,
-      y: 0,
-      w: 0,
-      h: 0,
-    ),
-    info: InfoModel(
-      attack: 8,
-      defense: 4,
-      magic: 3,
-      difficulty: 4,
-    ),
+        full: "Aatrox.png",
+        sprite: "champion0.png",
+        group: "champion",
+        x: 0,
+        y: 0,
+        w: 48,
+        h: 48),
+    tags: ["Fighter", "Tank"],
+    partype: "Kan Kuyusu",
     stats: StatsModel(
-      hp: 8,
-      hpperlevel: 4,
-      mp: 3,
-      mpperlevel: 4,
-      movespeed: 4,
-      armor: 4,
-      armorperlevel: 4,
-      spellblock: 4,
-      spellblockperlevel: 4,
-      attackrange: 4,
-      hpregen: 4,
-      hpregenperlevel: 4,
-      mpregen: 4,
-      mpregenperlevel: 4,
-      crit: 4,
-      critperlevel: 4,
-      attackdamage: 4,
-      attackdamageperlevel: 4,
-      attackspeedperlevel: 4,
-      attackspeed: 4,
-    ),
+        hp: 580,
+        hpperlevel: 90,
+        mp: 0,
+        mpperlevel: 0,
+        movespeed: 345,
+        armor: 38,
+        armorperlevel: 3.25,
+        spellblock: 32,
+        spellblockperlevel: 1.25,
+        attackrange: 175,
+        hpregen: 3,
+        hpregenperlevel: 1,
+        mpregen: 0,
+        mpregenperlevel: 0,
+        crit: 0,
+        critperlevel: 0,
+        attackdamage: 60,
+        attackdamageperlevel: 5,
+        attackspeedperlevel: 2.5,
+        attackspeed: 0.651),
   );
-    group('fromJson', () {
-    test('should return a valid model after fromJson', () {
-      final rawJson =
-          File('test/helpers/dummy_champion.json').readAsStringSync();
-      final Map<String, dynamic> jsonMap = jsonDecode(rawJson);
-      final result = ChampionModel.fromJson(jsonMap);
-      expect(result, isA<Champion>());
-    });
+
+  test('should return a valid model after fromJson', () {
+    final rawJson = File('test/helpers/dummy_champion.json').readAsStringSync();
+    final Map<String, dynamic> jsonMap = jsonDecode(rawJson)['data']['Aatrox'];
+    final result = ChampionModel.fromJson(jsonMap);
+    expect(result, isA<Champion>());
   });
-  group('toString', () {
-    test('should return toString method non-null', () {
-      final result = model.toString();
-      expect(result.length, greaterThan(0));
-    });
-    test('should print as String', () {
-      final result = model.toString();
-      expect(result, isA<String>());
-    });
+
+  test('should return toString method non-null', () {
+    final result = model.toString();
+    expect(result.length, greaterThan(0));
+  });
+  test('should print as String', () {
+    final result = model.toString();
+    expect(result, isA<String>());
+  });
+  test('should have same hashcode', () {
+    final result = ChampionModel.fromJson(jsonDecode(
+            File('test/helpers/dummy_champion.json').readAsStringSync())['data']
+        ['Aatrox']);
+    expect(model == result, true);
   });
 }
