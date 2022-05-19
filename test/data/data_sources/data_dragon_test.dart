@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/app/constants/app_constants.dart';
@@ -77,8 +76,7 @@ void main() {
                     'application/json; charset=utf-8',
               }));
       final result = await dataDragonAPI.getChampions(_version, _lang);
-      //TODO: refactor this
-      expect(result[0].info, _championList[0].info);
+      expect(result[0], _championList[0]);
     });
 
     test('should throw an exception when getting championList', () {
@@ -94,8 +92,6 @@ void main() {
     });
   });
   group('getChampionDetailed', () {
-    final _url =
-        '${AppConstants.championAPIBaseUrl}$_version/data/$_lang/$_champId.json';
     Map<String, dynamic> jsonResult = json.decode(
         File('test/helpers/dummy_champ_detailed.json').readAsStringSync());
     final _championDetailed =

@@ -30,7 +30,7 @@ class ChampInfoPainter extends CustomPainter {
     path.lineTo((info * animation) * size.width / 10, size.height / 2);
     canvas.drawPath(path, paint);
     final paint2 = Paint()
-      ..color = Color(0xffc6a66a)
+      ..color = const Color(0xffc6a66a)
       ..style = PaintingStyle.fill
       //..strokeCap = StrokeCap.round
       ..strokeWidth = 2;

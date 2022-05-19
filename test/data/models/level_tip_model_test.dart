@@ -30,12 +30,6 @@ void main() {
   test('should have same hashcode', () {
     final result = LeveltipModel.fromJson(jsonDecode(
         '{ "label": ["Hasar", "Bekleme Süresi"], "effect": ["{{ basedamage }} -> {{ basedamageNL }}", "{{ cooldown }} -> {{ cooldownNL }}"]}'));
-    print(model.effect.hashCode);
-    print(result.effect.hashCode);
-    print(model.label.hashCode);
-    print(result.label.hashCode);
-    print(model.hashCode);
-    print(result.hashCode);
     expect(model.hashCode, result.hashCode);
   });
 }

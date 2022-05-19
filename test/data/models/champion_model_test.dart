@@ -71,12 +71,6 @@ void main() {
     final rawJson = File('test/helpers/dummy_champion.json').readAsStringSync();
     final Map<String, dynamic> jsonMap = jsonDecode(rawJson)['data']['Aatrox'];
     final result = ChampionModel.fromJson(jsonMap);
-    final another = ChampionModel.fromJson(jsonMap);
-    //TODO: refactor this test
-    print(model.tags.hashCode);
-    print(result.tags.hashCode);
-    print(another.tags.hashCode);
-    //expect(model == result,true);
-    listEquals(model.tags, result.tags);
+    expect(model, result);
   });
 }

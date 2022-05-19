@@ -10,4 +10,4 @@ targets:
       mockito|mockito:
         enabled: true
         options:
-          include_if_null: false
+          include_if_null: true
