@@ -26,10 +26,10 @@ void main() {
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
   });
   test('should init Hive', () async {
-    when(mockIHiveService.initHive()).thenAnswer(
+    when(mockIHiveService.init()).thenAnswer(
         (_) async => mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS));
     await hiveService.init();
-    verify(mockIHiveService.initHive());
+    verify(mockIHiveService.init());
   });
   test('should open Box Settings', () async {
     when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS))
