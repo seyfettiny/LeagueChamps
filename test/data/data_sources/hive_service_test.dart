@@ -12,16 +12,13 @@ import 'hive_service_test.mocks.dart';
   HiveService,
   IHiveService,
   Box,
-  HiveInterface,
 ])
 void main() {
   late MockIHiveService mockIHiveService;
   late HiveService hiveService;
-  late MockHiveInterface mockHiveInterface;
   late MockBox mockBox;
   setUp(() async {
-    mockHiveInterface = Hive;
-    hiveService = HiveService(hiveInterface: mockHiveInterface);
+    hiveService = HiveService();
     mockIHiveService = MockIHiveService();
     mockBox = MockBox();
     await setUpTestHive();
@@ -31,17 +28,17 @@ void main() {
   test('should init Hive', () async {
     when(mockIHiveService.initHive()).thenAnswer(
         (_) async => mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS));
-    await hiveService.initHive();
+    await hiveService.init();
     verify(mockIHiveService.initHive());
   });
   test('should open Box Settings', () async {
-    when(mockIHiveService.openBox(any))
+    when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS))
         .thenAnswer((_) async => Hive.box(HiveConstants.HIVE_BOX_SETTINGS));
     await hiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     expect(await Hive.boxExists(HiveConstants.HIVE_BOX_SETTINGS), true);
   });
   test('should open Box Version', () async {
-    when(mockIHiveService.openBox(any)).thenAnswer((_) async => mockBox);
+    when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS)).thenAnswer((_) async => mockBox);
     await hiveService.openBox(HiveConstants.HIVE_BOX_VERSION);
     expect(await Hive.boxExists(HiveConstants.HIVE_BOX_VERSION), true);
   });
