@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 import 'app/constants/app_constants.dart';
@@ -21,7 +20,6 @@ main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  await dotenv.load(fileName: ".env");
   await HiveService().init();
   EasyLocalization.logger.enableLevels = <LevelMessages>[
     LevelMessages.error,

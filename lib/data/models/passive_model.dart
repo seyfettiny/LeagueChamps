@@ -2,8 +2,11 @@ import '../../domain/entities/passive.dart';
 import 'image_model.dart';
 
 class PassiveModel extends Passive {
-  PassiveModel({name, description, image})
-      : super(name: name, description: description, image: image);
+  PassiveModel({
+    super.name,
+    super.description,
+    super.image,
+  });
 
   factory PassiveModel.fromJson(Map<String, dynamic> json) => PassiveModel(
         name: json["name"],

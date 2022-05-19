@@ -11,7 +11,7 @@ class Champion {
   final String? blurb;
   final Info? info;
   final Image? image;
-  final List<String> tags;
+  final List<String>? tags;
   final String? partype;
   final Stats? stats;
 

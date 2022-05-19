@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/champion_detailed.dart';
 import 'image_model.dart';
 import 'info_model.dart';
@@ -8,42 +10,23 @@ import 'stats_model.dart';
 
 class ChampDetailedModel extends ChampDetailed {
   ChampDetailedModel(
-      {id,
-      key,
-      name,
-      title,
-      image,
-      skins,
-      lore,
-      blurb,
-      allytips,
-      enemytips,
-      tags,
-      partype,
-      info,
-      stats,
-      spells,
-      passive,
-      recommended})
-      : super(
-          id: id,
-          key: key,
-          name: name,
-          title: title,
-          image: image,
-          skins: skins,
-          lore: lore,
-          blurb: blurb,
-          allytips: allytips,
-          enemytips: enemytips,
-          tags: tags,
-          partype: partype,
-          info: info,
-          stats: stats,
-          spells: spells,
-          passive: passive,
-          recommended: recommended,
-        );
+      {super.id,
+      super.key,
+      super.name,
+      super.title,
+      super.image,
+      super.skins,
+      super.lore,
+      super.blurb,
+      super.allytips,
+      super.enemytips,
+      super.tags,
+      super.partype,
+      super.info,
+      super.stats,
+      super.spells,
+      super.passive,
+      super.recommended});
 
   factory ChampDetailedModel.fromJson(Map<String, dynamic> json) =>
       ChampDetailedModel(
@@ -67,52 +50,4 @@ class ChampDetailedModel extends ChampDetailed {
         passive: PassiveModel.fromJson(json["passive"]),
         recommended: List<dynamic>.from(json["recommended"].map((x) => x)),
       );
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ChampDetailedModel &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          key == other.key &&
-          name == other.name &&
-          title == other.title &&
-          image == other.image &&
-          skins == other.skins &&
-          lore == other.lore &&
-          blurb == other.blurb &&
-          allytips == other.allytips &&
-          enemytips == other.enemytips &&
-          tags == other.tags &&
-          partype == other.partype &&
-          info == other.info &&
-          stats == other.stats &&
-          spells == other.spells &&
-          passive == other.passive &&
-          recommended == other.recommended;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      key.hashCode ^
-      name.hashCode ^
-      title.hashCode ^
-      image.hashCode ^
-      skins.hashCode ^
-      lore.hashCode ^
-      blurb.hashCode ^
-      allytips.hashCode ^
-      enemytips.hashCode ^
-      tags.hashCode ^
-      partype.hashCode ^
-      info.hashCode ^
-      stats.hashCode ^
-      spells.hashCode ^
-      passive.hashCode ^
-      recommended.hashCode;
-
-  @override
-  String toString() {
-    return 'ChampDetailed(id: $id, key: $key, name: $name, title: $title, image: $image, skins: $skins, lore: $lore, blurb: $blurb, allytips: $allytips, enemytips: $enemytips, tags: $tags, partype: $partype, info: $info, stats: $stats, spells: $spells, passive: $passive, recommended: $recommended)';
-  }
 }

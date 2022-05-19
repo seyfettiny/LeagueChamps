@@ -6,15 +6,12 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.1 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-
-  #API key security
-  flutter_dotenv: ^5.0.2
 
   #Data persistence
   hive: ^2.0.5
@@ -42,9 +39,6 @@ dependencies:
   #Toast messages
   fluttertoast: ^8.0.9
 
-  #Excluding generated files from coverage
-  remove_from_coverage: ^2.0.0
-
   #Animating widgets
   flutter_staggered_animations: ^1.0.0
   
@@ -53,6 +47,9 @@ dependencies:
 
   #For Privacy Policy
   webview_flutter: ^3.0.4
+
+  #Object comparison
+  equatable: ^2.0.3
 
 flutter_icons:
   android: true
@@ -70,7 +67,6 @@ dev_dependencies:
 
   #App Logo
   icons_launcher: ^1.1.8
-
 
 flutter:
   uses-material-design: true

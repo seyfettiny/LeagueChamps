@@ -4,20 +4,19 @@ import 'info_model.dart';
 import 'stats_model.dart';
 
 class ChampionModel extends Champion {
-  ChampionModel(
-      {version, id, key, name, title, blurb, info, image, tags, partype, stats})
-      : super(
-            version: version,
-            id: id,
-            key: key,
-            name: name,
-            title: title,
-            blurb: blurb,
-            info: info,
-            image: image,
-            tags: tags,
-            partype: partype,
-            stats: stats);
+  ChampionModel({
+    super.version,
+    super.id,
+    super.key,
+    super.name,
+    super.title,
+    super.blurb,
+    super.info,
+    super.image,
+    super.tags,
+    super.partype,
+    super.stats,
+  });
 
   factory ChampionModel.fromJson(Map<String, dynamic> json) => ChampionModel(
         version: json["version"],

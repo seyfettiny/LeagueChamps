@@ -1,8 +1,15 @@
 import '../../domain/entities/image.dart';
 
 class ImageModel extends Image {
-  ImageModel({full, sprite, group, x, y, w, h})
-      : super(full: full, sprite: sprite, group: group, x: x, y: y, w: w, h: h);
+  ImageModel({
+    super.full,
+    super.sprite,
+    super.group,
+    super.x,
+    super.y,
+    super.w,
+    super.h,
+  });
 
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
         full: json["full"],

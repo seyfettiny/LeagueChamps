@@ -1,12 +1,12 @@
 import '../../domain/entities/info.dart';
 
 class InfoModel extends Info {
-  InfoModel({attack, defense, magic, difficulty})
-      : super(
-            attack: attack,
-            defense: defense,
-            magic: magic,
-            difficulty: difficulty);
+  InfoModel({
+    super.attack,
+    super.defense,
+    super.magic,
+    super.difficulty,
+  });
 
   factory InfoModel.fromJson(Map<String, dynamic> json) => InfoModel(
         attack: json["attack"],
