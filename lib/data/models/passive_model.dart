@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/passive.dart';
 import 'image_model.dart';
 
-class PassiveModel extends Passive {
+class PassiveModel extends Passive with EquatableMixin {
   PassiveModel({
     super.name,
     super.description,
@@ -15,18 +17,12 @@ class PassiveModel extends Passive {
       );
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PassiveModel &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          description == other.description &&
-          image == other.image;
-  @override
-  int get hashCode => name.hashCode ^ description.hashCode ^ image.hashCode;
+  List<Object?> get props => [
+        name,
+        description,
+        image,
+      ];
 
   @override
-  String toString() {
-    return 'Passive(name: $name, description: $description, image: $image)';
-  }
+  bool get stringify => true;
 }

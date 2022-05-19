@@ -1,9 +1,11 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/champion.dart';
 import 'image_model.dart';
 import 'info_model.dart';
 import 'stats_model.dart';
 
-class ChampionModel extends Champion {
+class ChampionModel extends Champion with EquatableMixin{
   ChampionModel({
     super.version,
     super.id,
@@ -32,40 +34,22 @@ class ChampionModel extends Champion {
         stats:
             json["stats"] == null ? null : StatsModel.fromJson(json["stats"]),
       );
-
+  
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ChampionModel &&
-          runtimeType == other.runtimeType &&
-          version == other.version &&
-          id == other.id &&
-          key == other.key &&
-          name == other.name &&
-          title == other.title &&
-          blurb == other.blurb &&
-          info == other.info &&
-          image == other.image &&
-          tags == other.tags &&
-          partype == other.partype &&
-          stats == other.stats;
-
+  List<Object?> get props => [
+        version,
+        id,
+        key,
+        name,
+        title,
+        blurb,
+        info,
+        image,
+        tags,
+        partype,
+        stats,
+      ];
+  
   @override
-  int get hashCode =>
-      version.hashCode ^
-      id.hashCode ^
-      key.hashCode ^
-      name.hashCode ^
-      title.hashCode ^
-      blurb.hashCode ^
-      info.hashCode ^
-      image.hashCode ^
-      tags.hashCode ^
-      partype.hashCode ^
-      stats.hashCode;
-
-  @override
-  String toString() {
-    return 'Champion(version: $version, id: $id, key: $key, name: $name, title: $title, blurb: $blurb, info: $info, image: $image, tags: $tags, partype: $partype, stats: $stats)';
-  }
+  bool get stringify => true;
 }

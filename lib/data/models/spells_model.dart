@@ -1,8 +1,10 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/spells.dart';
 import 'image_model.dart';
 import 'level_tip_model.dart';
 
-class SpellsModel extends Spells {
+class SpellsModel extends Spells with EquatableMixin {
   SpellsModel(
       {super.id,
       super.name,
@@ -47,54 +49,28 @@ class SpellsModel extends Spells {
       );
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SpellsModel &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name &&
-          description == other.description &&
-          tooltip == other.tooltip &&
-          leveltip == other.leveltip &&
-          maxrank == other.maxrank &&
-          cooldown == other.cooldown &&
-          cooldownBurn == other.cooldownBurn &&
-          cost == other.cost &&
-          costBurn == other.costBurn &&
-          effect == other.effect &&
-          effectBurn == other.effectBurn &&
-          vars == other.vars &&
-          costType == other.costType &&
-          maxammo == other.maxammo &&
-          range == other.range &&
-          rangeBurn == other.rangeBurn &&
-          image == other.image &&
-          resource == other.resource;
+  List<Object?> get props => [
+        id,
+        name,
+        description,
+        tooltip,
+        leveltip,
+        maxrank,
+        cooldown,
+        cooldownBurn,
+        cost,
+        costBurn,
+        effect,
+        effectBurn,
+        vars,
+        costType,
+        maxammo,
+        range,
+        rangeBurn,
+        image,
+        resource,
+      ];
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      name.hashCode ^
-      description.hashCode ^
-      tooltip.hashCode ^
-      leveltip.hashCode ^
-      maxrank.hashCode ^
-      cooldown.hashCode ^
-      cooldownBurn.hashCode ^
-      cost.hashCode ^
-      costBurn.hashCode ^
-      effect.hashCode ^
-      effectBurn.hashCode ^
-      vars.hashCode ^
-      costType.hashCode ^
-      maxammo.hashCode ^
-      range.hashCode ^
-      rangeBurn.hashCode ^
-      image.hashCode ^
-      resource.hashCode;
-
-  @override
-  String toString() {
-    return 'Spells(id: $id, name: $name, description: $description, tooltip: $tooltip, leveltip: $leveltip, maxrank: $maxrank, cooldown: $cooldown, cooldownBurn: $cooldownBurn, cost: $cost, costBurn: $costBurn, effect: $effect, effectBurn: $effectBurn, vars: $vars, costType: $costType, maxammo: $maxammo, range: $range, rangeBurn: $rangeBurn, image: $image, resource: $resource)';
-  }
+  bool get stringify => true;
 }

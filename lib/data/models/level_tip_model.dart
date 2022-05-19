@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/level_tip.dart';
 
-class LeveltipModel extends Leveltip {
+class LeveltipModel extends Leveltip with EquatableMixin {
   LeveltipModel({
     super.label,
     super.effect,
@@ -10,18 +12,13 @@ class LeveltipModel extends Leveltip {
         label: List<String>.from(json["label"].map((x) => x)),
         effect: List<String>.from(json["effect"].map((x) => x)),
       );
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LeveltipModel &&
-          runtimeType == other.runtimeType &&
-          label == other.label &&
-          effect == other.effect;
-  @override
-  int get hashCode => label.hashCode ^ effect.hashCode;
 
   @override
-  String toString() {
-    return 'Leveltip(label: $label, effect: $effect)';
-  }
+  List<Object?> get props => [
+        label,
+        effect,
+      ];
+
+  @override
+  bool get stringify => true;
 }

@@ -8,7 +8,7 @@ import 'skins_model.dart';
 import 'spells_model.dart';
 import 'stats_model.dart';
 
-class ChampDetailedModel extends ChampDetailed {
+class ChampDetailedModel extends ChampDetailed with EquatableMixin {
   ChampDetailedModel(
       {super.id,
       super.key,
@@ -50,4 +50,28 @@ class ChampDetailedModel extends ChampDetailed {
         passive: PassiveModel.fromJson(json["passive"]),
         recommended: List<dynamic>.from(json["recommended"].map((x) => x)),
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        key,
+        name,
+        title,
+        image,
+        skins,
+        lore,
+        blurb,
+        allytips,
+        enemytips,
+        tags,
+        partype,
+        info,
+        stats,
+        spells,
+        passive,
+        recommended
+      ];
+
+  @override
+  bool get stringify => true;
 }
