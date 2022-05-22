@@ -61,7 +61,11 @@ class ChampionSearchItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             RoutePaths.champDetail,
-            arguments: {'champId': champion.id},
+            arguments: {
+              'champId': champion.id,
+              'champName': champion.name,
+              'champTitle': champion.title
+            },
           );
         },
       ),

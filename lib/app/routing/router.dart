@@ -26,7 +26,10 @@ class MyRouter {
 
       case RoutePaths.champDetail:
         final arg = settings.arguments as Map;
-        return fadeTransition(ChampDetailScreen(champId: arg['champId']));
+        return fadeTransition(ChampDetailScreen(champId: arg['champId'],
+        champName: arg['champName'],
+        champTitle: arg['champTitle'],
+        ));
 
       case RoutePaths.skinOverview:
         final arg = settings.arguments as Map;

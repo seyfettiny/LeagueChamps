@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/notifiers/version_notifier.dart';
@@ -17,9 +18,13 @@ import '../widgets/champion_spells_widget.dart';
 
 class ChampDetailScreen extends StatefulWidget {
   final String champId;
+  final String champName;
+  final String champTitle;
   const ChampDetailScreen({
     Key? key,
     required this.champId,
+    required this.champName,
+    required this.champTitle,
   }) : super(key: key);
 
   @override
@@ -55,44 +60,53 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
   Widget build(BuildContext context) {
     var championRepository = Provider.of<ChampionRepository>(context);
     var versionNotifier = Provider.of<VersionNotifier>(context);
-
-    return FutureBuilder(
-      future: championRepository.getDetailedChampion(
-          widget.champId, versionNotifier.currentVersion, context.locale),
-      builder: (context, asyncSnapshot) {
-        if (asyncSnapshot.hasData) {
-          ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
-          var champDefaultSkin =
-              '${champ.skins!.where((element) => element.num == 0).first.num}';
-          _controller.forward();
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            backgroundColor: Colors.black,
-            appBar: BlurredAppBar(
-              name: champ.name!,
-              title: champ.title!,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black,
+      appBar: BlurredAppBar(
+        name: widget.champName,
+        title: widget.champTitle,
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: CachedNetworkImageProvider(
+              AppConstants.championLoadingImageUrl +
+                  (widget.champId == 'Fiddlesticks'
+                      ? 'FiddleSticks'
+                      : widget.champId) +
+                  '_0.jpg',
+              cacheKey: AppConstants.championLoadingImageUrl +
+                  versionNotifier.currentVersion +
+                  (widget.champId == 'Fiddlesticks'
+                      ? 'FiddleSticks'
+                      : widget.champId) +
+                  '_0.jpg',
             ),
-            body: Container(
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: CachedNetworkImageProvider(
-                    AppConstants.championLoadingImageUrl +
-                        champ.id! +
-                        '_$champDefaultSkin.jpg',
-                    cacheKey: '${champ.id!}+_$champDefaultSkin.jpg' +
-                        versionNotifier.currentVersion,
-                  ),
-                ),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                child: Container(
-                  padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
-                  width: double.infinity,
-                  color: Colors.black.withOpacity(0.2),
-                  child: SingleChildScrollView(
+          ),
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+          child: Container(
+            padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
+            width: double.infinity,
+            color: Colors.black.withOpacity(0.2),
+            child: FutureBuilder(
+                //TODO: switch this future to the one from ChampionDetailScreenViewModel
+
+                future: championRepository.getDetailedChampion(widget.champId,
+                    versionNotifier.currentVersion, context.locale),
+                builder: (context, asyncSnapshot) {
+                  if (!asyncSnapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  ChampDetailed champ = asyncSnapshot.data as ChampDetailed;
+                  // var champDefaultSkin =
+                  //     '${champ.skins!.where((element) => element.num == 0).first.num}';
+                  _controller.forward();
+                  return SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,14 +193,21 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Ally tips',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 12),
+                                child: Text(
+                                  'Ally tips',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color(0xffc6a66a),
+                                      ),
+                                ),
                               ),
                               SizedBox(
-                                height: 120,
+                                height: 110,
                                 child: AnimationLimiter(
                                   child: PageView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -247,14 +268,21 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Enemy tips',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 12),
+                                child: Text(
+                                  'Enemy tips',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color(0xffc6a66a),
+                                      ),
+                                ),
                               ),
                               SizedBox(
-                                height: 120,
+                                height: 110,
                                 child: AnimationLimiter(
                                   child: PageView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -310,10 +338,17 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 12),
                           child: Text(
                             'Spells',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xffc6a66a),
+                                ),
                           ),
                         ),
                         SizedBox(
@@ -338,86 +373,105 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               }),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 12),
                           child: Text(
                             'Skins',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xffc6a66a),
+                                ),
                           ),
                         ),
                         SizedBox(
-                          height: 300,
+                          height: 350,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: champ.skins!.length,
                             itemBuilder: (context, index) {
                               var champSkin = champ.skins![index];
-                              return Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RoutePaths.skinOverview,
-                                        arguments: {
-                                          'skinUrl': AppConstants
+                              return Tooltip(
+                                message: champSkin.name,
+                                triggerMode: TooltipTriggerMode.longPress,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutePaths.skinOverview,
+                                      arguments: {
+                                        'skinUrl': AppConstants
+                                                .championLoadingImageUrl +
+                                            champ.id! +
+                                            '_${champSkin.num}.jpg',
+                                        'skinId': champSkin.id,
+                                        'skinName': champSkin.name
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    width: 160,
+                                    height: 300,
+                                    child: Column(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl: AppConstants
                                                   .championLoadingImageUrl +
                                               champ.id! +
                                               '_${champSkin.num}.jpg',
-                                          'skinId': champSkin.id,
-                                          'skinName': champSkin.name
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                          right: 8, left: 8, top: 16),
-                                      width: 140,
-                                      height: 250,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          filterQuality: FilterQuality.high,
+                                          cacheKey: champSkin.id! +
+                                              versionNotifier.currentVersion,
                                           fit: BoxFit.cover,
-                                          //TODO: Add shimmer placeholder
-                                          image: CachedNetworkImageProvider(
-                                            AppConstants
-                                                    .championLoadingImageUrl +
-                                                champ.id! +
-                                                '_${champSkin.num}.jpg',
-                                            cacheKey: champSkin.id! +
-                                                versionNotifier.currentVersion,
-                                            maxWidth: 1000,
+                                          fadeInDuration:
+                                              const Duration(milliseconds: 100),
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                            child: Container(
+                                              width: 160,
+                                              height: 290,
+                                              color: Colors.black,
+                                            ),
+                                            baseColor: Colors.grey[800]!,
+                                            highlightColor: Colors.grey[600]!,
                                           ),
                                         ),
-                                      ),
+                                        SizedBox(
+                                          width: 160,
+                                          child: Text(
+                                            champSkin.name! == 'default'
+                                                ? ''
+                                                : champSkin.name!,
+                                            softWrap: true,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Text(
-                                    champSkin.name! == 'default'
-                                        ? ''
-                                        : champSkin.name!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            overflow: TextOverflow.ellipsis),
-                                  ),
-                                ],
+                                ),
                               );
                             },
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-            ),
-          );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+                  );
+                }),
+          ),
+        ),
+      ),
     );
   }
 }

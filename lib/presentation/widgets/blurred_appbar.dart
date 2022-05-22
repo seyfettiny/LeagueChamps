@@ -36,28 +36,19 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 const BackButton(),
-                Flexible(
-                  child: Text.rich(
-                    TextSpan(
-                      style: const TextStyle(overflow: TextOverflow.ellipsis),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: name,
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                        ),
-                        TextSpan(
-                          text: ', $title',
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                        ),
-                      ],
-                    ),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                      fontWeight: FontWeight.w800,
+                      overflow: TextOverflow.ellipsis),
+                ),
+                Expanded(
+                  child: Text(
+                    ', $title',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontWeight: FontWeight.w300,
+                        fontStyle: FontStyle.italic,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],
