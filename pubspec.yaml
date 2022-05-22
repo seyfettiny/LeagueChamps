@@ -41,6 +41,7 @@ dependencies:
 
   #Animating widgets
   flutter_staggered_animations: ^1.0.0
+  animations: ^2.0.2
   
   #Loading states
   shimmer: ^2.0.0

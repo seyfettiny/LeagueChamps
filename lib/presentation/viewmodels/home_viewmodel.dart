@@ -3,6 +3,7 @@ import '../../domain/entities/champion.dart';
 import '../../domain/use_cases/get_champion_list_usecase.dart';
 
 class HomeViewModel extends ChangeNotifier {
+  //TODO: Implement lazy loading
   final GetChampionListUseCase _getChampionListUseCase;
   HomeViewModel(this._getChampionListUseCase);
 
