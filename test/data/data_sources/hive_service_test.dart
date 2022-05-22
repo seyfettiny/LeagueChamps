@@ -38,7 +38,8 @@ void main() {
     expect(await Hive.boxExists(HiveConstants.HIVE_BOX_SETTINGS), true);
   });
   test('should open Box Version', () async {
-    when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS)).thenAnswer((_) async => mockBox);
+    when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS))
+        .thenAnswer((_) async => mockBox);
     await hiveService.openBox(HiveConstants.HIVE_BOX_VERSION);
     expect(await Hive.boxExists(HiveConstants.HIVE_BOX_VERSION), true);
   });

@@ -173,48 +173,56 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Ally tips',
-                              style: Theme.of(context).textTheme.titleMedium),
-                        ),
-                        SizedBox(
-                          height: 120,
-                          child: AnimationLimiter(
-                            child: PageView.builder(
-                              scrollDirection: Axis.horizontal,
-                              controller: PageController(
-                                viewportFraction: 0.96,
+                        Visibility(
+                          visible: champ.allytips!.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Ally tips',
+                                    style: Theme.of(context).textTheme.titleMedium),
                               ),
-                              itemCount: champ.allytips!.length,
-                              itemBuilder: (BuildContext context, index) =>
-                                  AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 1000),
-                                child: SlideAnimation(
-                                  curve: Curves.easeOutExpo,
-                                  horizontalOffset: 100,
-                                  child: FadeInAnimation(
-                                    child: Card(
-                                      margin: const EdgeInsets.only(right: 24),
-                                      color: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        side: const BorderSide(
-                                          color: Color(0xffc6a66a),
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            champ.allytips![index],
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 5,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium,
+                              SizedBox(
+                                height: 120,
+                                child: AnimationLimiter(
+                                  child: PageView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    controller: PageController(
+                                      viewportFraction: 0.96,
+                                    ),
+                                    itemCount: champ.allytips!.length,
+                                    itemBuilder: (BuildContext context, index) =>
+                                        AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: const Duration(milliseconds: 1000),
+                                      child: SlideAnimation(
+                                        curve: Curves.easeOutExpo,
+                                        horizontalOffset: 100,
+                                        child: FadeInAnimation(
+                                          child: Card(
+                                            margin: const EdgeInsets.only(right: 24),
+                                            color: Colors.transparent,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(16),
+                                              side: const BorderSide(
+                                                color: Color(0xffc6a66a),
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  champ.allytips![index],
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 5,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -222,7 +230,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                         Visibility(

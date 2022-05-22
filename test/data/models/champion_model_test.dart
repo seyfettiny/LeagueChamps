@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/data/models/champion_model.dart';
 import 'package:leaguechamps/data/models/image_model.dart';
