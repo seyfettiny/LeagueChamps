@@ -20,6 +20,8 @@ jobs:
        with:
          channel: 'stable'
          flutter-version: '1.12.13'
+     - run: dart pub upgrade
+     - run: flutter upgrade
      - run: flutter pub get 
      - run: flutter packages pub run build_runner build --delete-conflicting-outputs
      - run: flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations && flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations -f keys -o locale_keys.g.dart
