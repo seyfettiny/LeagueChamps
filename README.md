@@ -1,3 +1,8 @@
+[![Codemagic build status](https://api.codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/status_badge.svg)](https://codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/latest_build)
+
+
+<a href="https://play.google.com/store/apps/details?id=com.syfttny.leaguechamps"><img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="20%"></a>
+
 # LeagueChamps
 
 A new Flutter project.
