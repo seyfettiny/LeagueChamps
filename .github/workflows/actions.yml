@@ -25,3 +25,7 @@ jobs:
      - run: flutter packages pub run build_runner build --delete-conflicting-outputs
      - run: flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations && flutter pub run easy_localization:generate -O lib/app/translations -S ./assets/translations -f keys -o locale_keys.g.dart
      - run: flutter test --coverage
+     - uses: actions/checkout@master
+     - uses: codecov/codecov-action@v2
+       with:
+        files: ./coverage1.xml,./coverage2.xml
