@@ -22,6 +22,16 @@ final lightTheme = ThemeData(
     ),
   ),
   backgroundColor: Colors.white,
+  dialogTheme: DialogTheme(
+    backgroundColor: Colors.white,
+    titleTextStyle: TextStyle(
+      fontSize: 20,
+      color: Colors.black,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.15,
+    ),
+  ),
   textTheme: const TextTheme(
     headline1: TextStyle(
         fontFamily: 'Montserrat',
