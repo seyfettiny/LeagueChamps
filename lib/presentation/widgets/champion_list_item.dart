@@ -70,6 +70,8 @@ class ChampionListItem extends StatelessWidget {
                             '_0.jpg',
                         memCacheWidth: 1036,
                         memCacheHeight: 582,
+                        errorWidget: (context, url, error) =>
+                            const Center(child: Icon(Icons.error)),
                       ),
                     ],
                   ),

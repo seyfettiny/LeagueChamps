@@ -1,6 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:leaguechamps/app/utils/connectivity_service.dart';
 import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +13,14 @@ import '../../app/utils/my_search_delegate.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final Shader? linearGradient = const LinearGradient(
     begin: Alignment.bottomCenter,
     end: Alignment.topCenter,
@@ -20,6 +28,7 @@ class HomeScreen extends StatelessWidget {
   ).createShader(
     const Rect.fromLTWH(0.0, 0.0, 100.0, 50.0),
   );
+
   @override
   Widget build(BuildContext context) {
     List<Champion> champions = [];
@@ -61,6 +70,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+      //TODO: refresh indicator with homeViewModel.refresh
       body: Center(
         child: Consumer<HomeViewModel>(
           builder: (context, homeViewModel, child) {
@@ -68,32 +78,37 @@ class HomeScreen extends StatelessWidget {
               future: homeViewModel.getChampions(
                   versionNotifier.currentVersion, context.locale),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  champions = snapshot.data;
-                  return AnimationLimiter(
-                    child: ListView.builder(
-                      itemCount: snapshot.data.length,
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        var champion = snapshot.data[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 600),
-                          child: SlideAnimation(
-                            curve: Curves.easeOutExpo,
-                            horizontalOffset: 100,
-                            child: FadeInAnimation(
-                              child: ChampionListItem(
-                                champion: champion,
-                              ),
+                if (!snapshot.hasData) {
+                  if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('No Champions Found'),
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                }
+                champions = snapshot.data;
+                return AnimationLimiter(
+                  child: ListView.builder(
+                    itemCount: snapshot.data.length,
+                    padding: const EdgeInsets.all(8),
+                    itemBuilder: (context, index) {
+                      var champion = snapshot.data[index];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 600),
+                        child: SlideAnimation(
+                          curve: Curves.easeOutExpo,
+                          horizontalOffset: 100,
+                          child: FadeInAnimation(
+                            child: ChampionListItem(
+                              champion: champion,
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  );
-                }
-                return const CircularProgressIndicator();
+                        ),
+                      );
+                    },
+                  ),
+                );
               },
             );
           },
