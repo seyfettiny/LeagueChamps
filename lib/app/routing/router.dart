@@ -42,7 +42,7 @@ class MyRouter {
         );
 
       case RoutePaths.home:
-        return fadeTransition(HomeScreen());
+        return fadeTransition(const HomeScreen());
       default:
         return fadeTransition(Scaffold(
           body: Center(

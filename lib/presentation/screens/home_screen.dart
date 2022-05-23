@@ -1,8 +1,6 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:leaguechamps/app/utils/connectivity_service.dart';
 import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +12,7 @@ import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
