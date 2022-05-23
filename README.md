@@ -1,4 +1,4 @@
-[![Codemagic build status](https://api.codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/status_badge.svg)](https://codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/status_badge.svg)](https://codemagic.io/apps/628bab46d44138324d09425b/628bab46d44138324d09425a/latest_build) [![codecov](https://codecov.io/gh/seyfettiny/LeagueChamps/branch/main/graph/badge.svg?token=C1KNZD54ZB)](https://codecov.io/gh/seyfettiny/LeagueChamps)
 
 
 <a href="https://play.google.com/store/apps/details?id=com.syfttny.leaguechamps"><img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="20%"></a>
