@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +57,6 @@ class SplashScreen extends StatelessWidget {
                             ),
                           ),
                           Text(snapshot.data[0].toString()),
-                          Text(context.locale.toString().tr()),
                         ],
                       );
                     } else {

@@ -22,31 +22,26 @@ class SettingsScreen extends StatelessWidget {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
+          //TODO: this could be a switch
           ListTile(
-            title: DropdownButton(
-              isExpanded: true,
-              value: themeNotifier.isDarkTheme ? 'Dark Theme' : 'Light Theme',
-              items: const [
-                DropdownMenuItem(
-                  child: Text('Light Theme'),
-                  value: 'Light Theme',
-                ),
-                DropdownMenuItem(
-                  child: Text('Dark Theme'),
-                  value: 'Dark Theme',
-                ),
-              ],
+            title: const Text('Dark Theme'),
+            trailing: Switch(
+              value: themeNotifier.isDarkTheme,
+              activeColor: const Color(0xFFECB857),
               onChanged: (value) {
                 themeNotifier.changeTheme();
               },
             ),
           ),
           ListTile(
-            title: DropdownButton<String>(
-              isExpanded: true,
+            title: const Text('Version'),
+            trailing: DropdownButton<String>(
+              underline: Container(),
+              isDense: true,
               onChanged: (version) {
                 versionNotifier.changeVersion(version!);
               },
+              alignment: Alignment.centerRight,
               value: versionNotifier.currentVersion,
               items: versionNotifier.getVersionList().map((version) {
                 return DropdownMenuItem<String>(
@@ -57,98 +52,26 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: DropdownButton<Locale>(
-              isExpanded: true,
+            title: const Text('Language'),
+            trailing: DropdownButton<Locale>(
+              isDense: true,
+              alignment: Alignment.centerRight,
               value: context.locale,
+              underline: Container(),
               onChanged: (Locale? newLocale) {
-                context.setLocale(newLocale!);
+                // TODO: [BUG] VN_vn Null check operator used on a null value and MaterialLocalization Not found error
+                // TODO: [BUG] id_ID does not work at datadragon and returns 403
+                if (newLocale.toString() != LocaleKeys.vn_VN ||
+                    newLocale.toString() != LocaleKeys.id_ID) {
+                  context.setLocale(newLocale!);
+                }
               },
-              items: [
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.en_US.tr()),
-                    value: LocaleKeys.en_US.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.cs_CZ.tr()),
-                    value: LocaleKeys.cs_CZ.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.de_DE.tr()),
-                    value: LocaleKeys.de_DE.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.el_GR.tr()),
-                    value: LocaleKeys.el_GR.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.en_AU.tr()),
-                    value: LocaleKeys.en_AU.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.en_GB.tr()),
-                    value: LocaleKeys.en_GB.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.en_PH.tr()),
-                    value: LocaleKeys.en_PH.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.en_SG.tr()),
-                    value: LocaleKeys.en_SG.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.es_AR.tr()),
-                    value: LocaleKeys.es_AR.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.es_ES.tr()),
-                    value: LocaleKeys.es_ES.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.es_MX.tr()),
-                    value: LocaleKeys.es_MX.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.fr_FR.tr()),
-                    value: LocaleKeys.fr_FR.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.hu_HU.tr()),
-                    value: LocaleKeys.hu_HU.toLocale()),
-                //TODO: [BUG] lang code for Indonesian does not work at datadragon and returns 403
-                // DropdownMenuItem<Locale>(
-                //     child: Text(LocaleKeys.id_ID.tr()),
-                //     value: LocaleKeys.id_ID.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.it_IT.tr()),
-                    value: LocaleKeys.it_IT.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.ja_JP.tr()),
-                    value: LocaleKeys.ja_JP.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.ko_KR.tr()),
-                    value: LocaleKeys.ko_KR.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.pl_PL.tr()),
-                    value: LocaleKeys.pl_PL.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.pt_BR.tr()),
-                    value: LocaleKeys.pt_BR.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.ro_RO.tr()),
-                    value: LocaleKeys.ro_RO.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.ru_RU.tr()),
-                    value: LocaleKeys.ru_RU.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.th_TH.tr()),
-                    value: LocaleKeys.th_TH.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.tr_TR.tr()),
-                    value: LocaleKeys.tr_TR.toLocale()),
-
-                // TODO: [BUG] Null check operator used on a null value and MaterialLocalization Not found error
-                // DropdownMenuItem<Locale>(
-                //     child: Text(LocaleKeys.vn_VN.tr()),
-                //     value: LocaleKeys.vn_VN.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.zh_CN.tr()),
-                    value: LocaleKeys.zh_CN.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.zh_MY.tr()),
-                    value: LocaleKeys.zh_MY.toLocale()),
-                DropdownMenuItem<Locale>(
-                    child: Text(LocaleKeys.zh_TW.tr()),
-                    value: LocaleKeys.zh_TW.toLocale()),
-              ],
+              items: context.supportedLocales.map((Locale locale) {
+                return DropdownMenuItem<Locale>(
+                  child: Text(locale.toString().tr()),
+                  value: locale,
+                );
+              }).toList(),
             ),
           ),
           ListTile(

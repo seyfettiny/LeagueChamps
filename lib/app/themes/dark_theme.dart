@@ -5,7 +5,15 @@ final darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
   toggleableActiveColor: Colors.blue[800],
-  cardColor: Colors.black,
+  textTheme: const TextTheme(
+    bodyMedium: TextStyle(
+      //letterSpacing: 0.2,
+      height: 1.2,
+    ),
+    bodyLarge: TextStyle(
+      height: 1.2,
+    ),
+  ),
   chipTheme: const ChipThemeData(
     backgroundColor: Colors.black,
     selectedColor: Color.fromARGB(255, 193, 133, 30),
@@ -14,12 +22,10 @@ final darkTheme = ThemeData(
       color: Colors.white,
     ),
   ),
-  textTheme: const TextTheme(
-      bodyMedium: TextStyle(
-        //letterSpacing: 0.2,
-        height: 1.2,
-      ),
-      bodyLarge: TextStyle(
-        height: 1.2,
-      )),
+  cardColor: Colors.black,
+  cardTheme: const CardTheme(
+    color: Colors.black,
+    elevation: 12,
+    surfaceTintColor: Colors.black,
+  ),
 );

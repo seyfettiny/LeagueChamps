@@ -36,8 +36,8 @@ class ChampionListItem extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
-          child: Container(
-            height: 280,
+          child: SizedBox(
+            height: 260,
             child: Tooltip(
               message: champion.name,
               child: Stack(
@@ -85,9 +85,21 @@ class ChampionListItem extends StatelessWidget {
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [
-                            Colors.black.withAlpha(250),
-                            Colors.black.withAlpha(80),
-                            Colors.black.withAlpha(0),
+                            Theme.of(context)
+                                .cardTheme
+                                .surfaceTintColor!
+                                .withAlpha(220),
+                            Theme.of(context)
+                                .cardTheme
+                                .surfaceTintColor!
+                                .withAlpha(90),
+                            Theme.of(context)
+                                .cardTheme
+                                .surfaceTintColor!
+                                .withAlpha(0),
+                            // Colors.black.withAlpha(250),
+                            // Colors.black.withAlpha(80),
+                            // Colors.black.withAlpha(0),
                           ],
                         ),
                       ),

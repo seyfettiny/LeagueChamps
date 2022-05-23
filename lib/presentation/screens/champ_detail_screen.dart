@@ -182,7 +182,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Text(
                                 '${champ.lore}',
-                                style: Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                           ),
