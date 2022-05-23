@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
     final _searchNotifier = Provider.of<SearchNotifier>(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context).iconTheme,
         title: ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) => linearGradient!,

@@ -30,7 +30,7 @@ class SplashScreen extends StatelessWidget {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (_connectivityService.hasConnection()) {
                     if (snapshot.hasData) {
-                      Future.delayed(const Duration(seconds: 2), () {
+                      Future.delayed(const Duration(seconds: 1), () {
                         _versionNotifier.changeVersion(snapshot.data[0]);
                         _versionNotifier.setVersionList(snapshot.data[1]);
                         Navigator.pushNamedAndRemoveUntil(

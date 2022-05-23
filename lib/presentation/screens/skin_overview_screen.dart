@@ -21,10 +21,12 @@ class SkinOverViewScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
         centerTitle: true,
         elevation: 10,
         title: skinName == 'default' ? const Text('') : Text(skinName),
-        backgroundColor: Colors.black.withAlpha(80),
+        backgroundColor:
+            Theme.of(context).appBarTheme.backgroundColor!.withAlpha(150),
       ),
       body: Stack(
         children: [

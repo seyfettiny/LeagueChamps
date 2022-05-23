@@ -90,7 +90,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
           child: Container(
             padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
             width: double.infinity,
-            color: Colors.black.withOpacity(0.2),
+            color:
+                Theme.of(context).cardTheme.surfaceTintColor!.withOpacity(0.6),
             child: Consumer<ChampionDetailViewModel>(
                 builder: (context, viewModel, child) {
               return FutureBuilder(
@@ -161,11 +162,6 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               ),
                             ],
                           ),
-
-                          // Text(
-                          //   '\n partype: ${champ.partype}',
-                          //   style: Theme.of(context).textTheme.bodyMedium,
-                          // ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
                             opacity: _controller.value * 10,
@@ -200,7 +196,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                         .titleLarge!
                                         .copyWith(
                                           fontWeight: FontWeight.bold,
-                                          color: const Color(0xffc6a66a),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
                                         ),
                                   ),
                                 ),
@@ -224,14 +222,17 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                           horizontalOffset: 100,
                                           child: FadeInAnimation(
                                             child: Card(
+                                              elevation: 0,
                                               margin: const EdgeInsets.only(
                                                   right: 24),
                                               color: Colors.transparent,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                side: const BorderSide(
-                                                  color: Color(0xffc6a66a),
+                                                side: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary,
                                                   width: 2,
                                                 ),
                                               ),
@@ -275,7 +276,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                         .titleLarge!
                                         .copyWith(
                                           fontWeight: FontWeight.bold,
-                                          color: const Color(0xffc6a66a),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
                                         ),
                                   ),
                                 ),
@@ -299,14 +302,17 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                           horizontalOffset: 100,
                                           child: FadeInAnimation(
                                             child: Card(
+                                              elevation: 0,
                                               margin: const EdgeInsets.only(
                                                   right: 24),
                                               color: Colors.transparent,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                side: const BorderSide(
-                                                  color: Color(0xffc6a66a),
+                                                side: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary,
                                                   width: 2,
                                                 ),
                                               ),
@@ -345,7 +351,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   .titleLarge!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0xffc6a66a),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                             ),
                           ),
@@ -381,7 +388,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   .titleLarge!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: const Color(0xffc6a66a),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                             ),
                           ),

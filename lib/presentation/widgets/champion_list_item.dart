@@ -34,10 +34,11 @@ class ChampionListItem extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
+        margin: const EdgeInsets.all(8),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
           child: SizedBox(
-            height: 260,
+            height: 280,
             child: Tooltip(
               message: champion.name,
               child: Stack(
@@ -73,17 +74,17 @@ class ChampionListItem extends StatelessWidget {
                     ],
                   ),
                   Positioned(
-                    height: 250,
+                    height: 290,
                     right: 0,
                     left: 0,
                     bottom: 0,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Theme.of(context).cardTheme.color,
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          end: Alignment.center,
                           colors: [
                             Theme.of(context)
                                 .cardTheme
@@ -92,7 +93,7 @@ class ChampionListItem extends StatelessWidget {
                             Theme.of(context)
                                 .cardTheme
                                 .surfaceTintColor!
-                                .withAlpha(90),
+                                .withAlpha(120),
                             Theme.of(context)
                                 .cardTheme
                                 .surfaceTintColor!

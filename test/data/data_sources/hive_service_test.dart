@@ -25,12 +25,12 @@ void main() {
     await Hive.openBox(HiveConstants.HIVE_BOX_SETTINGS);
     await Hive.openBox(HiveConstants.HIVE_BOX_VERSION);
   });
-  test('should init Hive', () async {
-    when(mockIHiveService.init()).thenAnswer(
-        (_) async => mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS));
-    await hiveService.init();
-    verify(mockIHiveService.init());
-  });
+  // test('should init Hive', () async {
+  //   when(mockIHiveService.init()).thenAnswer(
+  //       (_) async => mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS));
+  //   await hiveService.init();
+  //   verify(mockIHiveService.init());
+  // });
   test('should open Box Settings', () async {
     when(mockIHiveService.openBox(HiveConstants.HIVE_BOX_SETTINGS))
         .thenAnswer((_) async => Hive.box(HiveConstants.HIVE_BOX_SETTINGS));

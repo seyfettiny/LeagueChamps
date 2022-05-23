@@ -5,7 +5,7 @@ import 'image_model.dart';
 import 'info_model.dart';
 import 'stats_model.dart';
 
-class ChampionModel extends Champion with EquatableMixin{
+class ChampionModel extends Champion with EquatableMixin {
   ChampionModel({
     super.version,
     super.id,
@@ -29,12 +29,12 @@ class ChampionModel extends Champion with EquatableMixin{
         blurb: json["blurb"],
         info: InfoModel.fromJson(json["info"]),
         image: ImageModel.fromJson(json["image"]),
-        tags: List<String>.from(json["tags"].map((x) => x)),
+        tags: json['tags'].cast<String>(),
         partype: json["partype"],
         stats:
             json["stats"] == null ? null : StatsModel.fromJson(json["stats"]),
       );
-  
+
   @override
   List<Object?> get props => [
         version,
@@ -49,7 +49,7 @@ class ChampionModel extends Champion with EquatableMixin{
         partype,
         stats,
       ];
-  
+
   @override
   bool get stringify => true;
 }

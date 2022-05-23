@@ -16,18 +16,16 @@ class SettingsScreen extends StatelessWidget {
     final versionNotifier = Provider.of<VersionNotifier>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(title: const Text('Settings')),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          //TODO: this could be a switch
           ListTile(
             title: const Text('Dark Theme'),
             trailing: Switch(
               value: themeNotifier.isDarkTheme,
-              activeColor: const Color(0xFFECB857),
+              activeColor: Theme.of(context).colorScheme.secondary,
               onChanged: (value) {
                 themeNotifier.changeTheme();
               },

@@ -77,7 +77,7 @@ class ChampionSpellsWidget extends StatelessWidget {
           width: 90,
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color(0xffc6a66a),
+              color: Theme.of(context).colorScheme.secondary,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(
@@ -149,7 +149,6 @@ class ChampionSpellsWidget extends StatelessWidget {
                               versionNotifier.currentVersion,
                         ),
                         Text(champSpell.description!.toString()),
-                        //Text(champSpell.tooltip!.toString()),
                       ],
                     ),
                   ),
@@ -171,7 +170,7 @@ class ChampionSpellsWidget extends StatelessWidget {
           width: 90,
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color(0xffc6a66a),
+              color: Theme.of(context).colorScheme.secondary,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(

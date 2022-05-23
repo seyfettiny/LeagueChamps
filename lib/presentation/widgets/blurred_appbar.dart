@@ -15,7 +15,7 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      margin: const EdgeInsets.only(top: 48),
+      margin: const EdgeInsets.only(top: 48, bottom: 12),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           blurRadius: 4,
@@ -30,7 +30,7 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withOpacity(0.3),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -61,5 +61,5 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80.0);
+  Size get preferredSize => const Size.fromHeight(94.0);
 }
