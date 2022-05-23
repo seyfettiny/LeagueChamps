@@ -27,7 +27,6 @@ class SearchFinder extends StatelessWidget {
             },
           ).toList();
 
-          //TODO: refactor this
           results.retainWhere(
             (champion) => champion.tags!
                 .join(' ')

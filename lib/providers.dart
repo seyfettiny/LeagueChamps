@@ -1,4 +1,3 @@
-
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -14,6 +13,7 @@ import 'domain/use_cases/get_champion_list_usecase.dart';
 import 'domain/use_cases/get_champion_usecase.dart';
 import 'domain/use_cases/get_version_list_usecase.dart';
 import 'domain/use_cases/get_version_usecase.dart';
+import 'presentation/viewmodels/champion_detail_viewmodel.dart';
 import 'presentation/viewmodels/home_viewmodel.dart';
 import 'presentation/viewmodels/splash_viewmodel.dart';
 import 'package:http/http.dart' as http;
@@ -82,6 +82,11 @@ List<SingleChildWidget> dependentServices = [
   ChangeNotifierProvider<HomeViewModel>(
     create: (context) => HomeViewModel(
       Provider.of<GetChampionListUseCase>(context, listen: false),
+    ),
+  ),
+  ChangeNotifierProvider<ChampionDetailViewModel>(
+    create: (context) => ChampionDetailViewModel(
+      Provider.of<GetChampionUseCase>(context, listen: false),
     ),
   ),
 ];

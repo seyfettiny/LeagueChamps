@@ -21,9 +21,6 @@ class ParallaxFlowDelegate extends FlowDelegate {
 
   @override
   void paintChildren(FlowPaintingContext context) {
-    if (scrollable == null) {
-      return;
-    }
     // Calculate the position of this list item within the viewport.
     final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
     final listItemBox = listItemContext.findRenderObject() as RenderBox;
