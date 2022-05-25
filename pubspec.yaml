@@ -47,10 +47,13 @@ dependencies:
   shimmer: ^2.0.0
 
   #For Privacy Policy
-  webview_flutter: ^3.0.4
+  webview_flutter: ^2.0.4
 
   #Object comparison
   equatable: ^2.0.3
+
+  #Parsing html content
+  flutter_html: ^2.2.1
 
 flutter_icons:
   android: true

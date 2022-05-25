@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../app/constants/app_constants.dart';
 import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
+import '../../app/translations/locale_keys.g.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../widgets/blurred_appbar.dart';
 import '../widgets/champion_info_widget.dart';
@@ -20,6 +21,7 @@ class ChampDetailScreen extends StatefulWidget {
   final String champId;
   final String champName;
   final String champTitle;
+
   const ChampDetailScreen({
     Key? key,
     required this.champId,
@@ -34,6 +36,7 @@ class ChampDetailScreen extends StatefulWidget {
 class _ChampDetailScreenState extends State<ChampDetailScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  int indexedStackIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -91,10 +94,10 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
             padding: const EdgeInsets.only(top: 120, left: 16, right: 16),
             width: double.infinity,
             color:
-                Theme.of(context).cardTheme.surfaceTintColor!.withOpacity(0.6),
+                Theme.of(context).cardTheme.surfaceTintColor!.withOpacity(0.5),
             child: Consumer<ChampionDetailViewModel>(
-                builder: (context, viewModel, child) {
-              return FutureBuilder(
+              builder: (context, viewModel, child) {
+                return FutureBuilder(
                   future: viewModel.getChampion(widget.champId,
                       versionNotifier.currentVersion, context.locale),
                   builder: (context, asyncSnapshot) {
@@ -115,52 +118,62 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, bottom: 16),
-                                child: ChampionInfoWidget(champ: champ),
-                              ),
-                              Flexible(
-                                child: SizedBox(
-                                  height: 50,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: champ.tags!.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        child: SlideAnimation(
-                                          horizontalOffset: 20,
-                                          child: FadeInAnimation(
-                                            child: Tooltip(
-                                              message: champ.tags![index],
-                                              triggerMode:
-                                                  TooltipTriggerMode.tap,
-                                              child: Image(
-                                                image: AssetImage(
-                                                  'assets/champ_classes/${champ.tags![index]}_icon.png',
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 500),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                              return FadeTransition(
+                                  child: child, opacity: animation);
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, bottom: 16),
+                                  child: ChampionInfoWidget(champ: champ),
+                                ),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: 50,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: champ.tags!.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return AnimationConfiguration
+                                            .staggeredList(
+                                          position: index,
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          child: SlideAnimation(
+                                            horizontalOffset: 20,
+                                            child: FadeInAnimation(
+                                              child: Tooltip(
+                                                message:
+                                                    '${LocaleKeys.champClasses}.${champ.tags![index]}'
+                                                        .tr(),
+                                                triggerMode:
+                                                    TooltipTriggerMode.tap,
+                                                child: Image(
+                                                  image: AssetImage(
+                                                    'assets/champ_classes/${champ.tags![index]}_icon.png',
+                                                  ),
+                                                  height: 36,
+                                                  width: 36,
                                                 ),
-                                                height: 36,
-                                                width: 36,
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
@@ -190,7 +203,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0, vertical: 12),
                                   child: Text(
-                                    'Ally tips',
+                                    LocaleKeys.allyTips.tr(
+                                        namedArgs: {"champion": champ.name!}),
+                                    overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge!
@@ -270,7 +285,9 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0, vertical: 12),
                                   child: Text(
-                                    'Enemy tips',
+                                    LocaleKeys.enemyTips.tr(
+                                        namedArgs: {"champion": champ.name!}),
+                                    overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge!
@@ -345,7 +362,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 12),
                             child: Text(
-                              'Spells',
+                              LocaleKeys.spells.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -357,7 +374,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             ),
                           ),
                           SizedBox(
-                            height: 140,
+                            height: 170,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: champ.spells!.length + 1,
@@ -382,7 +399,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 12),
                             child: Text(
-                              'Skins',
+                              LocaleKeys.skins.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -475,8 +492,10 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                         ],
                       ),
                     );
-                  });
-            }),
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

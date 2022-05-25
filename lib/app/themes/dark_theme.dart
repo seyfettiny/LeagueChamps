@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 final darkTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.black,
+    primary: Colors.white,
     secondary: const Color(0xFFCE9F49),
     brightness: Brightness.dark,
   ),
@@ -107,7 +107,7 @@ final darkTheme = ThemeData(
   ),
   chipTheme: const ChipThemeData(
     backgroundColor: Colors.black,
-    selectedColor: Color.fromARGB(255, 193, 133, 30),
+    selectedColor: Color(0xFFC1851E),
     secondarySelectedColor: Colors.white,
     labelStyle: TextStyle(
       color: Colors.white,

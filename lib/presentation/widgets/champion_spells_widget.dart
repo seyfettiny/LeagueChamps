@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
@@ -32,14 +33,18 @@ class ChampionSpellsWidget extends StatelessWidget {
               return BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
                 child: AlertDialog(
-                  backgroundColor: Colors.black.withAlpha(25),
+                  backgroundColor: Theme.of(context)
+                      .cardTheme
+                      .surfaceTintColor!
+                      .withAlpha(190),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   title: Text(
                     '${champ.passive!.name}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -48,21 +53,27 @@ class ChampionSpellsWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: AppConstants.championAPIBaseUrl +
-                              versionNotifier.currentVersion +
-                              AppConstants.championPassiveImageRoute +
-                              champ.passive!.image!.full!,
-                          cacheKey: champ.passive!.image!.full! +
-                              versionNotifier.currentVersion,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: AppConstants.championAPIBaseUrl +
+                                versionNotifier.currentVersion +
+                                AppConstants.championPassiveImageRoute +
+                                champ.passive!.image!.full!,
+                            cacheKey: champ.passive!.image!.full! +
+                                versionNotifier.currentVersion,
+                          ),
                         ),
-                        Text(champ.passive!.description!.toString()),
+                        Html(
+                          data: champ.passive!.description!,
+                        )
                       ],
                     ),
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text('Close'),
+                      child: Text(
+                          MaterialLocalizations.of(context).closeButtonLabel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -74,28 +85,34 @@ class ChampionSpellsWidget extends StatelessWidget {
           );
         },
         child: Container(
-          width: 90,
+          width: 110,
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.secondary,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(
-              10,
+              12,
             ),
           ),
           margin: const EdgeInsets.all(8),
           child: Column(
             children: [
-              SizedBox.square(
-                dimension: 80,
-                child: CachedNetworkImage(
-                  imageUrl: AppConstants.championAPIBaseUrl +
-                      versionNotifier.currentVersion +
-                      AppConstants.championPassiveImageRoute +
-                      champ.passive!.image!.full!,
-                  cacheKey: champ.passive!.image!.full! +
-                      versionNotifier.currentVersion,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: CachedNetworkImage(
+                    imageUrl: AppConstants.championAPIBaseUrl +
+                        versionNotifier.currentVersion +
+                        AppConstants.championPassiveImageRoute +
+                        champ.passive!.image!.full!,
+                    cacheKey: champ.passive!.image!.full! +
+                        versionNotifier.currentVersion,
+                    width: 90,
+                    height: 90,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Expanded(
@@ -124,14 +141,18 @@ class ChampionSpellsWidget extends StatelessWidget {
               return BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
                 child: AlertDialog(
-                  backgroundColor: Colors.black.withAlpha(25),
+                  backgroundColor: Theme.of(context)
+                      .cardTheme
+                      .surfaceTintColor!
+                      .withAlpha(190),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   title: Text(
                     '${champSpell.name}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -140,21 +161,27 @@ class ChampionSpellsWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: AppConstants.championAPIBaseUrl +
-                              versionNotifier.currentVersion +
-                              AppConstants.championPassiveImageRoute +
-                              champSpell.image!.full!,
-                          cacheKey: champSpell.image!.full! +
-                              versionNotifier.currentVersion,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: AppConstants.championAPIBaseUrl +
+                                versionNotifier.currentVersion +
+                                AppConstants.championPassiveImageRoute +
+                                champSpell.image!.full!,
+                            cacheKey: champSpell.image!.full! +
+                                versionNotifier.currentVersion,
+                          ),
                         ),
-                        Text(champSpell.description!.toString()),
+                        Html(
+                          data: champSpell.description!,
+                        )
                       ],
                     ),
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text('Close'),
+                      child: Text(
+                          MaterialLocalizations.of(context).closeButtonLabel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -167,27 +194,33 @@ class ChampionSpellsWidget extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.all(8),
-          width: 90,
+          width: 110,
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.secondary,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(
-              10,
+              12,
             ),
           ),
           child: Column(
             children: [
-              SizedBox.square(
-                dimension: 80,
-                child: CachedNetworkImage(
-                  imageUrl: AppConstants.championAPIBaseUrl +
-                      versionNotifier.currentVersion +
-                      AppConstants.championSpellsImageRoute +
-                      champSpell.image!.full!,
-                  cacheKey:
-                      champSpell.image!.full! + versionNotifier.currentVersion,
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: CachedNetworkImage(
+                    imageUrl: AppConstants.championAPIBaseUrl +
+                        versionNotifier.currentVersion +
+                        AppConstants.championSpellsImageRoute +
+                        champSpell.image!.full!,
+                    cacheKey: champSpell.image!.full! +
+                        versionNotifier.currentVersion,
+                    width: 90,
+                    height: 90,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Expanded(

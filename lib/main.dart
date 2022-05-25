@@ -11,6 +11,7 @@ import 'app/routing/route_paths.dart';
 import 'app/routing/router.dart';
 import 'app/themes/dark_theme.dart';
 import 'app/themes/light_theme.dart';
+import 'app/translations/codegen_loader.g.dart';
 import 'data/data_sources/hive_service.dart';
 import 'providers.dart';
 
@@ -35,6 +36,7 @@ main() async {
         //startLocale: value.selectedLang,
         fallbackLocale: LocaleConstants.supportedLocales[0],
         path: 'assets/translations',
+        assetLoader: const CodegenLoader(),
         child: const MyApp(),
       ),
     ),
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    //TODO: use context.deviceLocale instead of context.locale
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeNotifier.isDarkTheme ? darkTheme : lightTheme,

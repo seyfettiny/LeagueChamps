@@ -17,12 +17,12 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: const Text(LocaleKeys.settings).tr()),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           ListTile(
-            title: const Text('Dark Theme'),
+            title: const Text(LocaleKeys.darkTheme).tr(),
             trailing: Switch(
               value: themeNotifier.isDarkTheme,
               activeColor: Theme.of(context).colorScheme.secondary,
@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Version'),
+            title: const Text(LocaleKeys.version).tr(),
             trailing: DropdownButton<String>(
               underline: Container(),
               isDense: true,
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Language'),
+            title: const Text(LocaleKeys.language).tr(),
             trailing: DropdownButton<Locale>(
               isDense: true,
               alignment: Alignment.centerRight,
@@ -66,14 +66,20 @@ class SettingsScreen extends StatelessWidget {
               },
               items: context.supportedLocales.map((Locale locale) {
                 return DropdownMenuItem<Locale>(
-                  child: Text(locale.toString().tr()),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text(
+                      locale.toString().tr(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   value: locale,
                 );
               }).toList(),
             ),
           ),
           ListTile(
-            title: const Text('Privacy Policy'),
+            title: const Text(LocaleKeys.privacyPolicy).tr(),
             trailing: const Icon(
               Icons.arrow_right,
             ),
@@ -85,9 +91,10 @@ class SettingsScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               alignment: Alignment.bottomCenter,
-              child: const Text(
+              child: Text(
                 'LeagueChamps isn\'t endorsed by Riot Games and doesn\'t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc',
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.overline,
               ),
             ),
           )

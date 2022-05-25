@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 final lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: Colors.white,
+    primary: Colors.black,
     secondary: const Color(0xFF936611),
     brightness: Brightness.light,
   ),
@@ -22,7 +22,7 @@ final lightTheme = ThemeData(
     ),
   ),
   backgroundColor: Colors.white,
-  dialogTheme: DialogTheme(
+  dialogTheme: const DialogTheme(
     backgroundColor: Colors.white,
     titleTextStyle: TextStyle(
       fontSize: 20,

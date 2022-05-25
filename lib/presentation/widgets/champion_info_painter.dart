@@ -32,7 +32,6 @@ class ChampInfoPainter extends CustomPainter {
     final paint2 = Paint()
       ..color = const Color(0xffc6a66a)
       ..style = PaintingStyle.fill
-      //..strokeCap = StrokeCap.round
       ..strokeWidth = 2;
     final path2 = Path();
     path2.moveTo(0, size.height / 2);

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../app/notifiers/search_notifier.dart';
 import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
+import '../../app/translations/locale_keys.g.dart';
 import '../../app/utils/my_search_delegate.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
@@ -69,48 +70,46 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       //TODO: refresh indicator with homeViewModel.refresh
-      body: Center(
-        child: Consumer<HomeViewModel>(
-          builder: (context, homeViewModel, child) {
-            return FutureBuilder(
-              future: homeViewModel.getChampions(
-                  versionNotifier.currentVersion, context.locale),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (!snapshot.hasData) {
-                  if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('No Champions Found'),
-                    );
-                  }
-                  return const CircularProgressIndicator();
+      body: Consumer<HomeViewModel>(
+        builder: (context, homeViewModel, child) {
+          return FutureBuilder(
+            future: homeViewModel.getChampions(
+                versionNotifier.currentVersion, context.locale),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: const Text(LocaleKeys.noChampionsFound).tr(),
+                  );
                 }
-                champions = snapshot.data;
-                return AnimationLimiter(
-                  child: ListView.builder(
-                    itemCount: snapshot.data.length,
-                    padding: const EdgeInsets.all(8),
-                    itemBuilder: (context, index) {
-                      var champion = snapshot.data[index];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 600),
-                        child: SlideAnimation(
-                          curve: Curves.easeOutExpo,
-                          horizontalOffset: 100,
-                          child: FadeInAnimation(
-                            child: ChampionListItem(
-                              champion: champion,
-                            ),
+                return const Center(child: CircularProgressIndicator());
+              }
+              champions = snapshot.data;
+              return AnimationLimiter(
+                child: ListView.builder(
+                  itemCount: snapshot.data.length,
+                  padding: const EdgeInsets.all(8),
+                  itemBuilder: (context, index) {
+                    var champion = snapshot.data[index];
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 600),
+                      child: SlideAnimation(
+                        curve: Curves.easeOutExpo,
+                        horizontalOffset: 100,
+                        child: FadeInAnimation(
+                          child: ChampionListItem(
+                            champion: champion,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                );
-              },
-            );
-          },
-        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }

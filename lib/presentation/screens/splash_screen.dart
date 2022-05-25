@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
+import '../../app/translations/locale_keys.g.dart';
 import '../../app/utils/connectivity_service.dart';
 import '../viewmodels/splash_viewmodel.dart';
 
@@ -53,7 +55,8 @@ class SplashScreen extends StatelessWidget {
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, RoutePaths.home, (route) => false);
                               },
-                              child: const Text('Button'),
+                              child: Text(MaterialLocalizations.of(context)
+                                  .okButtonLabel),
                             ),
                           ),
                           Text(snapshot.data[0].toString()),
@@ -63,7 +66,7 @@ class SplashScreen extends StatelessWidget {
                       return const CircularProgressIndicator();
                     }
                   }
-                  return const Text('No connection');
+                  return const Text(LocaleKeys.noConnection).tr();
                 },
               );
             },

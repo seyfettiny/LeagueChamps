@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/constants/app_constants.dart';
 import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
+import '../../app/translations/locale_keys.g.dart';
 import '../../app/utils/parallax_flow_delegate.dart';
 import '../../domain/entities/champion.dart';
 
@@ -132,16 +134,18 @@ class ChampionListItem extends StatelessWidget {
                                 child: Text(
                                   champion.title!,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 16,
-                                      fontStyle: FontStyle.italic),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 18,
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               ...champion.tags!.map((tag) {
                                 return Tooltip(
                                   triggerMode: TooltipTriggerMode.tap,
-                                  message: tag.toString(),
+                                  message:
+                                      '${LocaleKeys.champClasses}.$tag'.tr(),
                                   child: Image(
                                     height: 30,
                                     width: 30,

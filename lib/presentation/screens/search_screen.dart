@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/search_notifier.dart';
+import '../../app/translations/locale_keys.g.dart';
 import '../../domain/entities/champion.dart';
 import '../widgets/champion_search_item.dart';
 
@@ -11,12 +13,12 @@ class SearchFinder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ValueNotifier<List<Champion>> championsList =
-        ValueNotifier(Provider.of<SearchNotifier>(context).champions);
     var filterProvider = Provider.of<SearchNotifier>(context);
     return ValueListenableBuilder(
-      valueListenable: championsList,
+      valueListenable:
+          ValueNotifier(Provider.of<SearchNotifier>(context).champions),
       builder: (context, List<Champion> champions, _) {
+        //TODO: move this to the ViewModel
         List results;
         if (query.isEmpty && filterProvider.filters.length == 0) {
           results = champions;
@@ -34,7 +36,7 @@ class SearchFinder extends StatelessWidget {
           );
         }
         return results.isEmpty
-            ? const Center(child: Text('No results found'))
+            ? Center(child: const Text(LocaleKeys.noResultsFound).tr())
             : ListView.builder(
                 itemCount: results.length,
                 itemBuilder: (context, index) {

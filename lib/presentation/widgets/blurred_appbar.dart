@@ -30,7 +30,7 @@ class BlurredAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: Colors.white.withOpacity(0.3),
+              color: Colors.white.withOpacity(0.2),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.max,

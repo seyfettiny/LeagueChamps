@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../app/translations/locale_keys.g.dart';
 import '../../domain/entities/champion_detailed.dart';
 import 'champion_info_painter.dart';
 
@@ -51,7 +53,7 @@ class _ChampionInfoWidgetState extends State<ChampionInfoWidget>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Attack: ${widget.champ.info!.attack.toString()}',
+          LocaleKeys.attack.tr() + ': ' + widget.champ.info!.attack.toString(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         CustomPaint(
@@ -62,7 +64,9 @@ class _ChampionInfoWidgetState extends State<ChampionInfoWidget>
           size: Size(MediaQuery.of(context).size.width * 0.66, 30),
         ),
         Text(
-          'Defence: ${widget.champ.info!.defense.toString()}',
+          LocaleKeys.defense.tr() +
+              ': ' +
+              widget.champ.info!.defense.toString(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         CustomPaint(
@@ -73,7 +77,7 @@ class _ChampionInfoWidgetState extends State<ChampionInfoWidget>
           size: Size(MediaQuery.of(context).size.width * 0.66, 30),
         ),
         Text(
-          'Magic: ${widget.champ.info!.magic.toString()}',
+          LocaleKeys.magic.tr() + ': ' + widget.champ.info!.magic.toString(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         CustomPaint(
@@ -84,7 +88,9 @@ class _ChampionInfoWidgetState extends State<ChampionInfoWidget>
           size: Size(MediaQuery.of(context).size.width * 0.66, 30),
         ),
         Text(
-          'Difficulty: ${widget.champ.info!.difficulty.toString()}',
+          LocaleKeys.difficulty.tr() +
+              ': ' +
+              widget.champ.info!.difficulty.toString(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         CustomPaint(
