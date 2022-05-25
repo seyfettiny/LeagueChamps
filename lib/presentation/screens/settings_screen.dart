@@ -67,12 +67,20 @@ class SettingsScreen extends StatelessWidget {
                 }
               },
               items: context.supportedLocales.map((Locale locale) {
+                final bool isEnabled = locale != LocaleKeys.vn_VN.toLocale() &&
+                    locale != LocaleKeys.id_ID.toLocale() &&
+                    locale != LocaleKeys.th_TH.toLocale();
                 return DropdownMenuItem<Locale>(
+                  enabled: isEnabled,
                   child: SizedBox(
-                    width: 150,
+                    width: 180,
                     child: Text(
                       locale.toString().tr(),
-                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        color: isEnabled ? null : Colors.grey,
+                      ),
                     ),
                   ),
                   value: locale,
@@ -81,11 +89,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Flexible(
-                child: const Text(
+            title: const Text(
               LocaleKeys.privacyPolicy,
               overflow: TextOverflow.ellipsis,
-            ).tr()),
+            ).tr(),
             trailing: const Icon(
               Icons.arrow_right,
             ),

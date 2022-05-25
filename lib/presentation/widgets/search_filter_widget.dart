@@ -17,7 +17,6 @@ class _SearchFilterWidgetState extends State<SearchFilterWidget> {
   Iterable<Widget> get _filterWidgets {
     var filterList = Provider.of<SearchNotifier>(context);
     return ChampClass.values.map((ChampClass tag) {
-      print(tag.name);
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: FilterChip(

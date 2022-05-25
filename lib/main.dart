@@ -50,7 +50,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     //TODO: use context.deviceLocale instead of context.locale
-    context.resetLocale();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeNotifier.isDarkTheme ? darkTheme : lightTheme,
