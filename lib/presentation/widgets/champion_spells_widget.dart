@@ -64,9 +64,7 @@ class ChampionSpellsWidget extends StatelessWidget {
                                 versionNotifier.currentVersion,
                           ),
                         ),
-                        Html(
-                          data: champ.passive!.description!,
-                        )
+                        Html(data: champ.passive!.description!),
                       ],
                     ),
                   ),
