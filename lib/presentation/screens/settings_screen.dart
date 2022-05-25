@@ -57,10 +57,12 @@ class SettingsScreen extends StatelessWidget {
               value: context.locale,
               underline: Container(),
               onChanged: (Locale? newLocale) {
-                // TODO: [BUG] VN_vn Null check operator used on a null value and MaterialLocalization Not found error
+                // TODO: [BUG] vn_VN Null check operator used on a null value and MaterialLocalization Not found error
+                // TODO: [BUG] th_TH Null check operator used on a null value and MaterialLocalization Not found error
                 // TODO: [BUG] id_ID does not work at datadragon and returns 403
                 if (newLocale.toString() != LocaleKeys.vn_VN ||
-                    newLocale.toString() != LocaleKeys.id_ID) {
+                    newLocale.toString() != LocaleKeys.id_ID ||
+                    newLocale.toString() != LocaleKeys.th_TH) {
                   context.setLocale(newLocale!);
                 }
               },

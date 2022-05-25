@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:leaguechamps/presentation/viewmodels/champion_detail_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -118,62 +119,54 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
-                          AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 500),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                  child: child, opacity: animation);
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16, bottom: 16),
-                                  child: ChampionInfoWidget(champ: champ),
-                                ),
-                                Flexible(
-                                  child: SizedBox(
-                                    height: 50,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: champ.tags!.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return AnimationConfiguration
-                                            .staggeredList(
-                                          position: index,
-                                          duration:
-                                              const Duration(milliseconds: 600),
-                                          child: SlideAnimation(
-                                            horizontalOffset: 20,
-                                            child: FadeInAnimation(
-                                              child: Tooltip(
-                                                message:
-                                                    '${LocaleKeys.champClasses}.${champ.tags![index]}'
-                                                        .tr(),
-                                                triggerMode:
-                                                    TooltipTriggerMode.tap,
-                                                child: Image(
-                                                  image: AssetImage(
-                                                    'assets/champ_classes/${champ.tags![index]}_icon.png',
-                                                  ),
-                                                  height: 36,
-                                                  width: 36,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 16, bottom: 16),
+                                child: ChampionInfoWidget(champ: champ),
+                              ),
+                              Flexible(
+                                child: SizedBox(
+                                  height: 50,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: champ.tags!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return AnimationConfiguration
+                                          .staggeredList(
+                                        position: index,
+                                        duration:
+                                            const Duration(milliseconds: 600),
+                                        child: SlideAnimation(
+                                          horizontalOffset: 20,
+                                          child: FadeInAnimation(
+                                            child: Tooltip(
+                                              message:
+                                                  '${LocaleKeys.champClasses}.${champ.tags![index]}'
+                                                      .tr(),
+                                              triggerMode:
+                                                  TooltipTriggerMode.tap,
+                                              child: Image(
+                                                image: AssetImage(
+                                                  'assets/champ_classes/${champ.tags![index]}_icon.png',
                                                 ),
+                                                height: 36,
+                                                width: 36,
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
@@ -187,9 +180,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               duration: const Duration(milliseconds: 500),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  '${champ.lore}',
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                child: Html(
+                                  data: champ.lore,
                                 ),
                               ),
                             ),
