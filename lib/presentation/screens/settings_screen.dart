@@ -79,7 +79,11 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text(LocaleKeys.privacyPolicy).tr(),
+            title: Flexible(
+                child: const Text(
+              LocaleKeys.privacyPolicy,
+              overflow: TextOverflow.ellipsis,
+            ).tr()),
             trailing: const Icon(
               Icons.arrow_right,
             ),

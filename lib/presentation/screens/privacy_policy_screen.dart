@@ -24,7 +24,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(LocaleKeys.privacyPolicy).tr()),
+      appBar: AppBar(
+          title: Flexible(
+        child: const Text(
+          LocaleKeys.privacyPolicy,
+          overflow: TextOverflow.ellipsis,
+        ).tr(),
+      )),
       body: const WebView(
         initialUrl: 'https://seyfettiny.github.io/privacypolicy/leaguechamps',
       ),
