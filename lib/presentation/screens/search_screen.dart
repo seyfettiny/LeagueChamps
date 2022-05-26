@@ -13,10 +13,10 @@ class SearchFinder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var filterProvider = Provider.of<SearchNotifier>(context);
+    var filterProvider = context.watch<SearchNotifier>();
     return ValueListenableBuilder(
       valueListenable:
-          ValueNotifier(Provider.of<SearchNotifier>(context).champions),
+          ValueNotifier(filterProvider.champions),
       builder: (context, List<Champion> champions, _) {
         //TODO: move this to the ViewModel
         List results;

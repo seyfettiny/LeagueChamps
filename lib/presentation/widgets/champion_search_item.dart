@@ -18,7 +18,7 @@ class ChampionSearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var versionNotifier = Provider.of<VersionNotifier>(context);
+    var versionNotifier = context.read<VersionNotifier>();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(

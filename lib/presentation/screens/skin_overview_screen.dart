@@ -17,7 +17,7 @@ class SkinOverViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final versionNotifier = Provider.of<VersionNotifier>(context);
+    final versionNotifier = context.read<VersionNotifier>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(

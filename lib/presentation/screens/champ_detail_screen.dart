@@ -61,7 +61,7 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    var versionNotifier = Provider.of<VersionNotifier>(context);
+    var versionNotifier = context.read<VersionNotifier>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,

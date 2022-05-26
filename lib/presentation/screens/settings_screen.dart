@@ -12,8 +12,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    final versionNotifier = Provider.of<VersionNotifier>(context);
+    final themeNotifier = context.read<ThemeNotifier>();
+    final versionNotifier = context.read<VersionNotifier>();
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

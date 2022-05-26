@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final themeNotifier = context.read<ThemeNotifier>();
     //TODO: use context.deviceLocale instead of context.locale
     return MaterialApp(
       debugShowCheckedModeBanner: false,

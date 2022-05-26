@@ -23,7 +23,7 @@ class ChampionSpellsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final versionNotifier = Provider.of<VersionNotifier>(context);
+    final versionNotifier = context.read<VersionNotifier>();
     if (index == 0) {
       return InkWell(
         onTap: () {

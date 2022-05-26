@@ -19,7 +19,7 @@ class ChampionListItem extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final versionNotifier = Provider.of<VersionNotifier>(context);
+    final versionNotifier = context.read<VersionNotifier>();
     return InkWell(
       onTap: (() {
         Navigator.of(context).pushNamed(

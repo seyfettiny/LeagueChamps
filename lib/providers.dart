@@ -44,49 +44,51 @@ List<SingleChildWidget> independentServices = [
 List<SingleChildWidget> dependentServices = [
   ChangeNotifierProvider<ThemeNotifier>(
     create: (context) => ThemeNotifier(
-      Provider.of<HiveService>(context, listen: false),
+      context.read<HiveService>(),
     ),
   ),
   ProxyProvider<http.Client, DataDragonAPI>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, client, __) => DataDragonAPI(client),
   ),
   ProxyProvider<DataDragonAPI, ChampionRepository>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, dataDragonAPI, __) => ChampionRepository(
       dataDragonAPI,
     ),
   ),
   ProxyProvider<DataDragonAPI, VersionRepository>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, dataDragonAPI, __) => VersionRepository(dataDragonAPI),
   ),
   ProxyProvider<VersionRepository, GetVersionUseCase>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, versionRepository, __) => GetVersionUseCase(versionRepository),
   ),
   ProxyProvider<VersionRepository, GetVersionListUseCase>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, versionRepository, __) =>
         GetVersionListUseCase(versionRepository),
   ),
   ProxyProvider<ChampionRepository, GetChampionUseCase>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, championRepository, __) =>
         GetChampionUseCase(championRepository),
   ),
   ProxyProvider<ChampionRepository, GetChampionListUseCase>(
+    updateShouldNotify: (previous, current) => false,
     update: (_, championRepository, __) =>
         GetChampionListUseCase(championRepository),
   ),
   ChangeNotifierProvider<SplashViewModel>(
-    create: (context) => SplashViewModel(
-      Provider.of<GetVersionUseCase>(context, listen: false),
-      Provider.of<GetVersionListUseCase>(context, listen: false),
-    ),
+    create: (context) => SplashViewModel(context.read<GetVersionUseCase>(),
+        context.read<GetVersionListUseCase>()),
   ),
   ChangeNotifierProvider<HomeViewModel>(
-    create: (context) => HomeViewModel(
-      Provider.of<GetChampionListUseCase>(context, listen: false),
-    ),
+    create: (context) => HomeViewModel(context.read<GetChampionListUseCase>()),
   ),
   ChangeNotifierProvider<ChampionDetailViewModel>(
-    create: (context) => ChampionDetailViewModel(
-      Provider.of<GetChampionUseCase>(context, listen: false),
-    ),
+    create: (context) =>
+        ChampionDetailViewModel(context.read<GetChampionUseCase>()),
   ),
 ];

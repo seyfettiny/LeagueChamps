@@ -12,33 +12,26 @@ import '../../app/utils/my_search_delegate.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/champion_list_item.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final Shader? linearGradient = const LinearGradient(
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
-    colors: <Color>[Color(0xff7c5e28), Color(0xffcabd8f)],
-  ).createShader(
-    const Rect.fromLTWH(0.0, 0.0, 100.0, 50.0),
-  );
 
   @override
   Widget build(BuildContext context) {
     List<Champion> champions = [];
-    var versionNotifier = Provider.of<VersionNotifier>(context);
-    final _searchNotifier = Provider.of<SearchNotifier>(context);
+    var versionNotifier = context.watch<VersionNotifier>();
+    final _searchNotifier = context.read<SearchNotifier>();
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         title: ShaderMask(
           blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) => linearGradient!,
+          shaderCallback: (bounds) => const LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: <Color>[Color(0xff7c5e28), Color(0xffcabd8f)],
+          ).createShader(
+            const Rect.fromLTWH(0.0, 0.0, 100.0, 50.0),
+          ),
           child: const Text.rich(
             TextSpan(
               children: <TextSpan>[
@@ -73,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Consumer<HomeViewModel>(
         builder: (context, homeViewModel, child) {
           return FutureBuilder(
+            initialData: homeViewModel.champions,
             future: homeViewModel.getChampions(
                 versionNotifier.currentVersion, context.locale),
             builder: (BuildContext context, AsyncSnapshot snapshot) {

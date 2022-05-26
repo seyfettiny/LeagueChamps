@@ -14,8 +14,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _isRedirected = true;
-    final _connectivityService = Provider.of<ConnectivityService>(context);
-    final _versionNotifier = Provider.of<VersionNotifier>(context);
+    final _connectivityService = context.read<ConnectivityService>();
+    final _versionNotifier = context.read<VersionNotifier>();
     return WillPopScope(
       onWillPop: () async {
         return false;
