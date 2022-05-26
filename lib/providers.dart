@@ -81,14 +81,19 @@ List<SingleChildWidget> dependentServices = [
         GetChampionListUseCase(championRepository),
   ),
   ChangeNotifierProvider<SplashViewModel>(
-    create: (context) => SplashViewModel(context.read<GetVersionUseCase>(),
-        context.read<GetVersionListUseCase>()),
+    create: (context) => SplashViewModel(
+      context.read<GetVersionUseCase>(),
+      context.read<GetVersionListUseCase>(),
+    ),
   ),
   ChangeNotifierProvider<HomeViewModel>(
-    create: (context) => HomeViewModel(context.read<GetChampionListUseCase>()),
+    create: (context) => HomeViewModel(
+      context.read<GetChampionListUseCase>(),
+    ),
   ),
   ChangeNotifierProvider<ChampionDetailViewModel>(
-    create: (context) =>
-        ChampionDetailViewModel(context.read<GetChampionUseCase>()),
+    create: (context) => ChampionDetailViewModel(
+      context.read<GetChampionUseCase>(),
+    ),
   ),
 ];

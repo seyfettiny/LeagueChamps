@@ -36,7 +36,7 @@ class DataDragonAPI implements IDataDragonAPI {
     final response = await client!.get(Uri.parse(AppConstants.versionsUrl));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-      return jsonResponse.getRange(0, 65).toList();
+      return jsonResponse.getRange(0, 85).toList();
     } else {
       throw Exception('Failed to load version');
     }

@@ -30,17 +30,11 @@ class SplashScreen extends StatelessWidget {
                   splashViewModel.getVersionList(),
                 ]),
                 builder: (context, AsyncSnapshot snapshot) {
-                  if (_connectivityService.hasConnection()) {
-                    if (snapshot.hasData) {
-                      Future.delayed(const Duration(seconds: 1), () {
-                        _versionNotifier.changeVersion(snapshot.data[0]);
-                        _versionNotifier.setVersionList(snapshot.data[1]);
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, RoutePaths.home, (route) => false);
-                      }).onError((error, stackTrace) {
-                        _isRedirected = false;
-                        return null;
-                      });
+                  if (!_connectivityService.hasConnection()) {
+                    return const Text(LocaleKeys.noConnection).tr();
+                  }
+                  if (!snapshot.hasData) {
+                    if (snapshot.hasError) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -48,10 +42,10 @@ class SplashScreen extends StatelessWidget {
                             visible: !_isRedirected,
                             child: ElevatedButton(
                               onPressed: () {
-                                _versionNotifier
-                                    .setVersionList(snapshot.data[1]);
-                                _versionNotifier
-                                    .changeVersion(snapshot.data[0]);
+                                _versionNotifier.setVersionList(
+                                    splashViewModel.versionList);
+                                _versionNotifier.changeVersion(
+                                    splashViewModel.currentVersion);
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, RoutePaths.home, (route) => false);
                               },
@@ -59,14 +53,24 @@ class SplashScreen extends StatelessWidget {
                                   .okButtonLabel),
                             ),
                           ),
-                          Text(snapshot.data[0].toString()),
+                          Text(splashViewModel.currentVersion.toString()),
                         ],
                       );
-                    } else {
-                      return const CircularProgressIndicator();
                     }
+                    return const CircularProgressIndicator();
                   }
-                  return const Text(LocaleKeys.noConnection).tr();
+                  Future.delayed(const Duration(seconds: 2), () {
+                    _versionNotifier
+                        .setVersionList(splashViewModel.versionList);
+                    _versionNotifier
+                        .changeVersion(splashViewModel.currentVersion);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RoutePaths.home, (route) => false);
+                  }).onError((error, stackTrace) {
+                    _isRedirected = false;
+                    return null;
+                  });
+                  return Container();
                 },
               );
             },

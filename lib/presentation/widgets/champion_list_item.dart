@@ -151,6 +151,10 @@ class ChampionListItem extends StatelessWidget {
                                     width: 30,
                                     image: AssetImage(
                                         'assets/champ_classes/${tag}_icon.png'),
+                                    errorBuilder: (context, url, error) =>
+                                        const Center(
+                                      child: Icon(Icons.error),
+                                    ),
                                   ),
                                 );
                               })

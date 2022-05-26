@@ -119,54 +119,130 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, bottom: 16),
-                                child: ChampionInfoWidget(champ: champ),
-                              ),
-                              Flexible(
-                                child: SizedBox(
-                                  height: 50,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: champ.tags!.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        child: SlideAnimation(
-                                          horizontalOffset: 20,
-                                          child: FadeInAnimation(
-                                            child: Tooltip(
-                                              message:
-                                                  '${LocaleKeys.champClasses}.${champ.tags![index]}'
-                                                      .tr(),
-                                              triggerMode:
-                                                  TooltipTriggerMode.tap,
-                                              child: Image(
-                                                image: AssetImage(
-                                                  'assets/champ_classes/${champ.tags![index]}_icon.png',
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 270,
+                            child: PageView(
+                              //index: indexedStackIndex,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Positioned(
+                                      bottom: 0,
+                                      top: 0,
+                                      right: 0,
+                                      child: Row(
+                                        children: const [
+                                          Text('Stats'),
+                                          Icon(Icons.arrow_right),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 16, bottom: 16),
+                                        child: ChampionInfoWidget(champ: champ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: SizedBox(
+                                        height: 50,
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: champ.tags!.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return AnimationConfiguration
+                                                .staggeredList(
+                                              position: index,
+                                              duration: const Duration(
+                                                  milliseconds: 600),
+                                              child: SlideAnimation(
+                                                horizontalOffset: 20,
+                                                child: FadeInAnimation(
+                                                  child: Tooltip(
+                                                    message:
+                                                        '${LocaleKeys.champClasses}.${champ.tags![index]}'
+                                                            .tr(),
+                                                    triggerMode:
+                                                        TooltipTriggerMode.tap,
+                                                    child: Image(
+                                                      image: AssetImage(
+                                                        'assets/champ_classes/${champ.tags![index]}_icon.png',
+                                                      ),
+                                                      height: 36,
+                                                      width: 36,
+                                                    ),
+                                                  ),
                                                 ),
-                                                height: 36,
-                                                width: 36,
                                               ),
-                                            ),
-                                          ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  height: 250,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Wrap(
+                                          direction: Axis.vertical,
+                                          runSpacing: 10,
+                                          spacing: 1,
+                                          children: [
+                                            Text('HP: ${champ.stats!.hp}'),
+                                            Text(
+                                                'HP per level: ${champ.stats!.hpperlevel}'),
+                                            Text('MP: ${champ.stats!.mp}'),
+                                            Text(
+                                                'MP per level: ${champ.stats!.mpperlevel}'),
+                                            Text(
+                                                'Move speed: ${champ.stats!.movespeed}'),
+                                            Text(
+                                                'Armor: ${champ.stats!.armor}'),
+                                            Text(
+                                                'Armor per level: ${champ.stats!.armorperlevel}'),
+                                            Text(
+                                                'Spell block: ${champ.stats!.spellblock}'),
+                                            Text(
+                                                'Spell block per level: ${champ.stats!.spellblockperlevel}'),
+                                            Text(
+                                                'Attack Range: ${champ.stats!.attackrange}'),
+                                            Text(
+                                                'HP regen: ${champ.stats!.hpregen}'),
+                                            Text(
+                                                'HP regen per level: ${champ.stats!.hpregenperlevel}'),
+                                            Text(
+                                                'MP regen: ${champ.stats!.mpregen}'),
+                                            Text(
+                                                'MP regen per level: ${champ.stats!.mpregenperlevel}'),
+                                            Text('Crit: ${champ.stats!.crit}'),
+                                            Text(
+                                                'Crit per level: ${champ.stats!.critperlevel}'),
+                                            Text(
+                                                'Attack damage: ${champ.stats!.attackdamage}'),
+                                            Text(
+                                                'Attack damage per level: ${champ.stats!.attackdamageperlevel}'),
+                                            Text(
+                                                'Attack speed: ${champ.stats!.attackspeed}'),
+                                            Text(
+                                                'Attack speed per level: ${champ.stats!.attackspeedperlevel}'),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
@@ -178,11 +254,8 @@ class _ChampDetailScreenState extends State<ChampDetailScreen>
                                   (_controller.upperBound) - _controller.value,
                                   0),
                               duration: const Duration(milliseconds: 500),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Html(
-                                  data: champ.lore,
-                                ),
+                              child: Html(
+                                data: champ.lore,
                               ),
                             ),
                           ),

@@ -51,6 +51,7 @@ class _ChampionInfoWidgetState extends State<ChampionInfoWidget>
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
           LocaleKeys.attack.tr() + ': ' + widget.champ.info!.attack.toString(),

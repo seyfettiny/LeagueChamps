@@ -45,10 +45,9 @@ main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = context.read<ThemeNotifier>();
+    final themeNotifier = context.watch<ThemeNotifier>();
     //TODO: use context.deviceLocale instead of context.locale
     return MaterialApp(
       debugShowCheckedModeBanner: false,
