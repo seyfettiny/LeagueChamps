@@ -14,17 +14,13 @@ class SplashViewModel extends ChangeNotifier {
   final GetVersionListUseCase _getVersionListUseCase;
 
   SplashViewModel(this._getVersionUserCase, this._getVersionListUseCase);
-  int i = 0;
   Future<List<dynamic>> getVersionList() async {
-    print('splash ${++i}');
     _versionList = await _getVersionListUseCase.execute();
-    //notifyListeners();
     return _versionList;
   }
 
   Future<String> getVersion() async {
     _currentVersion = await _getVersionUserCase.execute();
-    //notifyListeners();
     return _currentVersion;
   }
 

@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../../app/constants/hive_constants.dart';
 
 abstract class IHiveService {

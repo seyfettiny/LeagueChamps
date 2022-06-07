@@ -8,9 +8,7 @@ class HomeViewModel extends ChangeNotifier {
   //TODO: Implement lazy loading
   final GetChampionListUseCase _getChampionListUseCase;
   HomeViewModel(this._getChampionListUseCase);
-  int i = 0;
   Future<List<Champion>> getChampions(String version, Locale lang) async {
-    print('home ${++i}');
     _champions = await _getChampionListUseCase.execute(version, lang);
     return _champions;
   }

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:leaguechamps/app/routing/route_paths.dart';
+import '../../app/routing/route_paths.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/theme_notifier.dart';

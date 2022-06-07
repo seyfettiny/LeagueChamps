@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:leaguechamps/domain/entities/champion_detailed.dart';
-import 'package:leaguechamps/domain/use_cases/get_champion_usecase.dart';
+import '../../domain/entities/champion_detailed.dart';
+import '../../domain/use_cases/get_champion_usecase.dart';
 
 class ChampionDetailViewModel extends ChangeNotifier {
   final GetChampionUseCase getChampionUseCase;
