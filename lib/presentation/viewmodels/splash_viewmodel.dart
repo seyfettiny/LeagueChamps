@@ -23,11 +23,4 @@ class SplashViewModel extends ChangeNotifier {
     _currentVersion = await _getVersionUserCase.execute();
     return _currentVersion;
   }
-
-  // Future<void> refreshVersion() async {
-  //   _versionList.clear();
-  //   _currentVersion = await getVersion();
-  //   _versionList = await getVersionList();
-  //   notifyListeners();
-  // }
 }

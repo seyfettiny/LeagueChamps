@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import '../../domain/entities/champion_detailed.dart';
 import '../../domain/use_cases/get_champion_usecase.dart';
 

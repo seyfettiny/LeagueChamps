@@ -12,10 +12,10 @@ import '../../app/notifiers/version_notifier.dart';
 import '../../app/translations/locale_keys.g.dart';
 import '../../domain/entities/champion_detailed.dart';
 import '../viewmodels/champion_detail_viewmodel.dart';
-import '../widgets/champion_detailed_header.dart';
 import '../widgets/blurred_appbar.dart';
-import '../widgets/champion_spells_widget.dart';
+import '../widgets/champion_detailed_header.dart';
 import '../widgets/champion_skin_list_widget.dart';
+import '../widgets/champion_spells_widget.dart';
 import '../widgets/champion_tips_widget.dart';
 
 class ChampDetailScreen extends StatefulWidget {

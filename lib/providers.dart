@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -16,7 +17,6 @@ import 'domain/use_cases/get_version_usecase.dart';
 import 'presentation/viewmodels/champion_detail_viewmodel.dart';
 import 'presentation/viewmodels/home_viewmodel.dart';
 import 'presentation/viewmodels/splash_viewmodel.dart';
-import 'package:http/http.dart' as http;
 
 List<SingleChildWidget> providers = [
   ...independentServices,
