@@ -33,7 +33,6 @@ main() async {
       providers: providers,
       child: EasyLocalization(
         supportedLocales: LocaleConstants.supportedLocales,
-        //startLocale: value.selectedLang,
         fallbackLocale: LocaleConstants.supportedLocales[0],
         path: 'assets/translations',
         assetLoader: const CodegenLoader(),

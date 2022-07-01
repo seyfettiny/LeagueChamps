@@ -3,7 +3,6 @@ import 'info.dart';
 import 'passive.dart';
 import 'skins.dart';
 import 'spells.dart';
-import 'stats.dart';
 
 class ChampDetailed {
   final String? id;
@@ -19,7 +18,7 @@ class ChampDetailed {
   final List<String>? tags;
   final String? partype;
   final Info? info;
-  final Stats? stats;
+  final Map? stats;
   final List<Spells>? spells;
   final Passive? passive;
   final List<dynamic>? recommended;

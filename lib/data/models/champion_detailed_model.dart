@@ -6,7 +6,6 @@ import 'info_model.dart';
 import 'passive_model.dart';
 import 'skins_model.dart';
 import 'spells_model.dart';
-import 'stats_model.dart';
 
 class ChampDetailedModel extends ChampDetailed with EquatableMixin {
   ChampDetailedModel(
@@ -44,7 +43,7 @@ class ChampDetailedModel extends ChampDetailed with EquatableMixin {
         tags: List<String>.from(json["tags"].map((x) => x)),
         partype: json["partype"],
         info: InfoModel.fromJson(json["info"]),
-        stats: StatsModel.fromJson(json['stats']),
+        stats: json['stats'],
         spells: List<SpellsModel>.from(
             json["spells"].map((x) => SpellsModel.fromJson(x))),
         passive: PassiveModel.fromJson(json["passive"]),

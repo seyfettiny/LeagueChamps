@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/data/models/champion_model.dart';
 import 'package:leaguechamps/data/models/image_model.dart';
 import 'package:leaguechamps/data/models/info_model.dart';
-import 'package:leaguechamps/data/models/stats_model.dart';
 import 'package:leaguechamps/domain/entities/champion.dart';
 
 void main() {
@@ -28,27 +27,28 @@ void main() {
         h: 48),
     tags: ["Fighter", "Tank"],
     partype: "Kan Kuyusu",
-    stats: StatsModel(
-        hp: 580,
-        hpperlevel: 90,
-        mp: 0,
-        mpperlevel: 0,
-        movespeed: 345,
-        armor: 38,
-        armorperlevel: 3.25,
-        spellblock: 32,
-        spellblockperlevel: 1.25,
-        attackrange: 175,
-        hpregen: 3,
-        hpregenperlevel: 1,
-        mpregen: 0,
-        mpregenperlevel: 0,
-        crit: 0,
-        critperlevel: 0,
-        attackdamage: 60,
-        attackdamageperlevel: 5,
-        attackspeedperlevel: 2.5,
-        attackspeed: 0.651),
+    stats: {
+      "hp": 580,
+      "hpperlevel": 90,
+      "mp": 0,
+      "mpperlevel": 0,
+      "movespeed": 345,
+      "armor": 38,
+      "armorperlevel": 3.25,
+      "spellblock": 32,
+      "spellblockperlevel": 1.25,
+      "attackrange": 175,
+      "hpregen": 3,
+      "hpregenperlevel": 1,
+      "mpregen": 0,
+      "mpregenperlevel": 0,
+      "crit": 0,
+      "critperlevel": 0,
+      "attackdamage": 60,
+      "attackdamageperlevel": 5,
+      "attackspeedperlevel": 2.5,
+      "attackspeed": 0.651
+    },
   );
 
   test('should return a valid model after fromJson', () {

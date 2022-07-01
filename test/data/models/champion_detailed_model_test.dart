@@ -9,7 +9,6 @@ import 'package:leaguechamps/data/models/level_tip_model.dart';
 import 'package:leaguechamps/data/models/passive_model.dart';
 import 'package:leaguechamps/data/models/skins_model.dart';
 import 'package:leaguechamps/data/models/spells_model.dart';
-import 'package:leaguechamps/data/models/stats_model.dart';
 import 'package:leaguechamps/domain/entities/champion_detailed.dart';
 
 void main() {
@@ -96,28 +95,28 @@ void main() {
         rangeBurn: "",
       ),
     ],
-    stats: StatsModel(
-      armor: 0,
-      armorperlevel: 0,
-      attackdamage: 0,
-      attackdamageperlevel: 0,
-      attackrange: 0,
-      attackspeed: 0,
-      attackspeedperlevel: 0,
-      crit: 0,
-      critperlevel: 0,
-      hp: 0,
-      hpperlevel: 0,
-      hpregen: 0,
-      hpregenperlevel: 0,
-      movespeed: 0,
-      mp: 0,
-      mpperlevel: 0,
-      mpregen: 0,
-      mpregenperlevel: 0,
-      spellblock: 0,
-      spellblockperlevel: 0,
-    ),
+    stats: {
+      "armor": 0,
+      "armorperlevel": 0,
+      "attackdamage": 0,
+      "attackdamageperlevel": 0,
+      "attackrange": 0,
+      "attackspeed": 0,
+      "attackspeedperlevel": 0,
+      "crit": 0,
+      "critperlevel": 0,
+      "hp": 0,
+      "hpperlevel": 0,
+      "hpregen": 0,
+      "hpregenperlevel": 0,
+      "movespeed": 0,
+      "mp": 0,
+      "mpperlevel": 0,
+      "mpregen": 0,
+      "mpregenperlevel": 0,
+      "spellblock": 0,
+      "spellblockperlevel": 0,
+    },
   );
   testWidgets('is subtype of champion detailed', (tester) async {
     expect(model, isA<ChampDetailed>());

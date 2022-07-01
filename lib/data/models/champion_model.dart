@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../../domain/entities/champion.dart';
 import 'image_model.dart';
 import 'info_model.dart';
-import 'stats_model.dart';
 
 class ChampionModel extends Champion with EquatableMixin {
   ChampionModel({
@@ -31,8 +30,7 @@ class ChampionModel extends Champion with EquatableMixin {
         image: ImageModel.fromJson(json["image"]),
         tags: json['tags'].cast<String>(),
         partype: json["partype"],
-        stats:
-            json["stats"] == null ? null : StatsModel.fromJson(json["stats"]),
+        stats: json["stats"],
       );
 
   @override

@@ -42,7 +42,7 @@ dependencies:
   #Animating widgets
   flutter_staggered_animations: ^1.0.0
   animations: ^2.0.2
-  
+
   #Loading states
   shimmer: ^2.0.0
 
@@ -58,13 +58,13 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: 'assets/images/icon.png'
+  image_path: "assets/images/icon.png"
 
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-    
+
   #Testing Hive
   hive_test: ^1.0.1
 
@@ -81,5 +81,5 @@ flutter:
   assets:
     - assets/translations/
     - assets/champ_classes/
+    - assets/stats_icons/
     - assets/images/
-    

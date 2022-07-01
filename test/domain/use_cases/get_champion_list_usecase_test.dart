@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:leaguechamps/domain/entities/champion.dart';
 import 'package:leaguechamps/domain/entities/image.dart';
 import 'package:leaguechamps/domain/entities/info.dart';
-import 'package:leaguechamps/domain/entities/stats.dart';
 import 'package:leaguechamps/domain/use_cases/get_champion_list_usecase.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -41,28 +40,28 @@ void main() {
     ),
     tags: ["Fighter", "Tank"],
     partype: "Blood Well",
-    stats: Stats(
-      hp: 585,
-      hpperlevel: 90,
-      mp: 300,
-      hpregen: 12,
-      hpregenperlevel: 0.8,
-      mpregen: 6,
-      mpregenperlevel: 0.8,
-      crit: 0,
-      critperlevel: 0,
-      attackdamage: 60,
-      attackdamageperlevel: 3,
-      attackspeed: -0.04,
-      attackspeedperlevel: 3,
-      mpperlevel: 40,
-      movespeed: 345,
-      armor: 36,
-      armorperlevel: 3.5,
-      spellblock: 32.1,
-      spellblockperlevel: 1.25,
-      attackrange: 150,
-    ),
+    stats: {
+      "armor": 0,
+      "armorperlevel": 0,
+      "attackdamage": 0,
+      "attackdamageperlevel": 0,
+      "attackrange": 0,
+      "attackspeed": 0,
+      "attackspeedperlevel": 0,
+      "crit": 0,
+      "critperlevel": 0,
+      "hp": 0,
+      "hpperlevel": 0,
+      "hpregen": 0,
+      "hpregenperlevel": 0,
+      "movespeed": 0,
+      "mp": 0,
+      "mpperlevel": 0,
+      "mpregen": 0,
+      "mpregenperlevel": 0,
+      "spellblock": 0,
+      "spellblockperlevel": 0,
+    },
   );
   final _result = List.generate(
     2,
