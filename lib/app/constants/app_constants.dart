@@ -26,4 +26,28 @@ class AppConstants {
   // $championAPIBaseUrl/$version/img/spell/${champion.spells.id}
   // for champion icon image url
   // $championAPIBaseUrl/$version/img/champion/Aatrox.png
+
+  //TODO: this should localized
+  static const stats = {
+    "armor": "Armor",
+    "armorperlevel": "Armor per Level",
+    "attackdamage": "Attack Damage",
+    "attackdamageperlevel": "Attack Damage per Level",
+    "attackrange": "Attack Range",
+    "attackspeed": "Attack Speed",
+    "attackspeedperlevel": "Attack Speed per Level",
+    "crit": "Critical Strike Chance",
+    "critperlevel": "Critical Strike Chance per Level",
+    "hp": "Health",
+    "hpperlevel": "Health per Level",
+    "hpregen": "Health Regeneration",
+    "hpregenperlevel": "Health Regeneration per Level",
+    "movespeed": "Movement Speed",
+    "mp": "Mana",
+    "mpperlevel": "Mana per Level",
+    "mpregen": "Mana Regeneration",
+    "mpregenperlevel": "Mana Regeneration per Level",
+    "spellblock": "Spell Block",
+    "spellblockperlevel": "Spell Block per Level",
+  };
 }
