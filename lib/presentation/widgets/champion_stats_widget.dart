@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/app/constants/app_constants.dart';
 
 class ChampStatsWidget extends StatelessWidget {
   final Map stats;
@@ -21,15 +22,14 @@ class ChampStatsWidget extends StatelessWidget {
                     children: [
                       Tooltip(
                         triggerMode: TooltipTriggerMode.tap,
-                        message: stat.key,
+                        message: AppConstants.statsTooltip[stat.key],
                         child: Image(
                           height: 30,
                           width: 30,
-                          image: const AssetImage(
-                              'assets/stats_icons/Health_icon.png'),
-                          errorBuilder: (context, url, error) => const Center(
-                            child: Icon(Icons.error),
-                          ),
+                          image: AssetImage(
+                              'assets/stats_icons/${AppConstants.statsIcon[stat.key]!}_icon.png'),
+                          errorBuilder: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                       Text('  ${stat.value}'),

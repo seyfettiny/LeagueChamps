@@ -28,7 +28,7 @@ class AppConstants {
   // $championAPIBaseUrl/$version/img/champion/Aatrox.png
 
   //TODO: this should localized
-  static const stats = {
+  static const statsTooltip = {
     "armor": "Armor",
     "armorperlevel": "Armor per Level",
     "attackdamage": "Attack Damage",
@@ -49,5 +49,27 @@ class AppConstants {
     "mpregenperlevel": "Mana Regeneration per Level",
     "spellblock": "Spell Block",
     "spellblockperlevel": "Spell Block per Level",
+  };
+  static const statsIcon = {
+    "armor": "Armor",
+    "armorperlevel": "ArmorperLevel",
+    "attackdamage": "AttackDamage",
+    "attackdamageperlevel": "AttackDamageperLevel",
+    "attackrange": "AttackRange",
+    "attackspeed": "AttackSpeed",
+    "attackspeedperlevel": "AttackSpeedperLevel",
+    "crit": "CriticalStrikeChance",
+    "critperlevel": "CriticalStrikeChanceperLevel",
+    "hp": "Health",
+    "hpperlevel": "HealthperLevel",
+    "hpregen": "HealthRegeneration",
+    "hpregenperlevel": "HealthRegenerationperLevel",
+    "movespeed": "MovementSpeed",
+    "mp": "Mana",
+    "mpperlevel": "ManaperLevel",
+    "mpregen": "ManaRegeneration",
+    "mpregenperlevel": "ManaRegenerationperLevel",
+    "spellblock": "SpellBlock",
+    "spellblockperlevel": "SpellBlockperLevel",
   };
 }
