@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../../app/constants/app_constants.dart';
@@ -22,12 +25,24 @@ class DataDragonAPI implements IDataDragonAPI {
 
   @override
   Future<String> getVersion() async {
-    final response = await client!.get(Uri.parse(AppConstants.versionsUrl));
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-      return jsonResponse[0];
-    } else {
-      throw Exception('Failed to load version');
+    try {
+      final response = await client!.get(Uri.parse(AppConstants.versionsUrl));
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+        return jsonResponse[0];
+      } else {
+        throw Exception('Failed to load version');
+      }
+    } on TimeoutException catch (e) {
+      return e.message ?? 'Timeout Error!';
+    } on FormatException catch (e) {
+      return e.message;
+    } on SocketException catch (e) {
+      return e.message;
+    } on PlatformException catch (e) {
+      return e.message ?? 'Something is Wrong! Code: ${e.code}';
+    } catch (e) {
+      return 'Unknown error ${e.runtimeType}';
     }
   }
 

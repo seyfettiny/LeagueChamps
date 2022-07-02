@@ -12,9 +12,10 @@ class ChampStatsWidget extends StatelessWidget {
       height: 250,
       child: SizedBox.expand(
         child: Wrap(
+          runAlignment: WrapAlignment.center,
           direction: Axis.vertical,
-          runSpacing: 25,
-          spacing: 8,
+          runSpacing: 20,
+          spacing: 10,
           children: [
             ...stats.entries
                 .map(
@@ -29,7 +30,7 @@ class ChampStatsWidget extends StatelessWidget {
                           image: AssetImage(
                               'assets/stats_icons/${AppConstants.statsIcon[stat.key]!}_icon.png'),
                           errorBuilder: (context, url, error) =>
-                              Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                       Text('  ${stat.value}'),
