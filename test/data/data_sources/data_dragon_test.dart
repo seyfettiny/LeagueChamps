@@ -32,12 +32,10 @@ void main() {
       expect(result, isA<String>());
     });
     test('should throws an exception when http call completes with an error',
-        () async {
+        () {
       when(mockClient.get(any))
           .thenAnswer((_) async => http.Response('Something went wrong', 404));
-      final result = await dataDragonAPI.getVersion();
-      print(result.runtimeType);
-      expect(result, throwsA(Exception()));
+      expect(dataDragonAPI.getVersion(), throwsA(isA<Exception>()));
     });
   });
 

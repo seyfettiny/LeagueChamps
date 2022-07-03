@@ -42,7 +42,7 @@ class DataDragonAPI implements IDataDragonAPI {
     } on PlatformException catch (e) {
       return e.message ?? 'Something is Wrong! Code: ${e.code}';
     } catch (e) {
-      return 'Unknown error ${e.runtimeType}';
+      throw Exception('Failed to load version');
     }
   }
 
