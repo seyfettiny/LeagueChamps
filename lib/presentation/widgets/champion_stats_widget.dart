@@ -14,7 +14,7 @@ class ChampStatsWidget extends StatelessWidget {
         child: Wrap(
           runAlignment: WrapAlignment.center,
           direction: Axis.vertical,
-          runSpacing: 20,
+          runSpacing: 36,
           spacing: 10,
           children: [
             ...stats.entries
@@ -25,8 +25,8 @@ class ChampStatsWidget extends StatelessWidget {
                         triggerMode: TooltipTriggerMode.tap,
                         message: AppConstants.statsTooltip[stat.key],
                         child: Image(
-                          height: 30,
-                          width: 30,
+                          height: 24,
+                          width: 24,
                           image: AssetImage(
                               'assets/stats_icons/${AppConstants.statsIcon[stat.key]!}_icon.png'),
                           errorBuilder: (context, url, error) =>
