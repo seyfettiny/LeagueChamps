@@ -32,6 +32,7 @@ class SplashScreen extends StatelessWidget {
                   ]),
                   builder: (context, AsyncSnapshot snapshot) {
                     if (!_connectivityService.hasConnection()) {
+                      Future.delayed(const Duration(seconds: 1));
                       return const Text(LocaleKeys.noConnection).tr();
                     }
                     if (!snapshot.hasData) {
@@ -47,8 +48,8 @@ class SplashScreen extends StatelessWidget {
                                       splashViewModel.versionList);
                                   _versionNotifier.changeVersion(
                                       splashViewModel.currentVersion);
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, RoutePaths.home, (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      RoutePaths.home, (route) => false);
                                 },
                                 child: Text(MaterialLocalizations.of(context)
                                     .okButtonLabel),

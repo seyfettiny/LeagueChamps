@@ -56,7 +56,6 @@ class ConnectivityService extends ChangeNotifier {
         break;
       default:
         _connectionResponse = LocaleKeys.noConnection.tr();
-      // _showToast(_connectionResponse, Colors.red);
     }
   }
 
