@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:leaguechamps/presentation/widgets/title_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/notifiers/search_notifier.dart';
@@ -23,39 +24,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
-        title: ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) => const LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: <Color>[Color(0xff7c5e28), Color(0xffcabd8f)],
-          ).createShader(
-            const Rect.fromLTWH(0.0, 0.0, 100.0, 50.0),
-          ),
-          child: const Text.rich(
-            TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'League',
-                  style: TextStyle(fontWeight: FontWeight.w800),
-                ),
-                TextSpan(
-                    text: 'Champs',
-                    style: TextStyle(fontWeight: FontWeight.w300)),
-              ],
-            ),
-          ),
-        ),
+        title: const TitleWidget(),
         actions: [
           IconButton(
             onPressed: () {
               _searchNotifier.addChampions(champions);
               showSearch(context: context, delegate: MySearchDelegate());
             },
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search,
+                color: Theme.of(context).iconTheme.color),
           ),
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, RoutePaths.settings);
             },
