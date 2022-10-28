@@ -1,65 +1,64 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/app/enums/connection_status.dart';
+import 'package:provider/provider.dart';
 
 import '../translations/locale_keys.g.dart';
 import 'toast_service.dart';
 
-class ConnectivityService extends ChangeNotifier {
-  ConnectivityResult _connectivityResult = ConnectivityResult.none;
-  ConnectivityResult get connectivity => _connectivityResult;
+class ConnectivityService {
+  ConnectionStatus _connectionStatus = ConnectionStatus.online;
+  ConnectionStatus get connectionStatus => _connectionStatus;
+
   String _connectionResponse = LocaleKeys.youAreNotConnected.tr();
   String get connectionResponse => _connectionResponse;
 
+  StreamController<ConnectionStatus> connectionStatusController =
+      StreamController<ConnectionStatus>();
+
+  int i = 0;
+
   ConnectivityService() {
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      resultHandler(result);
+    connectionStatusController.add(_connectionStatus);
+    Connectivity().onConnectivityChanged.listen((_) async {
+      await resultHandler();
     });
   }
-  void resultHandler(ConnectivityResult result) {
-    //TODO: refactor this
-    _connectivityResult = result;
-    switch (result) {
-      case ConnectivityResult.none:
-        _connectionResponse = LocaleKeys.youAreNotConnected.tr();
-        ToastService.showErrorToast(_connectionResponse);
-        break;
-      case ConnectivityResult.mobile:
-        final _result = InternetAddress.lookup('google.com');
-        _result.then((result) {
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            _connectionResponse = LocaleKeys.connected.tr();
-            ToastService.showSuccessToast(_connectionResponse);
-            notifyListeners();
-          } else {
-            _connectionResponse = LocaleKeys.youAreNotConnected.tr();
-            ToastService.showErrorToast(_connectionResponse);
-            notifyListeners();
-          }
-        });
-        break;
-      case ConnectivityResult.wifi:
-        final _result = InternetAddress.lookup('google.com');
-        _result.then((result) {
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            _connectionResponse = LocaleKeys.connected.tr();
-            ToastService.showSuccessToast(_connectionResponse);
-            notifyListeners();
-          } else {
-            _connectionResponse = LocaleKeys.youAreNotConnected.tr();
-            ToastService.showErrorToast(_connectionResponse);
-            notifyListeners();
-          }
-        });
-        break;
-      default:
-        _connectionResponse = LocaleKeys.noConnection.tr();
+
+  Future<void> resultHandler() async {
+    try {
+      final _result = await InternetAddress.lookup('google.com');
+      if (_result.isNotEmpty && _result[0].rawAddress.isNotEmpty) {
+        _connectionSuccess();
+      } else {
+        _connectionFailed();
+      }
+    } on SocketException catch (_) {
+      _connectionFailed();
     }
   }
 
+  void _connectionSuccess() {
+    _connectionStatus = ConnectionStatus.online;
+    _connectionResponse = LocaleKeys.connected.tr();
+    debugPrint(_connectionResponse + ' ${i++}');
+    connectionStatusController.sink.add(_connectionStatus);
+    //ToastService.showSuccessToast(_connectionResponse);
+  }
+
+  void _connectionFailed() {
+    _connectionStatus = ConnectionStatus.offline;
+    _connectionResponse = LocaleKeys.youAreNotConnected.tr();
+    debugPrint(_connectionResponse + ' ${i++}');
+    connectionStatusController.sink.add(_connectionStatus);
+    ToastService.showErrorToast(_connectionResponse);
+  }
+
   bool hasConnection() {
-    return _connectivityResult != ConnectivityResult.none;
+    return _connectionStatus == ConnectionStatus.online;
   }
 }
