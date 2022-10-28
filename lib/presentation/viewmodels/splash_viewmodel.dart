@@ -4,8 +4,8 @@ import '../../domain/use_cases/get_version_list_usecase.dart';
 import '../../domain/use_cases/get_version_usecase.dart';
 
 class SplashViewModel extends ChangeNotifier {
-  List<dynamic> _versionList = [];
-  String _currentVersion = '';
+  List<dynamic>? _versionList;
+  String? _currentVersion;
 
   get currentVersion => _currentVersion;
   get versionList => _versionList;
@@ -16,11 +16,11 @@ class SplashViewModel extends ChangeNotifier {
   SplashViewModel(this._getVersionUserCase, this._getVersionListUseCase);
   Future<List<dynamic>> getVersionList() async {
     _versionList = await _getVersionListUseCase.execute();
-    return _versionList;
+    return _versionList!;
   }
 
   Future<String> getVersion() async {
     _currentVersion = await _getVersionUserCase.execute();
-    return _currentVersion;
+    return _currentVersion!;
   }
 }

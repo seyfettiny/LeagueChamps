@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:leaguechamps/presentation/widgets/title_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/enums/connection_status.dart';
 import '../../app/notifiers/version_notifier.dart';
 import '../../app/routing/route_paths.dart';
 import '../../app/translations/locale_keys.g.dart';
@@ -13,8 +15,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _isRedirected = true;
-    final _connectivityService = context.read<ConnectivityService>();
+    var _isRedirected = false;
+    final _connectivityService = context.watch<ConnectionStatus>();
     final _versionNotifier = context.read<VersionNotifier>();
     return WillPopScope(
       onWillPop: () async {
@@ -25,41 +27,47 @@ class SplashScreen extends StatelessWidget {
           body: Center(
             child: Consumer<SplashViewModel>(
               builder: (context, splashViewModel, child) {
+                if (_connectivityService == ConnectionStatus.offline) {
+                  return const Text(LocaleKeys.noConnection).tr();
+                }
                 return FutureBuilder(
                   future: Future.wait([
                     splashViewModel.getVersion(),
                     splashViewModel.getVersionList(),
                   ]),
                   builder: (context, AsyncSnapshot snapshot) {
-                    if (!_connectivityService.hasConnection()) {
-                      Future.delayed(const Duration(seconds: 1));
-                      return const Text(LocaleKeys.noConnection).tr();
-                    }
                     if (!snapshot.hasData) {
-                      if (snapshot.hasError) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Visibility(
-                              visible: !_isRedirected,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  _versionNotifier.setVersionList(
-                                      splashViewModel.versionList);
-                                  _versionNotifier.changeVersion(
-                                      splashViewModel.currentVersion);
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      RoutePaths.home, (route) => false);
-                                },
-                                child: Text(MaterialLocalizations.of(context)
-                                    .okButtonLabel),
-                              ),
-                            ),
-                            Text(splashViewModel.currentVersion.toString()),
-                          ],
-                        );
-                      }
                       return const CircularProgressIndicator();
+                    }
+                    if (snapshot.hasError) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          //TODO: fix retry button.
+
+                          // Visibility(
+                          //   visible: !_isRedirected,
+                          //   child: ElevatedButton(
+                          //     style: ElevatedButton.styleFrom(
+                          //         backgroundColor: Theme.of(context)
+                          //             .colorScheme
+                          //             .secondary),
+                          //     onPressed: () {
+                          //       _versionNotifier.setVersionList(
+                          //           splashViewModel.versionList);
+                          //       _versionNotifier.changeVersion(
+                          //           splashViewModel.currentVersion);
+                          //       Navigator.pushNamedAndRemoveUntil(context,
+                          //           RoutePaths.home, (route) => false);
+                          //     },
+                          //     child: Text(
+                          //       MaterialLocalizations.of(context)
+                          //           .okButtonLabel,
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      );
                     }
                     Future.delayed(const Duration(seconds: 2), () {
                       _versionNotifier
@@ -72,7 +80,13 @@ class SplashScreen extends StatelessWidget {
                       _isRedirected = false;
                       return null;
                     });
-                    return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const TitleWidget(textScaleFactor: 2.5),
+                        Text(splashViewModel.currentVersion.toString()),
+                      ],
+                    );
                   },
                 );
               },
