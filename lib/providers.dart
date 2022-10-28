@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:leaguechamps/app/enums/connection_status.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -30,9 +31,14 @@ List<SingleChildWidget> independentServices = [
   Provider<HiveService>(
     create: (_) => HiveService(),
   ),
-  ChangeNotifierProvider<ConnectivityService>(
-    create: (_) => ConnectivityService(),
+  StreamProvider<ConnectionStatus>(
+    create: (_) => ConnectivityService().connectionStatusController.stream,
+    initialData: ConnectionStatus.online,
   ),
+  // ChangeNotifierProvider<ConnectivityService>(
+  //   create: (_) => ConnectivityService(),
+  //   lazy: true,
+  // ),
   ChangeNotifierProvider<SearchNotifier>(
     create: (_) => SearchNotifier(),
   ),
