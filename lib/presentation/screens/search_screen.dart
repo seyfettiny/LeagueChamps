@@ -31,8 +31,10 @@ class SearchFinder extends StatelessWidget {
 
           results.retainWhere(
             (champion) => champion.tags!
-                .join(' ')
-                .contains(filterProvider.filters.join(' ')),
+                .toSet()
+                .containsAll(
+                  filterProvider.filters.toSet(),
+                ),
           );
         }
         return results.isEmpty
