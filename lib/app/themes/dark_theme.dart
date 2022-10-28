@@ -9,6 +9,7 @@ final darkTheme = ThemeData(
   ),
   iconTheme: const IconThemeData(
     color: Colors.white,
+
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.black,
@@ -108,7 +109,6 @@ final darkTheme = ThemeData(
   chipTheme: const ChipThemeData(
     backgroundColor: Colors.black,
     selectedColor: Color(0xFFC1851E),
-    secondarySelectedColor: Colors.white,
     labelStyle: TextStyle(
       color: Colors.white,
     ),
@@ -118,5 +118,8 @@ final darkTheme = ThemeData(
     color: Colors.black,
     elevation: 12,
     surfaceTintColor: Colors.black,
+  ),
+  primaryIconTheme: const IconThemeData(
+    color: Colors.white,
   ),
 );

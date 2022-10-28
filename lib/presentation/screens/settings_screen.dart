@@ -17,7 +17,11 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(title: const Text(LocaleKeys.settings).tr()),
+      appBar: AppBar(
+          leading: BackButton(
+            color: Theme.of(context).iconTheme.color,
+          ),
+          title: const Text(LocaleKeys.settings).tr()),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [

@@ -8,7 +8,10 @@ class MySearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: Icon(
+          Icons.clear,
+          color: Theme.of(context).iconTheme.color,
+        ),
         onPressed: () {
           query = '';
         },
@@ -27,7 +30,7 @@ class MySearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
       onPressed: () {
         close(context, null);
       },
